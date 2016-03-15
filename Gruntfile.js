@@ -24,11 +24,6 @@ module.exports = function (grunt) {
         globalConfig: globalConfig,
 
         browserify: {
-            options: {
-                alias: {
-                    'templates': '/js/templates.js'
-                }
-            },
             js: {
                 src: ['<%= globalConfig.jsPath %>**/*.js', '<%= globalConfig.buildTemp %>js/templates.js'],
                 dest: '<%= globalConfig.buildDestination %>js/app.js'
