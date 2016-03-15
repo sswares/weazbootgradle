@@ -66,9 +66,34 @@ dependencies {
     testCompile('org.springframework.security:spring-security-test')
 }
 
+node {
+    version = project.nodeVersion
+    npmVersion = project.npmVersion
+    distBaseUrl = 'https://nodejs.org/dist'
+    download = true
+
+    workDir = rootProject.file("${project.projectDir}/nodejs")
+    nodeModulesDir = rootProject.file("${project.projectDir}")
+}
+
+apply from: rootProject.file('config/gradle/nodeTasks.gradle');
+
+grunt {
+    workDir = rootProject.file("${project.projectDir}")
+    colors = false
+    bufferOutput = false
+}
+
+apply from: rootProject.file('config/gradle/gruntTasks.gradle');
+
 checkstyle {
-    configFile = rootProject.file('config/checkstyle/checkstyle-gradle.xml') as Class<ConfigFile>
+    configFile = rootProject.file('config/checkstyle/checkstyle-gradle.xml')
     configProperties = ["suppressionFile": project(':').file('config/checkstyle/suppressions.xml')]
+}
+
+task sourceJar(type: Jar, group: 'build', description: 'Write more descriptions') {
+    //noinspection GroovyAssignabilityCheck
+    from sourceSets.main.allJava
 }
 
 publishing {
@@ -88,26 +113,6 @@ publishing {
     }
 }
 
-node {
-    version = project.nodeVersion
-    npmVersion = project.npmVersion
-    distBaseUrl = 'https://nodejs.org/dist'
-    download = true
-
-    workDir = rootProject.file("${project.buildDir}/nodejs")
-    nodeModulesDir = rootProject.file("${project.projectDir}")
-}
-
-apply from: rootProject.file('config/gradle/nodeTasks.gradle');
-
-grunt {
-    workDir = rootProject.file("${project.projectDir}")
-    colors = true
-    bufferOutput = false
-}
-
-apply from: rootProject.file('config/gradle/gruntTasks.gradle');
-
 //noinspection GroovyAssignabilityCheck
 jar {
     baseName = project.name
@@ -117,11 +122,6 @@ jar {
 sourceCompatibility = 1.8
 //noinspection GroovyUnusedAssignment
 targetCompatibility = 1.8
-
-task sourceJar(type: Jar, group: 'build', description: 'Write more descriptions') {
-    //noinspection GroovyAssignabilityCheck
-    from sourceSets.main.allJava
-}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.9'
