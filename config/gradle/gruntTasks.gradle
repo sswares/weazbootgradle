@@ -1,0 +1,11 @@
+task gruntClean(type: GruntTask, group: 'grunt', description: 'Removes artifacts in static build directory') {
+    args = ['clean']
+}
+
+task gruntBuild(type: GruntTask, group: 'grunt', dependsOn: ['installGrunt', 'npmInstall']) {
+    args = ['build']
+}
+
+task gruntTest(type: GruntTask, group: 'grunt') {
+    args = ['test']
+}

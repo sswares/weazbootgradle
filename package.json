@@ -1,0 +1,32 @@
+{
+  "name": "weazbootgradle",
+  "dependencies": {
+    "angular": "*",
+    "bootstrap": "*",
+    "jquery": "*"
+  },
+  "scripts": {
+    "removeNodeModules": "rimraf node_modules || true"
+  },
+  "devDependencies": {
+    "express": "^4.13.4",
+    "grunt": "*",
+    "grunt-browserify": "*",
+    "grunt-cli": "*",
+    "grunt-contrib-connect": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-html2js": "*",
+    "grunt-karma": "*",
+    "jasmine-core": "*",
+    "karma": "*",
+    "karma-chrome-launcher": "*",
+    "karma-jasmine": "*",
+    "karma-phantomjs-launcher": "*",
+    "lodash-compat": "*",
+    "phantomjs-prebuilt": "*",
+    "rimraf": "*"
+  }
+}
