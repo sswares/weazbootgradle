@@ -2,6 +2,7 @@
   "name": "weazbootgradle",
   "dependencies": {
     "angular": "*",
+    "angular-ui-router": "*",
     "bootstrap": "*",
     "jquery": "*"
   },

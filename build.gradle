@@ -86,7 +86,19 @@ grunt {
 
 apply from: rootProject.file('config/gradle/gruntTasks.gradle');
 
+//noinspection GroovyAssignabilityCheck
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+
+    afterTest { desc, result ->
+        println "- ${desc.name}: ${result.resultType}"
+    }
+}
+
 checkstyle {
+    //noinspection GroovyAssignabilityCheck
     configFile = rootProject.file('config/checkstyle/checkstyle-gradle.xml')
     configProperties = ["suppressionFile": project(':').file('config/checkstyle/suppressions.xml')]
 }

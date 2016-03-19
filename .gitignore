@@ -4,3 +4,8 @@ nodejs
 .gradle
 build
 !.idea/runConfigurations
+!.idea/checkstyle-idea.xml
+!.idea/gradle.xml
+!.idea/jsLibraryMappings.xml
+!.idea/codeStyleSettings.xml
+!.idea/misc.xml

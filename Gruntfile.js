@@ -16,7 +16,8 @@ module.exports = function (grunt) {
         assetsPath: mainPath + 'assets/',
         
         testPath: testPath,
-        specPath: testPath + 'specs/'
+        specPath: testPath + 'specs/',
+        templates: ''
     };
 
     var port = grunt.option('port') || '9001';
@@ -24,6 +25,11 @@ module.exports = function (grunt) {
         globalConfig: globalConfig,
 
         browserify: {
+            options: {
+                alias: {
+                    'templates': '<%=globalConfig.buildTemp%>js/templates.js'
+                }
+            },
             js: {
                 src: ['<%= globalConfig.jsPath %>**/*.js', '<%= globalConfig.buildTemp %>js/templates.js'],
                 dest: '<%= globalConfig.buildDestination %>js/app.js'
