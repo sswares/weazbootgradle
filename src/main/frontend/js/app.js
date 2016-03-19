@@ -7,8 +7,8 @@ window.jQuery = require('jquery');
 
 var states = require('./states.js');
 
-var weazBootGradle = angular.module('weazBootGradle', ['templates', 'ui.router']);
+var app = angular.module('app', ['templates', 'ui.router']);
 
-weazBootGradle.config(states);
+app.config(states);
 
-module.exports = weazBootGradle;
+module.exports = app;
