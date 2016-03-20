@@ -1,7 +1,7 @@
 "use strict";
 
 describe("EulaController", function () {
-    var subject = require('../../../../main/frontend/js/controllers/rootController.js');
+    var subject = require('controllers/rootController.js');
     var $scope = {};
 
     beforeEach(function () {

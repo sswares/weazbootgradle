@@ -25,6 +25,7 @@
     "karma": "*",
     "karma-chrome-launcher": "*",
     "karma-jasmine": "*",
+    "angular-mocks": "*",
     "karma-browserify": "*",
     "karma-ng-html2js-preprocessor": "*",
     "karma-junit-reporter": "*",

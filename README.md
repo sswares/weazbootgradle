@@ -58,3 +58,6 @@ The sample project comes pre-configured with test suites for most types of angul
 * Link back to the tools that this starter uses.  It is built on the backs of giants, and they deserve their respect.
 * License?
 
+
+##Known Issues:
+Karma integration in intellij is buggy with karma-browserify.  Bug: https://youtrack.jetbrains.com/issue/WEB-12496

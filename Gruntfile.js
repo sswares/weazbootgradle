@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function (grunt) {
-    var mainPath = './src/main/frontend/';
-    var testPath = './src/test/frontend/';
+    var mainPath = './src/main/';
+    var testPath = './src/test/';
 
     var globalConfig = {
         buildDestination: './build/resources/main/static/',
