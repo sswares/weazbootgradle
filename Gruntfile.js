@@ -6,58 +6,30 @@ module.exports = function (grunt) {
 
     var globalConfig = {
         buildDestination: './build/resources/main/static/',
-        buildTestDestination: './build/test/dist/',
-        buildTemp: './build/tmp/',
-        
+
         mainPath: mainPath,
         jsPath: mainPath + 'js/',
         partialsPath: mainPath + 'partials/',
         lessPath: mainPath + 'less/',
         assetsPath: mainPath + 'assets/',
-        
-        testPath: testPath,
-        specPath: testPath + 'specs/',
-        templates: ''
+
+        testResourcePath: testPath + 'resources/'
     };
 
-    var port = grunt.option('port') || '9001';
     grunt.initConfig({
         globalConfig: globalConfig,
 
         browserify: {
-            options: {
-                alias: {
-                    'templates': '<%=globalConfig.buildTemp%>js/templates.js'
-                }
-            },
             js: {
-                src: ['<%= globalConfig.jsPath %>**/*.js', '<%= globalConfig.buildTemp %>js/templates.js'],
+                src: ['<%= globalConfig.jsPath %>**/*.js'],
                 dest: '<%= globalConfig.buildDestination %>js/app.js'
-            },
-            spec: {
-                src: '<%= globalConfig.specPath %>**/*.js',
-                dest: '<%= globalConfig.buildTestDestination %>js/app.js'
-            }
-        },
-
-        html2js: {
-            options: {
-                base: '<%= globalConfig.mainPath %>',
-                module: 'templates',
-                amd: true,
-                amdPrefixString: '\'use strict\'; module.exports =',
-                amdSuffixString: ''
-            },
-            main: {
-                src: ['<%= globalConfig.partialsPath %>**/*.html'],
-                dest: '<%= globalConfig.buildTemp %>js/templates.js'
             }
         },
 
         watch: {
             scripts: {
                 files: ['<%= globalConfig.mainPath %>**/*.js'],
-                tasks: ['rebuild'],
+                tasks: ['build'],
                 options: {
                     spawn: false
                 }
@@ -65,7 +37,7 @@ module.exports = function (grunt) {
 
             html: {
                 files: ['<%= globalConfig.mainPath %>**/*.html'],
-                tasks: ['rebuild'],
+                tasks: ['build'],
                 options: {
                     spawn: false
                 }
@@ -73,7 +45,7 @@ module.exports = function (grunt) {
 
             css: {
                 files: ['<%= globalConfig.lessPath %>**/*.less'],
-                tasks: ['rebuild'],
+                tasks: ['build'],
                 options: {
                     spawn: false
                 }
@@ -84,8 +56,8 @@ module.exports = function (grunt) {
             html: {
                 expand: true,
                 src: ['**/*.html'],
-                cwd: '<%= globalConfig.mainPath %>',
-                dest: '<%= globalConfig.buildDestination %>'
+                cwd: '<%= globalConfig.partialsPath %>',
+                dest: '<%= globalConfig.buildDestination %>partials'
             },
             css: {
                 expand: true,
@@ -114,7 +86,30 @@ module.exports = function (grunt) {
 
         karma: {
             unit: {
-                configFile: '<%= globalConfig.testPath %>karma.conf.js'
+                configFile: '<%= globalConfig.testResourcePath %>karma.conf.js',
+                singleRun: true,
+                browsers: ['PhantomJS']
+            },
+            integration: {
+                configFile: '<%= globalConfig.testResourcePath %>karma.integration.conf.js',
+                singleRun: true,
+                browsers: ['PhantomJS']
+            }
+        },
+
+        run: {
+            integration_server: {
+                cmd: 'java',
+                args: [
+                    '-jar',
+                    '-Dspring.profiles.active=test',
+                    '-Dserver.port=9001',
+                    grunt.file.expand('./build/libs/*.jar')
+                ],
+                options: {
+                    wait: false,
+                    ready: /Tomcat started on port\(s\): 9001 \(http\)/
+                }
             }
         },
 
@@ -150,16 +145,15 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-html2js');
+    grunt.loadNpmTasks('grunt-run');
 
     grunt.registerTask('clean', function () {
         grunt.file.delete('./build/resources/main/static');
     });
 
-    grunt.registerTask('rebuild', ['clean', 'html2js', 'browserify:js', 'less', 'copy']);
-    grunt.registerTask('rebuild-test', ['clean', 'html2js', 'browserify', 'copy:fixtures']);
+    grunt.registerTask('build', ['clean', 'browserify', 'less', 'copy']);
 
-    grunt.registerTask('test', ['rebuild-test', 'karma', 'jshint']);
-    grunt.registerTask('testSetup', ['rebuild-test']);
-    grunt.registerTask('build', ['rebuild']);
+    grunt.registerTask('unitTest', ['karma:unit']);
+
+    grunt.registerTask('integrationTest', ['build', 'run:integration_server', 'karma:integration', 'stop:integration_server']);
 };
