@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="unitTest" type="js.build_tools.grunt" factoryName="Grunt.js">
+  <configuration default="false" name="grunt watch" type="js.build_tools.grunt" factoryName="Grunt.js">
     <node-interpreter value="project" />
-    <gruntfile value="$PROJECT_DIR$/Gruntfile.js" />
+    <gruntfile value="$PROJECT_DIR$/frontend/Gruntfile.js" />
     <tasks>
-      <task value="unitTest" />
+      <task value="watch" />
     </tasks>
     <envs />
     <force value="false" />

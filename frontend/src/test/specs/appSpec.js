@@ -5,5 +5,6 @@ describe('app', function () {
 
     it('requires ui.router', function () {
         expect(subject.requires).toContain('ui.router');
+
     });
 });

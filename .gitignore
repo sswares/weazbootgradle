@@ -1,4 +1,5 @@
-node_modules
-nodejs
+frontend/node_modules
+frontend/nodejs
 .gradle
+/.idea/workspace.xml
 build

@@ -5,7 +5,7 @@ module.exports = function (grunt) {
     var testPath = './src/test/';
 
     var globalConfig = {
-        buildDestination: './build/resources/main/static/',
+        buildDestination: '../../build/resources/main/static/',
 
         mainPath: mainPath,
         jsPath: mainPath + 'js/',
@@ -92,9 +92,10 @@ module.exports = function (grunt) {
                 singleRun: true,
                 browsers: ['PhantomJS']
             },
-            integration: {
-                configFile: '<%= globalConfig.testResourcePath %>karma.integration.conf.js',
-                singleRun: true,
+            watch: {
+                configFile: '<%= globalConfig.testResourcePath %>karma.conf.js',
+                singleRun: false,
+                autoWatch: true,
                 browsers: ['PhantomJS']
             }
         },
@@ -144,6 +145,8 @@ module.exports = function (grunt) {
     grunt.registerTask('build', ['clean', 'browserify', 'less', 'copy']);
 
     grunt.registerTask('unitTest', ['jshint', 'karma:unit']);
+
+    grunt.registerTask('karmaWatch', ['jshint', 'karma:watch']);
 
     grunt.registerTask('integrationTest', ['build', 'run:integration_server', 'karma:integration', 'stop:integration_server']);
 };

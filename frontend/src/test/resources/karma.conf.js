@@ -20,10 +20,10 @@ module.exports = function (config) {
         },
 
         // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-        logLevel: config.LOG_INFO,
+        logLevel: config.LOG_WARN,
 
         files: [
-            {pattern: 'src/main/resources/static/**/*', watched: false, included: false, served: true},
+            {pattern: 'src/main/assets/**/*', watched: false, included: false, served: true},
             'src/main/js/**/*.js',
             'src/test/specs/**/*.js',
             'src/main/partials/**/*.html'
@@ -34,7 +34,7 @@ module.exports = function (config) {
 
         frameworks: ['browserify', 'jasmine'],
 
-        browsers: ['PhantomJS'],
+        browsers: ['PhantomJS', 'Chrome', 'Firefox'],
 
         browserNoActivityTimeout: 30000,
 
@@ -49,7 +49,7 @@ module.exports = function (config) {
         reporters: ['junit', 'dots'],
 
         junitReporter: {
-            outputDir: 'build/test-results/',
+            outputDir: '../../build/test-results/',
             outputFile: 'karma-unit.xml',
             suite: 'unit'
         }

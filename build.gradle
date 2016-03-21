@@ -30,7 +30,6 @@ buildscript {
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'java'
-apply plugin: 'idea'
 apply plugin: 'checkstyle'
 apply plugin: 'spring-boot'
 apply plugin: 'org.flywaydb.flyway'
@@ -74,8 +73,8 @@ node {
     download = true
     npmCommand = 'npm --no-color'
 
-    workDir = rootProject.file("${project.projectDir}/nodejs")
-    nodeModulesDir = rootProject.file("${project.projectDir}")
+    workDir = rootProject.file("${project.projectDir}/frontend/nodejs")
+    nodeModulesDir = rootProject.file("${project.projectDir}/frontend/")
 }
 
 task removeNodeModules(type: NpmTask, group: 'node') {
@@ -83,7 +82,7 @@ task removeNodeModules(type: NpmTask, group: 'node') {
 }
 
 grunt {
-    workDir = rootProject.file("${project.projectDir}")
+    workDir = rootProject.file("${project.projectDir}/frontend/")
     colors = false
     bufferOutput = false
 }
