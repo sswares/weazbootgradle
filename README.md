@@ -1,5 +1,5 @@
 #Weazboot Gradle Edition
-
+[![Build Status](https://travis-ci.org/themadweaz/weazbootgradle.svg?branch=master)](https://travis-ci.org/themadweaz/weazbootgradle)
 ###Introduction
 **Weazboot Gradle** is a starter **Intellij** project designed for easily bootstrapping
 **Spring Boot** / **Angular** web applications.  It uses **Gradle** as the main build tool
