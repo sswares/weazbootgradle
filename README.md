@@ -11,9 +11,9 @@ the entire build lifecycle for an application can be run in a single: ``./gradle
 It integrates with many popular **Intellij** plugins to run tests, format and check code, debug, right after your
 first build.
 
-##
-####Goals
-The goal is to be able to be able to pull the sample project from github into Intellij
+--
+###Goals
+The goal is to be able to be able to pull the sample project from _Github_ into **Intellij**
 on windows/mac/linux, change the project name to whatever it is you need to work on,
 and have a skeleton **Angular** / **Spring Boot** app with sane defaults/test suites/run configurations/dependencies
 so you can get started driving out your web app quickly.  It should be able to run on ci, dev, and prod without changing
@@ -24,22 +24,27 @@ times already, it makes sense to try to abstract is.  Moreover, building good te
 them into the build lifecycle is even more difficult.  I'm pretty good at it, so this is my shot at doing it on this stack
 for the last time.  I also want to be able to utilize the tools in my IDE, so all tools should be configured
 so that they can be run using standalone ide tools.  That is important.
-##
+
+
+--
+###Tooling
 ####Java
 #####Spring Boot
 The project comes with a pretty sane **Spring Boot** gradle setup.  It has a lot of _spring-boot-starters_ included
 and already has an index.html configured with app.js built from the attached **Angular** sources.  It is similar to
 what you would get from the _spring initializer_, but with some tweaks.
+
 #####Testing
 The build has some additional testing tasks for launching **jUnit** category annotated test suites.  Also includes
 extra test tools.
+
 #####Checkstyle
 The build runs check on the code base as part of the build lifecycle.  It is pre-configured with a modified version
-of Google's checkstyle configuration.  The intellij project is configured to be able to run this checkstyle variant
-from the Checkstyle intellij plugin.  The project contains a Code Style xml configuration that matches the style rules
+of Google's checkstyle configuration.  The **Intellij** project is configured to be able to run this checkstyle variant
+from the Checkstyle **Intellij** plugin.  The project contains a Code Style xml configuration that matches the style rules
 in the checkstyle configurations.  Can be easily modified as needed.
 
-##
+--
 ####Javascript
 #####Node / NPM Install
 Using a few new **Gradle** plugins, the first ```./gradlew build``` run will install **node.js** and pull down
@@ -53,11 +58,15 @@ The sample project comes pre-configured with test suites for most types of angul
  stands up the spring boot uber jar and runs tests against that app.  When run through ide, can run against an app you
  stand up via a pre-configured run configuration.
 
-#TODO:
+
+--
+##TODO:
 * Most things, really.
-* Link back to the tools that this starter uses.  It is built on the backs of giants, and they deserve their respect.
 * License?
 
-
+--
 ##Known Issues:
-Karma integration in intellij is buggy with karma-browserify.  Bug: https://youtrack.jetbrains.com/issue/WEB-12496
+The Karma plugin in **Intellij** is buggy with **karma-browserify**.  It will fail to reload tests.  We recommend using the ``grunt watchTest``
+run configuration from Intellij
+There is a workaround on the [bug report](https://youtrack.jetbrains
+.com/issue/WEB-12496).
