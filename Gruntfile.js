@@ -13,6 +13,8 @@ module.exports = function (grunt) {
         lessPath: mainPath + 'less/',
         assetsPath: mainPath + 'assets/',
 
+        specsPath: testPath + 'specs/',
+        end2EndPath: testPath + 'end2end/',
         testResourcePath: testPath + 'resources/'
     };
 
@@ -115,26 +117,14 @@ module.exports = function (grunt) {
 
         jshint: {
             options: {
-                strict: true,
-                browserify: true,
-                globals: {
-                    "describe": false,
-                    "xdescribe": false,
-                    "ddescribe": false,
-                    "it": false,
-                    "xit": false,
-                    "iit": false,
-                    "beforeEach": false,
-                    "afterEach": false,
-                    "expect": false,
-                    "pending": false,
-                    "spyOn": false,
-                    "angular": false,
-                    "inject": false,
-                    "jasmine": false
-                }
+                reporter: require('jshint-stylish'),
+                jshintrc: '.jshintrc'
             },
-            all: ['Gruntfile.js', '<%= globalConfig.jsPath %>**/*.js', '<%= globalConfig.specsPath %>**/*.js']
+            all: [
+                'Gruntfile.js', '<%= globalConfig.jsPath %>**/*.js',
+                '<%= globalConfig.specsPath %>**/*.js',
+                '<%= globalConfig.end2EndPath %>**/*.js'
+            ]
         }
     });
 
@@ -153,7 +143,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', ['clean', 'browserify', 'less', 'copy']);
 
-    grunt.registerTask('unitTest', ['karma:unit']);
+    grunt.registerTask('unitTest', ['jshint', 'karma:unit']);
 
     grunt.registerTask('integrationTest', ['build', 'run:integration_server', 'karma:integration', 'stop:integration_server']);
 };

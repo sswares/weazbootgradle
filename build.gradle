@@ -30,6 +30,7 @@ buildscript {
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'java'
+apply plugin: 'idea'
 apply plugin: 'checkstyle'
 apply plugin: 'spring-boot'
 apply plugin: 'org.flywaydb.flyway'
@@ -138,14 +139,13 @@ publishing {
     }
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 jar {
     baseName = project.name
     version = project.version
 }
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.12'

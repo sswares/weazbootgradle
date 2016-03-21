@@ -1,7 +1,9 @@
+'use strict';
+
 describe('app', function () {
-    var subject = require('app.js');
+    var subject = require('app');
 
     it('requires ui.router', function () {
-        expect(subject.requires).toContain('ui.router')
+        expect(subject.requires).toContain('ui.router');
     });
 });

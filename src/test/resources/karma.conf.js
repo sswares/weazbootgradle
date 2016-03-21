@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (config) {
     config.set({
         basePath: '../../../',
@@ -21,7 +23,7 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
 
         files: [
-            {pattern: 'src/main/frontend/assets/**/*', watched: false, included: false, served: true},
+            {pattern: 'src/main/resources/static/**/*', watched: false, included: false, served: true},
             'src/main/js/**/*.js',
             'src/test/specs/**/*.js',
             'src/main/partials/**/*.html'

@@ -11,5 +11,5 @@ module.exports = function ($stateProvider, $urlRouterProvider) {
                 templateUrl: 'partials/root.html'
             }
         }
-    })
+    });
 };

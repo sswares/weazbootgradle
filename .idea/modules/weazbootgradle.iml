@@ -15,7 +15,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../../node_modules/grunt-contrib-connect" />
       <excludeFolder url="file://$MODULE_DIR$/../../node_modules/grunt-contrib-copy" />
       <excludeFolder url="file://$MODULE_DIR$/../../node_modules/grunt-contrib-jshint" />
-      <excludeFolder url="file://$MODULE_DIR$/../../node_modules/grunt-contrib-less" />
       <excludeFolder url="file://$MODULE_DIR$/../../node_modules/grunt-contrib-watch" />
       <excludeFolder url="file://$MODULE_DIR$/../../node_modules/grunt-karma" />
       <excludeFolder url="file://$MODULE_DIR$/../../node_modules/grunt-run" />

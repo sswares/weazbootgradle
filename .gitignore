@@ -1,12 +1,4 @@
 node_modules
 nodejs
-.idea/*
 .gradle
 build
-!.idea/runConfigurations
-!.idea/checkstyle-idea.xml
-!.idea/gradle.xml
-!.idea/jsLibraryMappings.xml
-!.idea/codeStyleSettings.xml
-!.idea/misc.xml
-!.idea/modules*
