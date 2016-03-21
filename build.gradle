@@ -148,7 +148,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.9'
+    gradleVersion = '2.12'
 }
 
 task superClean(dependsOn: ['clean', 'removeNodeModules'], group: 'build', description: 'Write more descriptions')
