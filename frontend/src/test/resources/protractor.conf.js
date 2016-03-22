@@ -9,11 +9,12 @@ exports.config = {
         'browserName': 'PhantomJS'
     },
 
-    baseUrl: 'http://localhost:8000/app/',
+    baseUrl: 'http://localhost:9001/#/',
 
     framework: 'jasmine',
 
     jasmineNodeOpts: {
+        showColors: true,
         defaultTimeoutInterval: 30000
     }
 };

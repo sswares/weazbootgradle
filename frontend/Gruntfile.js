@@ -5,7 +5,7 @@ module.exports = function (grunt) {
     var testPath = './src/test/';
 
     var globalConfig = {
-        buildDestination: '../../build/resources/main/static/',
+        buildDestination: '../build/resources/main/static/',
 
         mainPath: mainPath,
         jsPath: mainPath + 'js/',
@@ -100,6 +100,23 @@ module.exports = function (grunt) {
             }
         },
 
+        protractor: {
+            development: {
+                options: {
+                    configFile: '<%= globalConfig.testResourcePath %>protractor.conf.js',
+                    args: {} // Target-specific arguments
+                }
+            },
+            build: {
+                options: {
+                    configFile: '<%= globalConfig.testResourcePath %>protractor.ci.conf.js',
+                    capabilities: {
+                        'browserName': 'PhantomJS'
+                    }
+                }
+            }
+        },
+
         run: {
             integration_server: {
                 cmd: 'java',
@@ -107,7 +124,7 @@ module.exports = function (grunt) {
                     '-jar',
                     '-Dspring.profiles.active=test',
                     '-Dserver.port=9001',
-                    grunt.file.expand('./build/libs/*.jar')
+                    grunt.file.expand('../build/libs/*.jar')
                 ],
                 options: {
                     wait: false,
@@ -137,6 +154,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-run');
+    grunt.loadNpmTasks('grunt-protractor-runner');
 
     grunt.registerTask('clean', function () {
         grunt.file.delete('./build/resources/main/static');
@@ -146,7 +164,19 @@ module.exports = function (grunt) {
 
     grunt.registerTask('unitTest', ['jshint', 'karma:unit']);
 
+    grunt.registerTask('end2end', ['jshint', 'karma:unit']);
+
     grunt.registerTask('karmaWatch', ['jshint', 'karma:watch']);
 
-    grunt.registerTask('integrationTest', ['build', 'run:integration_server', 'karma:integration', 'stop:integration_server']);
+    grunt.registerTask('e2eLocal', [
+        'protractor_webdriver:development',
+        'protractor:development'
+    ]);
+
+    grunt.registerTask('e2eRemote', [
+        'build',
+        'run:integration_server',
+        'protractor:build',
+        'stop:integration_server'
+    ]);
 };

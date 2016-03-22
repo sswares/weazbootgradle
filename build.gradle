@@ -73,11 +73,12 @@ node {
     download = true
     npmCommand = 'npm --no-color'
 
-    workDir = rootProject.file("${project.projectDir}/frontend/nodejs")
-    nodeModulesDir = rootProject.file("${project.projectDir}/frontend/")
+    workDir = rootProject.file("./frontend/nodejs")
+    nodeModulesDir = rootProject.file("./frontend/")
 }
 
 task removeNodeModules(type: NpmTask, group: 'node') {
+    it.workingDir = rootProject.file("./frontend/")
     args = ['run', 'removeNodeModules']
 }
 

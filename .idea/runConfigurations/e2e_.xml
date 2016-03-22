@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="e2e " type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="$PROJECT_DIR$/frontend/src/test/resources/protractor.conf.js" working-dir="$PROJECT_DIR$/frontend/src/test/end2end">
+    <browser start="true" with-js-debugger="true" />
+    <method />
+  </configuration>
+</component>
