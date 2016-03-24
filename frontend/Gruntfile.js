@@ -18,6 +18,14 @@ module.exports = function (grunt) {
         testResourcePath: testPath + 'resources/'
     };
 
+    if (process.platform === "win32") {
+        globalConfig.localNode = "./nodejs/node-v0.12.12-windows-x64/bin/node.exe";
+        globalConfig.scriptSuffix = '.cmd';
+    } else {
+        globalConfig.localNode = "./nodejs/node-v0.12.12-linux-x86/bin/node";
+        globalConfig.scriptSuffix = '';
+    }
+
     grunt.initConfig({
         globalConfig: globalConfig,
 
@@ -101,18 +109,17 @@ module.exports = function (grunt) {
         },
 
         protractor: {
+            options: {
+                nodeBin: globalConfig.localNode
+            },
             development: {
                 options: {
-                    configFile: '<%= globalConfig.testResourcePath %>protractor.conf.js',
-                    args: {} // Target-specific arguments
+                    configFile: '<%= globalConfig.testResourcePath %>protractor.conf.js'
                 }
             },
             build: {
                 options: {
-                    configFile: '<%= globalConfig.testResourcePath %>protractor.ci.conf.js',
-                    capabilities: {
-                        'browserName': 'PhantomJS'
-                    }
+                    configFile: '<%= globalConfig.testResourcePath %>protractor.ci.conf.js'
                 }
             }
         },
@@ -157,26 +164,14 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-protractor-runner');
 
     grunt.registerTask('clean', function () {
-        grunt.file.delete('./build/resources/main/static');
+        grunt.file.delete(globalConfig.buildDestination, {force: true});
     });
 
     grunt.registerTask('build', ['clean', 'browserify', 'less', 'copy']);
 
     grunt.registerTask('unitTest', ['jshint', 'karma:unit']);
 
-    grunt.registerTask('end2end', ['jshint', 'karma:unit']);
-
     grunt.registerTask('karmaWatch', ['jshint', 'karma:watch']);
 
-    grunt.registerTask('e2eLocal', [
-        'protractor_webdriver:development',
-        'protractor:development'
-    ]);
-
-    grunt.registerTask('e2eRemote', [
-        'build',
-        'run:integration_server',
-        'protractor:build',
-        'stop:integration_server'
-    ]);
+    grunt.registerTask('e2eBuild', ['run:integration_server', 'protractor:build', 'stop:integration_server']);
 };

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Javascript Unit Tests" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="$PROJECT_DIR$/src/test/resources/karma.conf.js">
-    <karma-package-dir value="$PROJECT_DIR$/node_modules/karma" />
+  <configuration default="false" name="Javascript Unit Tests" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="$PROJECT_DIR$/frontend/src/test/resources/karma.conf.js">
+    <karma-package-dir value="$PROJECT_DIR$/frontend/node_modules/karma" />
     <envs />
     <method />
   </configuration>

@@ -92,6 +92,10 @@ task gruntBuild(type: GruntTask, group: 'grunt', dependsOn: ['installGrunt', 'np
     args = ['build']
 }
 
+task gruntEnd2End(type: GruntTask, group: 'grunt', dependsOn: ['build']) {
+    args = ['e2eBuild']
+}
+
 task javascriptUnitTest(type: GruntTask, group: 'grunt', dependsOn: ['installGrunt', 'npmInstall']) {
     args = ['unitTest']
 }
@@ -153,4 +157,6 @@ task wrapper(type: Wrapper) {
 
 task superClean(dependsOn: ['clean', 'removeNodeModules'], group: 'build', description: 'Write more descriptions')
 
-build.dependsOn gruntBuild
+jar.dependsOn gruntBuild
+
+build.finalizedBy gruntEnd2End

@@ -2,6 +2,10 @@
   "strict": true,
   "browserify": true,
   "globals": {
+    "console": false,
+    "by": false,
+    "element": false,
+    "browser": false,
     "describe": false,
     "xdescribe": false,
     "ddescribe": false,

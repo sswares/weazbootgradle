@@ -1,5 +1,7 @@
 frontend/node_modules
 frontend/nodejs
 .gradle
-/.idea/workspace.xml
+.idea/workspace.xml
 build
+phantomjsdriver.log
+npm-debug.log

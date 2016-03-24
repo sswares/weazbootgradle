@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="grunt karmaWatch" type="js.build_tools.grunt" factoryName="Grunt.js" singleton="false">
+    <node-interpreter value="project" />
+    <gruntfile value="$PROJECT_DIR$/frontend/Gruntfile.js" />
+    <tasks>
+      <task value="karmaWatch" />
+    </tasks>
+    <envs />
+    <force value="false" />
+    <verbose value="false" />
+    <method />
+  </configuration>
+</component>
