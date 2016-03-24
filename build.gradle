@@ -159,4 +159,4 @@ task superClean(dependsOn: ['clean', 'removeNodeModules'], group: 'build', descr
 
 jar.dependsOn gruntBuild
 
-build.finalizedBy gruntEnd2End
+check.dependsOn gruntEnd2End
