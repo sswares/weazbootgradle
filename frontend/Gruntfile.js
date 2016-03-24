@@ -19,10 +19,10 @@ module.exports = function (grunt) {
     };
 
     if (process.platform === "win32") {
-        globalConfig.localNode = "./nodejs/node-v0.12.12-windows-x64/bin/node.exe";
+        globalConfig.localNode = grunt.file.expand("./nodejs/*windows*/bin/node.exe")[0];
         globalConfig.scriptSuffix = '.cmd';
     } else {
-        globalConfig.localNode = "./nodejs/node-v0.12.12-linux-x86/bin/node";
+        globalConfig.localNode = grunt.file.expand("./nodejs/*linux*/bin/node")[0];
         globalConfig.scriptSuffix = '';
     }
 
@@ -110,7 +110,7 @@ module.exports = function (grunt) {
 
         protractor: {
             options: {
-                nodeBin: globalConfig.localNode
+                nodeBin: '<%= globalConfig.localNode %>'
             },
             development: {
                 options: {
@@ -131,7 +131,7 @@ module.exports = function (grunt) {
                     '-jar',
                     '-Dspring.profiles.active=test',
                     '-Dserver.port=9001',
-                    grunt.file.expand('../build/libs/*.jar')
+                    grunt.file.expand('../build/libs/*.jar')[0]
                 ],
                 options: {
                     wait: false,
