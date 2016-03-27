@@ -3,6 +3,7 @@
   "dependencies": {
     "angular": "*",
     "angular-ui-router": "*",
+    "browserify": "*",
     "bootstrap": "*",
     "jquery": "*"
   },
@@ -36,6 +37,7 @@
     "karma-phantomjs-launcher": "*",
     "lodash-compat": "*",
     "phantomjs-prebuilt": "*",
+    "watchify": "*",
     "rimraf": "*"
   }
 }

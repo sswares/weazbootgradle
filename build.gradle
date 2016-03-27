@@ -8,8 +8,8 @@ buildscript {
         springPlatformPluginVersion = '0.5.4.RELEASE'
         springCloudVersion = 'Brixton.M4'
 
-        nodeVersion = '0.12.12'
-        npmVersion = '2.15.0'
+        nodeVersion = '4.4.1'
+        npmVersion = '2.14.20'
 
         flywayPluginVersion = '3.2.1'
         nodePluginVersion = '0.12'
