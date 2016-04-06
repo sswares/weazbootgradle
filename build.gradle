@@ -11,6 +11,7 @@ buildscript {
         nodeVersion = '4.4.2'
         npmVersion = '3.8.5'
 
+        propdepsPluginVersion = '0.0.7'
         flywayPluginVersion = '3.2.1'
         nodePluginVersion = '0.12'
         gruntPluginVersion = '0.12'
@@ -18,11 +19,13 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        maven { url 'http://repo.spring.io/plugins-release' }
     }
     dependencies {
-        classpath("org.flywaydb:flyway-gradle-plugin:${flywayPluginVersion}")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:${springPlatformPluginVersion}")
+        classpath("org.springframework.build.gradle:propdeps-plugin:${propdepsPluginVersion}")
+        classpath("org.flywaydb:flyway-gradle-plugin:${flywayPluginVersion}")
         classpath("com.moowork.gradle:gradle-node-plugin:${nodePluginVersion}")
         classpath("com.moowork.gradle:gradle-grunt-plugin:${gruntPluginVersion}")
     }
@@ -43,6 +46,9 @@ apply plugin: 'org.flywaydb.flyway'
 apply plugin: 'maven-publish'
 apply plugin: 'com.moowork.node'
 apply plugin: 'com.moowork.grunt'
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-maven'
+apply plugin: 'propdeps-idea'
 
 repositories {
     mavenCentral()
@@ -62,6 +68,8 @@ dependencies {
     compile('org.hsqldb:hsqldb')
     compile('org.apache.commons:commons-lang3')
     compile('commons-io:commons-io')
+
+    optional('org.springframework.boot:spring-boot-configuration-processor')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
@@ -167,6 +175,8 @@ task wrapper(type: Wrapper) {
 task superClean(group: 'build',
         description: 'Performs build clean and also clears node_modules.',
         dependsOn: ['clean', 'removeNodeModules'])
+
+compileJava.dependsOn processResources
 
 jar.dependsOn gruntBuild
 
