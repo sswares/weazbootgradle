@@ -3,7 +3,7 @@
   "description": "weazbootgradle",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/substack/node-browserify.git"
+    "url": "git+ssh://git@github.com:themadweaz/weazbootgradle.git"
   },
   "dependencies": {
     "angular": "^1.5.3",
