@@ -31,6 +31,7 @@
     "grunt-protractor-runner": "^3.1.0",
     "grunt-run": "^0.5.2",
     "jasmine-core": "^2.4.1",
+    "jasmine-reporters": "^2.1.1",
     "jshint-stylish": "^2.1.0",
     "karma": "^0.13.22",
     "karma-browserify": "^5.0.3",
@@ -42,6 +43,7 @@
     "lodash-compat": "^3.10.2",
     "phantomjs-prebuilt": "^2.1.7",
     "protractor": "^3.2.2",
+    "protractor-jasmine2-html-reporter": "0.0.6",
     "rimraf": "^2.5.2",
     "watchify": "^3.7.0"
   },
