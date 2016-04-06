@@ -1,13 +1,13 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="grunt build" type="js.build_tools.grunt" factoryName="Grunt.js">
+  <configuration default="false" name="e2ebuild" type="js.build_tools.grunt" factoryName="Grunt.js" singleton="false">
     <node-interpreter value="project" />
     <gruntfile value="$PROJECT_DIR$/frontend/Gruntfile.js" />
     <tasks>
-      <task value="build" />
+      <task value="e2eBuild" />
     </tasks>
     <envs />
     <force value="false" />
-    <verbose value="false" />
+    <verbose value="true" />
     <method />
   </configuration>
 </component>

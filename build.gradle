@@ -50,8 +50,6 @@ repositories {
     maven { url "https://repo.spring.io/milestone" }
 }
 
-
-
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -92,20 +90,25 @@ grunt {
     bufferOutput = false
 }
 
-task gruntBuild(type: GruntTask, group: 'grunt', dependsOn: ['installGrunt', 'npmInstall']) {
+task gruntBuild(type: GruntTask,
+        group: 'grunt',
+        description: 'Runs the javascript build and generates resources.',
+        dependsOn: ['npmInstall']) {
     args = ['build']
 }
 
-task gruntEnd2End(type: GruntTask, group: 'grunt', dependsOn: ['build']) {
+task gruntEnd2End(type: GruntTask,
+        group: 'grunt',
+        description: 'Runs end2end tests using Protractor and a headless browser.',
+        dependsOn: ['build']) {
     args = ['e2eBuild']
 }
 
-task javascriptUnitTest(type: GruntTask, group: 'grunt', dependsOn: ['installGrunt', 'npmInstall']) {
+task javascriptUnitTest(type: GruntTask,
+        group: 'grunt',
+        description: 'Runs javascript unit tests using Karma and a headless browser.',
+        dependsOn: ['npmInstall']) {
     args = ['unitTest']
-}
-
-task javascriptIntegrationTest(type: GruntTask, group: 'grunt', dependsOn: ['installGrunt', 'npmInstall']) {
-    args = ['javascriptIntegrationTest']
 }
 
 
@@ -126,7 +129,9 @@ checkstyle {
     configProperties = ["suppressionFile": project(':').file('config/checkstyle/suppressions.xml')]
 }
 
-task sourceJar(type: Jar, group: 'build', description: 'Write more descriptions') {
+task sourceJar(type: Jar,
+        group: 'build',
+        description: 'Generates a source jar for publishing artifacts.') {
     from sourceSets.main.allJava
 }
 
@@ -159,7 +164,9 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.12'
 }
 
-task superClean(dependsOn: ['clean', 'removeNodeModules'], group: 'build', description: 'Write more descriptions')
+task superClean(group: 'build',
+        description: 'Performs build clean and also clears node_modules.',
+        dependsOn: ['clean', 'removeNodeModules'])
 
 jar.dependsOn gruntBuild
 
