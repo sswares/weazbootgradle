@@ -1,3 +1,5 @@
+'use strict';
+
 exports.config = {
     allScriptsTimeout: 11000,
 
@@ -19,6 +21,15 @@ exports.config = {
     },
 
     framework: 'jasmine',
+
+    onPrepare: function () {
+        var jasmineReporters = require('jasmine-reporters');
+        jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
+            consolidateAll: true,
+            savePath: 'build/test-results',
+            filePrefix: 'end2end-protractor'
+        }));
+    },
 
     jasmineNodeOpts: {
         showColors: true,

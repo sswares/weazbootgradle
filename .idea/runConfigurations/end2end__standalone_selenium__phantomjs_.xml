@@ -1,5 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="end2end [standalone selenium, phantomjs]" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="frontend/node_modules/protractor/built/cli.js" application-parameters="frontend\src\test\resources\protractor.ci.conf.js" working-dir="$PROJECT_DIR$">
-    <method />
-  </configuration>
-</component>

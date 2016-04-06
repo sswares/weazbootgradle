@@ -48,7 +48,7 @@ module.exports = function (config) {
         reporters: ['junit', 'dots'],
 
         junitReporter: {
-            outputDir: '../../build/test-results/',
+            outputDir: '../build/test-results/',
             outputFile: 'karma-unit.xml',
             suite: 'unit'
         }
