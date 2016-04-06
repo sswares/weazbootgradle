@@ -119,7 +119,6 @@ task javascriptUnitTest(type: GruntTask,
     args = ['unitTest']
 }
 
-
 test {
     testLogging {
         exceptionFormat = 'full'
