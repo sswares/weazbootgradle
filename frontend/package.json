@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "express": "^4.13.4",
-    "grunt": "*",
+    "grunt": "0.4.5",
     "grunt-browserify": "*",
     "grunt-cli": "*",
     "grunt-contrib-connect": "*",

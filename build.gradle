@@ -29,6 +29,13 @@ buildscript {
 }
 
 apply plugin: 'io.spring.dependency-management'
+
+dependencyManagement {
+    imports {
+        mavenBom("io.spring.platform:platform-bom:${springPlatformVersion}")
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'spring-boot'
@@ -43,11 +50,7 @@ repositories {
     maven { url "https://repo.spring.io/milestone" }
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("io.spring.platform:platform-bom:${springPlatformVersion}")
-    }
-}
+
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
@@ -61,6 +64,7 @@ dependencies {
     compile('org.hsqldb:hsqldb')
     compile('org.apache.commons:commons-lang3')
     compile('commons-io:commons-io')
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
     testCompile('org.springframework.security:spring-security-test')
