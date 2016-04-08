@@ -31,6 +31,8 @@ module.exports = function (config) {
         autoWatch: true,
         singleRun: false,
 
+        autoWatchBatchDelay: 100,
+
         frameworks: ['browserify', 'jasmine'],
 
         browsers: ['PhantomJS', 'Chrome', 'Firefox'],
