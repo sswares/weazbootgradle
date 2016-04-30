@@ -5,7 +5,8 @@ module.exports = function (grunt) {
     var testPath = './src/test/';
 
     var globalConfig = {
-        buildDestination: '../build/resources/main/static/',
+        resourceDestination: '../server-ui/src/main/resources/static/',
+        buildDestination: '../server-ui/build/resources/main/static/',
 
         mainPath: mainPath,
         jsPath: mainPath + 'js/',
@@ -32,7 +33,7 @@ module.exports = function (grunt) {
         browserify: {
             js: {
                 src: ['<%= globalConfig.jsPath %>**/*.js'],
-                dest: '<%= globalConfig.buildDestination %>js/app.js'
+                dest: '<%= globalConfig.resourceDestination %>js/app.js'
             }
         },
 
@@ -63,23 +64,26 @@ module.exports = function (grunt) {
         },
 
         copy: {
-            html: {
+            htmlForResources: {
                 expand: true,
                 src: ['**/*.html'],
                 cwd: '<%= globalConfig.partialsPath %>',
-                dest: '<%= globalConfig.buildDestination %>partials'
+                dest: '<%= globalConfig.resourceDestination %>partials'
             },
-            css: {
-                expand: true,
-                src: ['**/*.css'],
-                cwd: '<%= globalConfig.lessPath %>',
-                dest: '<%= globalConfig.buildDestination %>css'
-            },
-            assets: {
+            assetsForResources: {
                 expand: true,
                 cwd: '<%= globalConfig.assetsPath %>',
                 src: ['**/*.jpeg', '**/*.png', '**/*.eot', '**/*.ttf', '**/*.otf', '**/*.woff', '**/*.svg', '**/*.ico'],
-                dest: '<%= globalConfig.buildDestination %>assets'
+                dest: '<%= globalConfig.resourceDestination %>assets'
+            },
+            // This is here because there is currently no support for hotswapping resources in IDEA.
+            // will be removed if/when https://youtrack.jetbrains.com/issue/IDEA-151817 is completed .
+            // Devtools will overwrite this when you rebuild, but it should be up-to-date with the current watched version.
+            everythingToBuild: {
+                expand: true,
+                src: ['**/*'],
+                cwd: '<%= globalConfig.resourceDestination %>',
+                dest: '<%= globalConfig.buildDestination %>'
             }
         },
 
@@ -89,7 +93,7 @@ module.exports = function (grunt) {
                     paths: ["<%= globalConfig.lessPath %>"]
                 },
                 files: {
-                    "<%= globalConfig.buildDestination %>css/app.css": "<%= globalConfig.lessPath %>app.less"
+                    "<%= globalConfig.resourceDestination %>css/app.css": "<%= globalConfig.lessPath %>app.less"
                 }
             }
         },
@@ -125,17 +129,28 @@ module.exports = function (grunt) {
         },
 
         run: {
-            integration_server: {
+            integration_ui_server: {
                 cmd: 'java',
                 args: [
                     '-jar',
                     '-Dspring.profiles.active=test',
-                    '-Dserver.port=9001',
-                    grunt.file.expand('../build/libs/*.jar')[0]
+                    grunt.file.expand('../server-ui/build/libs/*.jar')[0]
                 ],
                 options: {
                     wait: false,
                     ready: /Tomcat started on port\(s\): 9001 \(http\)/
+                }
+            },
+            integration_api_server: {
+                cmd: 'java',
+                args: [
+                    '-jar',
+                    '-Dspring.profiles.active=test',
+                    grunt.file.expand('../server-api/build/libs/*.jar')[0]
+                ],
+                options: {
+                    wait: false,
+                    ready: /Tomcat started on port\(s\): 9002 \(http\)/
                 }
             }
         },
@@ -173,5 +188,11 @@ module.exports = function (grunt) {
 
     grunt.registerTask('karmaWatch', ['jshint', 'karma:watch']);
 
-    grunt.registerTask('e2eBuild', ['run:integration_server', 'protractor:build', 'stop:integration_server']);
+    grunt.registerTask('e2eBuild', [
+        'run:integration_ui_server',
+        'run:integration_api_server',
+        'protractor:build',
+        'stop:integration_ui_server',
+        'stop:integration_api_server'
+    ]);
 };

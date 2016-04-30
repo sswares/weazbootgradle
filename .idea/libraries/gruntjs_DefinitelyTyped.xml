@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="gruntjs-DefinitelyTyped" type="javaScript">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/config/typescript/http_github.com_DefinitelyTyped_DefinitelyTyped_raw_master_gruntjs_gruntjs.d.ts" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

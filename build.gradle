@@ -9,6 +9,8 @@ buildscript {
 
         nodeVersion = '4.4.2'
         npmVersion = '3.8.5'
+        wro4jVersion = '1.7.4'
+        assertjVersion = '3.4.1'
 
         propdepsPluginVersion = '0.0.7'
         flywayPluginVersion = '3.2.1'
@@ -28,160 +30,90 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.springframework.build.gradle:propdeps-plugin:${propdepsPluginVersion}")
         classpath("org.flywaydb:flyway-gradle-plugin:${flywayPluginVersion}")
-        classpath("com.moowork.gradle:gradle-node-plugin:${nodePluginVersion}")
-        classpath("com.moowork.gradle:gradle-grunt-plugin:${gruntPluginVersion}")
     }
 }
 
-apply plugin: 'spring-boot'
-apply plugin: 'propdeps'
-apply plugin: 'propdeps-maven'
-apply plugin: 'propdeps-idea'
-apply plugin: "java"
-apply plugin: 'checkstyle'
-apply plugin: 'org.flywaydb.flyway'
-apply plugin: 'maven-publish'
-apply plugin: 'com.moowork.node'
-apply plugin: 'com.moowork.grunt'
 
-dependencyManagement {
-    imports {
-        mavenBom("io.spring.platform:platform-bom:${springPlatformVersion}")
-    }
-}
+subprojects {
+    apply plugin: 'spring-boot'
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-maven'
+    apply plugin: 'propdeps-idea'
+    apply plugin: "java"
+    apply plugin: 'checkstyle'
+    apply plugin: 'org.flywaydb.flyway'
+    apply plugin: 'maven-publish'
 
-repositories {
-    mavenCentral()
-    maven { url "https://repo.spring.io/release" }
-    maven { url "https://repo.spring.io/milestone" }
-    maven { url "https://repo.spring.io/snapshot" }
-    maven { url "https://repo.spring.io/libs-release" }
-    maven { url "https://repo.spring.io/libs-milestone" }
-    maven { url "https://repo.spring.io/libs-snapshot" }
-}
-
-dependencies {
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('org.springframework.boot:spring-boot-devtools')
-    compile('org.springframework.boot:spring-boot-starter-hateoas')
-    compile('org.springframework.boot:spring-boot-starter-jdbc')
-    compile('org.springframework.boot:spring-boot-starter-security')
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.hsqldb:hsqldb')
-    compile('com.zaxxer:HikariCP')
-    compile('org.apache.commons:commons-lang3')
-    compile('commons-io:commons-io')
-
-    optional('org.springframework.boot:spring-boot-configuration-processor')
-
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
-    testCompile('org.springframework.security:spring-security-test')
-    testCompile('org.assertj:assertj-core:2.4.1')
-}
-
-node {
-    version = project.nodeVersion
-    npmVersion = project.npmVersion
-    distBaseUrl = 'https://nodejs.org/dist'
-    download = true
-    npmCommand = 'npm --no-color'
-
-    workDir = rootProject.file("./frontend/nodejs")
-    nodeModulesDir = rootProject.file("./frontend/")
-}
-
-task removeNodeModules(type: NpmTask, group: 'node') {
-    it.workingDir = rootProject.file("./frontend/")
-    args = ['run', 'removeNodeModules']
-}
-
-grunt {
-    workDir = rootProject.file("${project.projectDir}/frontend/")
-    colors = false
-    bufferOutput = false
-}
-
-task gruntBuild(type: GruntTask,
-        group: 'grunt',
-        description: 'Runs the javascript build and generates resources.',
-        dependsOn: ['npmInstall']) {
-    args = ['build']
-}
-
-task gruntEnd2End(type: GruntTask,
-        group: 'grunt',
-        description: 'Runs end2end tests using Protractor and a headless browser.',
-        dependsOn: ['build']) {
-    args = ['e2eBuild']
-}
-
-task javascriptUnitTest(type: GruntTask,
-        group: 'grunt',
-        description: 'Runs javascript unit tests using Karma and a headless browser.',
-        dependsOn: ['npmInstall']) {
-    args = ['unitTest']
-}
-
-test {
-    testLogging {
-        exceptionFormat = 'full'
+    dependencyManagement {
+        imports {
+            mavenBom("io.spring.platform:platform-bom:${springPlatformVersion}")
+        }
     }
 
-    afterTest { desc, result ->
-        println "- ${desc.name}: ${result.resultType}"
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/release" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/libs-release" }
+        maven { url "https://repo.spring.io/libs-milestone" }
+        maven { url "https://repo.spring.io/libs-snapshot" }
     }
-}
 
-test.finalizedBy javascriptUnitTest
+    test {
+        testLogging {
+            exceptionFormat = 'full'
+        }
 
-checkstyle {
-    configFile = rootProject.file('config/checkstyle/checkstyle-gradle.xml')
-    configProperties = ["suppressionFile": project(':').file('config/checkstyle/suppressions.xml')]
-}
+        afterTest { desc, result ->
+            println "- ${desc.name}: ${result.resultType}"
+        }
+    }
 
-task sourceJar(type: Jar,
-        group: 'build',
-        description: 'Generates a source jar for publishing artifacts.') {
-    from sourceSets.main.allJava
-}
+    checkstyle {
+        configFile = rootProject.file('config/checkstyle/checkstyle-gradle.xml')
+        configProperties = ["suppressionFile": project(':').file('config/checkstyle/suppressions.xml')]
+    }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
+    task sourceJar(type: Jar,
+            group: 'build',
+            description: 'Generates a source jar for publishing artifacts.') {
+        from sourceSets.main.allJava
+    }
 
-            groupId = project.group
-            artifactId = project.name
-            version = project.version
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
 
-            artifact sourceJar {
-                classifier "sources"
+                groupId = project.group
+                artifactId = project.name
+                version = project.version
+
+                artifact sourceJar {
+                    classifier "sources"
+                }
             }
         }
     }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    jar {
+        baseName = project.name
+        version = rootProject.version
+    }
+
+    compileJava.dependsOn processResources
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-jar {
-    baseName = project.name
-    version = project.version
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
+allprojects {
+    task wrapper(type: Wrapper) {
+        gradleVersion = '2.12'
+    }
 }
 
 task superClean(group: 'build',
         description: 'Performs build clean and also clears node_modules.',
         dependsOn: ['clean', 'removeNodeModules'])
-
-compileJava.dependsOn processResources
-
-jar.dependsOn gruntBuild
-
-check.finalizedBy gruntEnd2End

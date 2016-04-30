@@ -19,8 +19,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="weazbootgradle_main" target="1.8" />
-      <module name="weazbootgradle_test" target="1.8" />
+      <module name="server-api_main" target="1.8" />
+      <module name="server-api_test" target="1.8" />
+      <module name="server-ui_main" target="1.8" />
+      <module name="server-ui_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

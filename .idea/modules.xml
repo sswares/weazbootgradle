@@ -3,9 +3,13 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/frontend/frontend.iml" filepath="$PROJECT_DIR$/frontend/frontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-api/server-api.iml" filepath="$PROJECT_DIR$/.idea/modules/server-api/server-api.iml" group="server-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-api/server-api_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-api/server-api_main.iml" group="server-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-api/server-api_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server-api/server-api_test.iml" group="server-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-ui/server-ui.iml" filepath="$PROJECT_DIR$/.idea/modules/server-ui/server-ui.iml" group="server-ui" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-ui/server-ui_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-ui/server-ui_main.iml" group="server-ui" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-ui/server-ui_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server-ui/server-ui_test.iml" group="server-ui" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/weazbootgradle.iml" filepath="$PROJECT_DIR$/.idea/modules/weazbootgradle.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/weazbootgradle_main.iml" filepath="$PROJECT_DIR$/.idea/modules/weazbootgradle_main.iml" group="weazbootgradle" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/weazbootgradle_test.iml" filepath="$PROJECT_DIR$/.idea/modules/weazbootgradle_test.iml" group="weazbootgradle" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,76 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath("com.moowork.gradle:gradle-node-plugin:${nodePluginVersion}")
+        classpath("com.moowork.gradle:gradle-grunt-plugin:${gruntPluginVersion}")
+    }
+}
+
+apply plugin: 'com.moowork.node'
+apply plugin: 'com.moowork.grunt'
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile("ro.isdc.wro4j:wro4j-extensions:${wro4jVersion}")
+    compile('org.apache.commons:commons-lang3')
+    compile('commons-io:commons-io')
+
+    optional('org.springframework.boot:spring-boot-configuration-processor')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.security:spring-security-test')
+    testCompile("org.assertj:assertj-core:${assertjVersion}")
+}
+
+node {
+    version = project.nodeVersion
+    npmVersion = project.npmVersion
+    distBaseUrl = 'https://nodejs.org/dist'
+    download = true
+    npmCommand = 'npm --no-color'
+
+    workDir = rootProject.file("./frontend/nodejs")
+    nodeModulesDir = rootProject.file("./frontend/")
+}
+
+task removeNodeModules(type: NpmTask, group: 'node') {
+    it.workingDir = rootProject.file("./frontend/")
+    args = ['run', 'removeNodeModules']
+}
+
+grunt {
+    workDir = rootProject.file("./frontend/")
+    colors = false
+    bufferOutput = false
+}
+
+task gruntBuild(type: GruntTask,
+        group: 'grunt',
+        description: 'Runs the javascript build and generates resources.',
+        dependsOn: ['npmInstall']) {
+    args = ['build']
+}
+
+task gruntEnd2End(type: GruntTask,
+        group: 'grunt',
+        description: 'Runs end2end tests using Protractor and a headless browser.',
+        dependsOn: ['build']) {
+    args = ['e2eBuild']
+}
+
+task javascriptUnitTest(type: GruntTask,
+        group: 'grunt',
+        description: 'Runs javascript unit tests using Karma and a headless browser.',
+        dependsOn: ['npmInstall']) {
+    args = ['unitTest']
+}
+
+test.finalizedBy javascriptUnitTest
+check.finalizedBy gruntEnd2End
+jar.dependsOn gruntBuild
