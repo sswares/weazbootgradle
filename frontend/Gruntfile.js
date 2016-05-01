@@ -41,8 +41,8 @@ module.exports = function (grunt) {
 
         globalConfig.scriptSuffix = '.cmd';
     } else {
-        // stdout = execSync('which node').toString();
-        if (stdout) {
+        stdout = execSync('which node').toString();
+        if (stdout.indexOf('frontend') === -1) {
             globalConfig.localNode = stdout;
         }
 
