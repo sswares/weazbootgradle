@@ -7,7 +7,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloWorldController {
 
     @RequestMapping("/hello-world")
-    public String hello() {
-        return "Hello World!";
+    public HelloWorldPresenter hello() {
+        return new HelloWorldPresenter("Hello World!");
+    }
+
+    class HelloWorldPresenter {
+
+        private String message;
+
+        HelloWorldPresenter(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
     }
 }

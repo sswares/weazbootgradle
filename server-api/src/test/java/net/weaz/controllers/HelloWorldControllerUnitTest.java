@@ -21,8 +21,8 @@ public class HelloWorldControllerUnitTest {
 
     @Test
     public void rootController_returnsIndex() throws Exception {
-        String returnValue = subject.hello();
+        HelloWorldController.HelloWorldPresenter returnValue = subject.hello();
 
-        assertThat(returnValue, is(equalTo("Hello World!")));
+        assertThat(returnValue.getMessage(), is(equalTo("Hello World!")));
     }
 }

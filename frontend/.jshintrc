@@ -12,6 +12,7 @@
     "it": false,
     "xit": false,
     "iit": false,
+    "beforeAll": false,
     "beforeEach": false,
     "afterEach": false,
     "expect": false,
