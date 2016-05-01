@@ -7,7 +7,7 @@ exports.config = {
         '../end2end/**/*.js'
     ],
 
-    baseUrl: 'http://localhost:9001/#/',
+    baseUrl: 'http://localhost:9000/',
 
     seleniumPort: 4444,
     seleniumArgs: ['-browserTimeout=60'],
@@ -26,7 +26,7 @@ exports.config = {
         var jasmineReporters = require('jasmine-reporters');
         jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
             consolidateAll: true,
-            savePath: './build/test-results',
+            savePath: '../server-ui/build/test-results',
             filePrefix: 'end2end-protractor'
         }));
     },

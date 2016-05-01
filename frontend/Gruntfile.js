@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 
     var execSync = require('child_process').execSync;
     var stdout;
-    
+
     if (process.platform === "win32") {
         stdout = execSync('for %a in ("%path:;=";"%") do @echo %~a').toString();
         if (stdout) {
@@ -68,25 +68,28 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: ['<%= globalConfig.mainPath %>**/*.js'],
-                tasks: ['build'],
+                tasks: ['browserify'],
                 options: {
-                    spawn: false
+                    spawn: false,
+                    debounceDelay: 100
                 }
             },
 
             html: {
                 files: ['<%= globalConfig.mainPath %>**/*.html'],
-                tasks: ['build'],
+                tasks: ['copy'],
                 options: {
-                    spawn: false
+                    spawn: false,
+                    debounceDelay: 100
                 }
             },
 
-            css: {
+            less: {
                 files: ['<%= globalConfig.lessPath %>**/*.less'],
-                tasks: ['build'],
+                tasks: ['less', 'copy'],
                 options: {
-                    spawn: false
+                    spawn: false,
+                    debounceDelay: 100
                 }
             }
         },
@@ -180,6 +183,19 @@ module.exports = function (grunt) {
                     wait: false,
                     ready: /Tomcat started on port\(s\): 9002 \(http\)/
                 }
+            },
+            integration_proxy_server: {
+                args: ['./proxy/integrationProxyStart.js'],
+                options: {
+                    wait: false,
+                    ready: /Reverse proxy listening on port: 9000/
+                }
+            },
+            dev_proxy_server: {
+                args: ['./proxy/devProxyStart.js'],
+                options: {
+                    wait: true
+                }
             }
         },
 
@@ -219,8 +235,10 @@ module.exports = function (grunt) {
     grunt.registerTask('e2eBuild', [
         'run:integration_ui_server',
         'run:integration_api_server',
+        'run:integration_proxy_server',
         'protractor:build',
         'stop:integration_ui_server',
-        'stop:integration_api_server'
+        'stop:integration_api_server',
+        'stop:integration_proxy_server'
     ]);
 };

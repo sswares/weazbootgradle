@@ -7,7 +7,7 @@ exports.config = {
         '../end2end/**/*.js'
     ],
 
-    baseUrl: 'http://localhost:9001/#/',
+    baseUrl: 'http://localhost:9000/',
 
     seleniumPort: 4444,
     seleniumArgs: ['-browserTimeout=60'],
@@ -27,7 +27,7 @@ exports.config = {
         var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
         jasmine.getEnv().addReporter(
             new Jasmine2HtmlReporter({
-                savePath: 'build/test-results/end2end-html/',
+                savePath: '../server-ui/build/test-results/end2end-html/',
                 screenshotsFolder: 'images'
             })
         );

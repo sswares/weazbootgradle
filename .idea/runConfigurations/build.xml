@@ -1,13 +1,20 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="build" type="js.build_tools.grunt" factoryName="Grunt.js">
-    <node-interpreter value="project" />
-    <gruntfile value="$PROJECT_DIR$/frontend/Gruntfile.js" />
-    <tasks>
-      <task value="build" />
-    </tasks>
-    <envs />
-    <force value="false" />
-    <verbose value="false" />
+  <configuration default="false" name="build" type="GradleRunConfiguration" factoryName="Gradle" singleton="true">
+    <ExternalSystemSettings>
+      <option name="executionName" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$/build.gradle" />
+      <option name="externalSystemIdString" value="GRADLE" />
+      <option name="scriptParameters" value="" />
+      <option name="taskDescriptions">
+        <list />
+      </option>
+      <option name="taskNames">
+        <list>
+          <option value="build" />
+        </list>
+      </option>
+      <option name="vmOptions" value="" />
+    </ExternalSystemSettings>
     <method />
   </configuration>
 </component>
