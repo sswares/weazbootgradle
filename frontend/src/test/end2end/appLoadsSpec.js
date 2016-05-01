@@ -6,6 +6,6 @@ describe('Application', function () {
 
         var content = element(by.css('body')).getText();
 
-        expect(content).toContain('HEYY! You found weazboot gradle!');
+        expect(content).toContain('weazboot gradle');
     });
 });

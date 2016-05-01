@@ -14,12 +14,12 @@ apply plugin: 'com.moowork.grunt'
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-devtools')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.apache.commons:commons-lang3')
     compile('commons-io:commons-io')
 
+    runtime('org.springframework.boot:spring-boot-devtools')
     optional('org.springframework.boot:spring-boot-configuration-processor')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
