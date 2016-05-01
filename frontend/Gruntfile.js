@@ -105,7 +105,7 @@ module.exports = function (grunt) {
                 dest: '<%= globalConfig.resourceDestination %>assets'
             },
             // This is here because there is currently no support for hotswapping resources in IDEA.
-            // will be removed if/when https://youtrack.jetbrains.com/issue/IDEA-151817 is completed .
+            // Will be removed if/when https://youtrack.jetbrains.com/issue/IDEA-151817 is completed.
             // Devtools will overwrite this when you rebuild, but it should be up-to-date with the current watched version.
             everythingToBuild: {
                 expand: true,

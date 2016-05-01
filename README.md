@@ -68,5 +68,4 @@ The sample project comes pre-configured with test suites for most types of angul
 ##Known Issues:
 The Karma plugin in **Intellij** is buggy with **karma-browserify**.  It will fail to reload tests.  We recommend using the ``grunt watchTest``
 run configuration from Intellij
-There is a workaround on the [bug report](https://youtrack.jetbrains
-.com/issue/WEB-12496).
+There is a workaround on the [bug report](https://youtrack.jetbrains.com/issue/WEB-12496).
