@@ -17,7 +17,6 @@ dependencies {
     compile('org.springframework.boot:spring-boot-devtools')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile("ro.isdc.wro4j:wro4j-extensions:${wro4jVersion}")
     compile('org.apache.commons:commons-lang3')
     compile('commons-io:commons-io')
 

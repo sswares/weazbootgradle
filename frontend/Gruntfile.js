@@ -19,13 +19,42 @@ module.exports = function (grunt) {
         testResourcePath: testPath + 'resources/'
     };
 
+
+    var execSync = require('child_process').execSync;
+    var stdout;
+    
     if (process.platform === "win32") {
-        globalConfig.localNode = grunt.file.expand("./nodejs/*windows*/bin/node.exe")[0];
+        stdout = execSync('for %a in ("%path:;=";"%") do @echo %~a').toString();
+        if (stdout) {
+            var pathItems = stdout.split("\r\n");
+            for (var i = 0; i < pathItems.length; i++) {
+                if (pathItems[i].indexOf('nodejs') > -1 && pathItems[i].indexOf('frontend') === -1) {
+                    globalConfig.localNode = pathItems[i] + 'node.exe';
+                    break;
+                }
+            }
+        }
+
+        if (!globalConfig.localNode) {
+            globalConfig.localNode = grunt.file.expand("./nodejs/*windows*/bin/node.exe")[0];
+        }
+
         globalConfig.scriptSuffix = '.cmd';
     } else {
-        globalConfig.localNode = grunt.file.expand("./nodejs/*linux*/bin/node")[0];
+        stdout = execSync('which node').toString();
+
+        if (stdout) {
+            globalConfig.localNode = stdout;
+        }
+
+        if (!globalConfig.localNode) {
+            globalConfig.localNode = grunt.file.expand("./nodejs/*linux*/bin/node")[0];
+        }
+
         globalConfig.scriptSuffix = '';
     }
+
+    grunt.log.write("Local node set as: " + globalConfig.localNode);
 
     grunt.initConfig({
         globalConfig: globalConfig,

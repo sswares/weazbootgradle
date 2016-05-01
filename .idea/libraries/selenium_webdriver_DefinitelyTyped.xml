@@ -1,10 +1,5 @@
 <component name="libraryTable">
   <library name="selenium-webdriver-DefinitelyTyped" type="javaScript">
-    <properties>
-      <sourceFilesUrls>
-        <item url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_github.com_DefinitelyTyped_DefinitelyTyped_raw_master_selenium-webdriver_selenium-webdriver.d.ts" />
-      </sourceFilesUrls>
-    </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/config/typescript/http_github.com_DefinitelyTyped_DefinitelyTyped_raw_master_selenium-webdriver_selenium-webdriver.d.ts" />
     </CLASSES>
