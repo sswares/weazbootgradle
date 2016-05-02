@@ -8,13 +8,13 @@ module.exports = {
     startProxy: function (proxyPort, uiServerPort, apiServerPort, authServerPort) {
         var proxyRules = new HttpProxyRules({
             rules: {
-                '.*/api': 'http://localhost:' + apiServerPort + '/',
-                '.*/auth': 'http://localhost:' + authServerPort + '/'
+                '.*/apix': 'http://localhost:' + apiServerPort + '/',
+                '.*/auth': 'http://localhost:' + authServerPort + '/auth/'
             },
             default: 'http://localhost:' + uiServerPort + '/'
         });
 
-        var proxy = httpProxy.createProxy();
+        var proxy = httpProxy.createProxy({agent: new http.Agent({maxSockets: Number.MAX_VALUE})});
 
         var server = http.createServer(function (req, res) {
             var target = proxyRules.match(req);
@@ -30,7 +30,10 @@ module.exports = {
 
         server.listen(proxyPort);
 
-        console.log("Reverse proxy listening on port: " + proxyPort);
+        process.on('uncaughtException', function (e) {
+            console.log("Exception thrown\n", e);
+        });
 
+        console.log("Reverse proxy listening on port: " + proxyPort + "\n");
     }
 };

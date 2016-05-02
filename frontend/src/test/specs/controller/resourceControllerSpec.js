@@ -18,8 +18,8 @@ describe("ResourceController", function () {
         $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('makes a call to the hello-world controller and sets the value on the scope', function () {
-        $httpBackend.expectGET('/api/hello-world').respond(200, {message: "Hello World!"});
+    it('makes a call to the greeting controller and sets the value on the scope', function () {
+        $httpBackend.expectGET('/api/greeting').respond(200, {message: "Hello World!"});
         $httpBackend.flush();
 
         expect($scope.backendResponse).toEqual("Hello World!");

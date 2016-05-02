@@ -3,7 +3,8 @@ group = 'net.weaz'
 
 buildscript {
     ext {
-        springBootVersion = '1.3.3.RELEASE'
+        springBootVersion = '1.3.4.RELEASE'
+        springCloudVersion = 'Brixton.RC2'
         springPlatformVersion = '2.0.3.RELEASE'
         springPlatformPluginVersion = '0.5.4.RELEASE'
 
@@ -33,7 +34,6 @@ buildscript {
     }
 }
 
-
 subprojects {
     apply plugin: 'spring-boot'
     apply plugin: 'propdeps'
@@ -47,6 +47,8 @@ subprojects {
     dependencyManagement {
         imports {
             mavenBom("io.spring.platform:platform-bom:${springPlatformVersion}")
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+
         }
     }
 
@@ -64,6 +66,8 @@ subprojects {
         testLogging {
             exceptionFormat = 'full'
         }
+
+        ignoreFailures true
 
         afterTest { desc, result ->
             println "- ${desc.name}: ${result.resultType}"

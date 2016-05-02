@@ -1,3 +1,3 @@
 'use strict';
 
-require('./reverseProxy.js').startProxy(80, 8080, 8081, 8082);
+require('./reverseProxy.js').startProxy(8080, 8001, 8002, 8003);

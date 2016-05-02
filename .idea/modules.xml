@@ -6,6 +6,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-api/server-api.iml" filepath="$PROJECT_DIR$/.idea/modules/server-api/server-api.iml" group="server-api" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-api/server-api_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-api/server-api_main.iml" group="server-api" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-api/server-api_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server-api/server-api_test.iml" group="server-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-auth/server-auth.iml" filepath="$PROJECT_DIR$/.idea/modules/server-auth/server-auth.iml" group="server-auth" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-auth/server-auth_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-auth/server-auth_main.iml" group="server-auth" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-auth/server-auth_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server-auth/server-auth_test.iml" group="server-auth" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-ui/server-ui.iml" filepath="$PROJECT_DIR$/.idea/modules/server-ui/server-ui.iml" group="server-ui" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-ui/server-ui_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-ui/server-ui_main.iml" group="server-ui" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-ui/server-ui_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server-ui/server-ui_test.iml" group="server-ui" />

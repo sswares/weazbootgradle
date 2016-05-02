@@ -2,6 +2,16 @@
     <div class="col-md-4 col-md-offset-4">
         <h1>{{ name }}</h1>
         <h4>Glad you could make it!</h4>
-        <span id="resource">I wonder if hitting a <a ui-sref="resource" href="#" id="resource-link">resource</a> might work?</span>
+
+        <span id="not-logged-in" data-ng-if="!authenticated">
+            Click <a href="/login">here</a> to login
+        </span>
+        <div id="logged-in" data-ng-if="authenticated">
+            <span id="logged-in-message">You are logged in, {{username}}!</span>
+            <br/><br/>
+            <span id="resource">I wonder if hitting a <a ui-sref="resource" href="#" id="resource-link">resource</a> might work?</span>
+            <br/><br/>
+            <span id="logout-message">Click <a data-ng-click="logout()" ng-href="#" id="logout-link">here</a> to logout</span>
+        </div>
     </div>
 </div>

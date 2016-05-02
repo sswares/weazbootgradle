@@ -41,13 +41,14 @@ module.exports = function (grunt) {
 
         globalConfig.scriptSuffix = '.cmd';
     } else {
-        stdout = execSync('which node').toString();
-        if (stdout.indexOf('frontend') === -1) {
+        stdout = execSync('which node').toString().replace(/(\r\n|\n|\r)/gm, "");
+
+        if (stdout.indexOf('frontend') === -1 && stdout.indexOf('node') > -1) {
             globalConfig.localNode = stdout;
         }
 
         if (!globalConfig.localNode) {
-            globalConfig.localNode = grunt.file.expand("./nodejs/*linux*/bin/node")[0];
+            globalConfig.localNode = grunt.file.expand("./nodejs/*/bin/node")[0];
         }
 
         globalConfig.scriptSuffix = '';
@@ -184,6 +185,18 @@ module.exports = function (grunt) {
                     ready: /Tomcat started on port\(s\): 9002 \(http\)/
                 }
             },
+            integration_auth_server: {
+                cmd: 'java',
+                args: [
+                    '-jar',
+                    '-Dspring.profiles.active=test',
+                    grunt.file.expand('../server-auth/build/libs/*.jar')[0]
+                ],
+                options: {
+                    wait: false,
+                    ready: /Tomcat started on port\(s\): 9003 \(http\)/
+                }
+            },
             integration_proxy_server: {
                 args: ['./proxy/integrationProxyStart.js'],
                 options: {
@@ -235,10 +248,12 @@ module.exports = function (grunt) {
     grunt.registerTask('e2eBuild', [
         'run:integration_ui_server',
         'run:integration_api_server',
+        'run:integration_auth_server',
         'run:integration_proxy_server',
         'protractor:build',
         'stop:integration_ui_server',
         'stop:integration_api_server',
+        'stop:integration_auth_server',
         'stop:integration_proxy_server'
     ]);
 };

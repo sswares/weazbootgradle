@@ -14,7 +14,12 @@ apply plugin: 'com.moowork.grunt'
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.cloud:spring-cloud-starter-zuul')
+    compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+    compile('org.springframework.security.oauth:spring-security-oauth2')
+    compile('org.springframework.security:spring-security-jwt')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.apache.commons:commons-lang3')
     compile('commons-io:commons-io')
@@ -70,6 +75,6 @@ task javascriptUnitTest(type: GruntTask,
     args = ['unitTest']
 }
 
-test.finalizedBy javascriptUnitTest
+check.finalizedBy javascriptUnitTest
 check.finalizedBy gruntEnd2End
 jar.dependsOn gruntBuild

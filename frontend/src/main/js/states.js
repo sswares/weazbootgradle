@@ -1,6 +1,8 @@
 "use strict";
 
-module.exports = function ($stateProvider, $urlRouterProvider) {
+module.exports = function ($stateProvider, $urlRouterProvider, $httpProvider) {
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
     $urlRouterProvider.otherwise('/');
 
     $stateProvider

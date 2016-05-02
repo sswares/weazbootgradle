@@ -2,7 +2,7 @@
   <configuration default="false" name="All Tests" type="JUnit" factoryName="JUnit" singleton="true">
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
       <pattern>
-        <option name="PATTERN" value="net.weaz.*" />
+        <option name="PATTERN" value="net.weaz.controllers.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
@@ -22,6 +22,7 @@
       <value defaultName="wholeProject" />
     </option>
     <envs />
+    <dir value="$PROJECT_DIR$" />
     <patterns />
     <method />
   </configuration>

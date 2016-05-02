@@ -1,2 +1,3 @@
 include "server-api"
 include "server-ui"
+include "server-auth"

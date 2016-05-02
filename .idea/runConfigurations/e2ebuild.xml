@@ -6,8 +6,8 @@
       <task value="e2eBuild" />
     </tasks>
     <envs />
-    <force value="false" />
-    <verbose value="false" />
+    <force value="true" />
+    <verbose value="true" />
     <method />
   </configuration>
 </component>
