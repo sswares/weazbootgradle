@@ -45,10 +45,6 @@ subprojects {
     apply plugin: 'org.flywaydb.flyway'
     apply plugin: 'maven-publish'
 
-    configurations {
-        compile.exclude group: "org.hamcrest"
-    }
-
     dependencyManagement {
         imports {
             mavenBom("io.spring.platform:platform-bom:${springPlatformVersion}")
