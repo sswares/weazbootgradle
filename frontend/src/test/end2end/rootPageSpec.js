@@ -42,11 +42,17 @@ describe('JourneySpec', function () {
     describe('when logged in', function () {
         beforeAll(function () {
             browser.ignoreSynchronization = true;
+            browser.manage().timeouts().pageLoadTimeout(40000);
+            browser.manage().timeouts().implicitlyWait(25000);
+
             loginPage.goto();
             loginPage.setUsername("user");
             loginPage.setPassword("password");
             loginPage.submitLoginForm();
+            browser.sleep(10000);
             approvalPage.clickApprove();
+            browser.sleep(10000);
+            browser.waitForAngular();
             browser.ignoreSynchronization = false;
         });
 

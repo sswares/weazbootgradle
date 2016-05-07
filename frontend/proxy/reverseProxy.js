@@ -8,10 +8,10 @@ module.exports = {
     startProxy: function (proxyPort, uiServerPort, apiServerPort, authServerPort) {
         var proxyRules = new HttpProxyRules({
             rules: {
-                '.*/apix': 'http://localhost:' + apiServerPort + '/',
-                '.*/auth': 'http://localhost:' + authServerPort + '/auth/'
+                '.*/apix': 'http://127.0.0.1:' + apiServerPort + '/',
+                '.*/auth': 'http://127.0.0.1:' + authServerPort + '/auth/'
             },
-            default: 'http://localhost:' + uiServerPort + '/'
+            default: 'http://127.0.0.1:' + uiServerPort + '/'
         });
 
         var proxy = httpProxy.createProxy({agent: new http.Agent({maxSockets: Number.MAX_VALUE})});
