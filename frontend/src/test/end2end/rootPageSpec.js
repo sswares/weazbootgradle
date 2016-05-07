@@ -1,6 +1,6 @@
 'use strict';
 
-var rootPage = require('./pages/rootPage');
+var rootPage = require('./pages/rootyPage');
 var loginPage = require('./pages/loginPage');
 var approvalPage = require('./pages/approvalPage');
 var resourcePage = require('./pages/resourcePage');

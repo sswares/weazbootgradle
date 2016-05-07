@@ -12,6 +12,7 @@ buildscript {
         npmVersion = '3.8.5'
         wro4jVersion = '1.7.4'
         assertjVersion = '3.4.1'
+        logbackVersion = '1.1.7'
 
         propdepsPluginVersion = '0.0.7'
         flywayPluginVersion = '3.2.1'
@@ -48,6 +49,10 @@ subprojects {
         imports {
             mavenBom("io.spring.platform:platform-bom:${springPlatformVersion}")
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+        }
+        dependencies {
+            dependency("ch.qos.logback:logback-core:${logbackVersion}")
+            dependency("ch.qos.logback:logback-classic:${logbackVersion}")
 
         }
     }
