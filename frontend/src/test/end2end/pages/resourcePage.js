@@ -1,6 +1,6 @@
 'use strict';
 
-var rootPage = require('./rootyPage');
+var rootPage = require('./rootPage');
 
 module.exports = {
     getHeaderText: function () {
