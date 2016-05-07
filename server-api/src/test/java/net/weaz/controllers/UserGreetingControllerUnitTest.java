@@ -7,9 +7,7 @@ import org.junit.experimental.categories.Category;
 
 import java.security.Principal;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -30,6 +28,6 @@ public class UserGreetingControllerUnitTest {
         when(principal.getName()).thenReturn("Jonah");
         UserGreetingController.GreetingPresenter returnValue = subject.hello(principal);
 
-        assertThat(returnValue.getMessage(), is(equalTo("Hello Jonah!")));
+        assertThat(returnValue.getMessage()).isEqualTo("Hello Jonah!");
     }
 }

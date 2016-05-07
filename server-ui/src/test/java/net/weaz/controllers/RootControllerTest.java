@@ -5,9 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Category(UnitTest.class)
 public class RootControllerTest {
@@ -23,6 +21,6 @@ public class RootControllerTest {
     public void rootController_returnsIndex() throws Exception {
         String returnValue = subject.rootController();
 
-        assertThat(returnValue, is(equalTo("index")));
+        assertThat(returnValue).isEqualTo("index");
     }
 }
