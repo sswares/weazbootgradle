@@ -1,12 +1,12 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="All Tests" type="JUnit" factoryName="JUnit" singleton="true">
+  <configuration default="false" name="API Tests" type="JUnit" factoryName="JUnit" singleton="true">
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
       <pattern>
         <option name="PATTERN" value="net.weaz.controllers.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
-    <module name="" />
+    <module name="server-api_test" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <option name="PACKAGE_NAME" value="net.weaz" />
@@ -19,7 +19,7 @@
     <option name="ENV_VARIABLES" />
     <option name="PASS_PARENT_ENVS" value="true" />
     <option name="TEST_SEARCH_SCOPE">
-      <value defaultName="wholeProject" />
+      <value defaultName="singleModule" />
     </option>
     <envs />
     <dir value="$PROJECT_DIR$" />
