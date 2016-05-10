@@ -23,6 +23,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -63,7 +66,7 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
             http
                     .formLogin().loginPage("/login").permitAll()
                     .and()
-                    .requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
+                    .requestMatchers().antMatchers("/login", "/oauth/token","/oauth/authorize", "/oauth/confirm_access")
                     .and()
                     .authorizeRequests().anyRequest().authenticated();
         }
@@ -71,6 +74,18 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth.parentAuthenticationManager(authenticationManager);
+        }
+
+        @Bean
+        public CorsFilter someCorsFilter() {
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowCredentials(true); // you USUALLY want this
+            config.addAllowedOrigin("*");
+            config.addAllowedHeader("*");
+            config.addAllowedMethod("*");
+            source.registerCorsConfiguration("/**", config);
+            return new CorsFilter(source);
         }
     }
 

@@ -1,0 +1,44 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script>
+        function login() {
+            $.ajax({
+                        url: "http://localhost:8080/auth/oauth/token?" + jQuery.param({
+                            "grant_type": "password",
+                            "username": "user",
+                            "password": "password"
+                        }),
+                        type: "POST",
+                        headers: {
+                            "Authorization": "Basic YWNtZToqKioqKiBIaWRkZW4gY3JlZGVudGlhbHMgKioqKio="
+                        }
+                    })
+                    .done(function (data, textStatus, jqXHR) {
+                        $.ajax({
+                                    url: "http://localhost:8080/login",
+                                    type: "GET",
+                                    headers: {
+                                        "Authorization": "Bearer " + data.access_token
+                                    },
+                                })
+                                .done(function (data, textStatus, jqXHR) {
+                                    console.log("HTTP Request Succeeded: " + jqXHR.status);
+                                    console.log(data);
+                                })
+                                .fail(function (jqXHR, textStatus, errorThrown) {
+                                    console.log("HTTP Request Failed");
+                                })
+                                .always(function () {
+                                    /* ... */
+                                });
+
+                    });
+        }
+    </script>
+
+</head>
+<body onload="login()">
+
+</body>
+</html>

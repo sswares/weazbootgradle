@@ -1,11 +1,15 @@
 package net.weaz;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.client.OAuth2ClientContext;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -30,12 +34,20 @@ public class UiApplication extends WebSecurityConfigurerAdapter {
         SpringApplication.run(UiApplication.class, args);
     }
 
+    @Autowired
+    private ResourceServerTokenServices tokenServices;
+
+    @Autowired
+    private OAuth2ClientContext clientContext;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.logout().and().antMatcher("/**").authorizeRequests()
                 .antMatchers("/partials/**", "/", "/login").permitAll()
                 .anyRequest().authenticated().and().csrf()
-                .csrfTokenRepository(csrfTokenRepository()).and()
+                .csrfTokenRepository(csrfTokenRepository())
+                .and()
+                .addFilterBefore(new ApiTokenAccessFilter(tokenServices, clientContext), CsrfFilter.class)
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
 
