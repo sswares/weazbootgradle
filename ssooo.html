@@ -4,33 +4,27 @@
     <script>
         function login() {
             $.ajax({
-                        url: "http://localhost:8080/auth/oauth/token?" + jQuery.param({
-                            "grant_type": "password",
+                        url: "http://localhost:8080/auth/oauth/token?" + $.param({
                             "username": "user",
+                            "grant_type": "password",
                             "password": "password"
                         }),
                         type: "POST",
                         headers: {
-                            "Authorization": "Basic YWNtZToqKioqKiBIaWRkZW4gY3JlZGVudGlhbHMgKioqKio="
+                            "Authorization": "Basic YWNtZTphY21lc2VjcmV0"
                         }
                     })
-                    .done(function (data, textStatus, jqXHR) {
+                    .done(function (data) {
+                        console.log("data",data);
                         $.ajax({
                                     url: "http://localhost:8080/login",
                                     type: "GET",
-                                    headers: {
-                                        "Authorization": "Bearer " + data.access_token
-                                    },
+                                    'beforeSend': function (xhr) {
+                                        xhr.setRequestHeader('Authorization', 'Bearer ' + data.access_token);
+                                    }
                                 })
-                                .done(function (data, textStatus, jqXHR) {
-                                    console.log("HTTP Request Succeeded: " + jqXHR.status);
+                                .done(function (data) {
                                     console.log(data);
-                                })
-                                .fail(function (jqXHR, textStatus, errorThrown) {
-                                    console.log("HTTP Request Failed");
-                                })
-                                .always(function () {
-                                    /* ... */
                                 });
 
                     });
@@ -39,6 +33,6 @@
 
 </head>
 <body onload="login()">
-
+    <a href="http://localhost:8080/">Click here</a>
 </body>
 </html>
