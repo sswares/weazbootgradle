@@ -55,14 +55,13 @@ The sample project comes pre-configured with test suites for most types of angul
  * Javascript unit test suite powered by **Karma** using **Phantom.js**, which can be run through
  Intellij's Karma plugin as well.
  * **Protractor.js** end-to-end test suite for running integration type tests.  When run through **Grunt** (or **Gradle**),
- stands up the spring boot uber jar and runs tests against that app.  When run through ide, can run against an app you
+ stands up the spring boot uber jars and runs tests against that app.  When run through ide, can run against an app you
  stand up via a pre-configured run configuration.
 
 
 --
 ##TODO:
 * Most things, really.
-* License?
 
 --
 ##Known Issues:
