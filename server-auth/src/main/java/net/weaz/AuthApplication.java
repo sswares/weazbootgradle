@@ -63,7 +63,7 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
             http
                     .formLogin().loginPage("/login").permitAll()
                     .and()
-                    .requestMatchers().antMatchers("/login", "/oauth/token","/oauth/authorize", "/oauth/confirm_access")
+                    .requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
                     .and()
                     .authorizeRequests().anyRequest().authenticated();
         }
@@ -97,6 +97,7 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
             clients.inMemory()
                     .withClient("acme")
                     .secret("acmesecret")
+                    .autoApprove(true)
                     .authorizedGrantTypes("authorization_code", "refresh_token",
                             "password").scopes("openid");
         }

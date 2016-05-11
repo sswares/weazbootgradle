@@ -16,17 +16,13 @@ app.config(['$httpProvider', function ($httpProvider) {
 
 app.factory('tokenInterceptor', require('./tokenInterceptor'));
 
-app.config(states).run(function ($rootScope) {
-
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        console.log(event);
-        console.log("toState",toState);
-        console.log("toParams",toParams);
-
-        console.log("fromState",fromState);
-        console.log("fromParams",fromParams);
+app.config(states).run(function ($rootScope, $location, $window) {
+    $rootScope.$on('$viewContentLoaded', function () {
+        var tokenX = $location.search().tokenX;
+        if (tokenX !== undefined) {
+            $window.localStorage.setItem('tokenX', tokenX);
+        }
     });
 });
-
 
 module.exports = app;

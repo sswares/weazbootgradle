@@ -5,10 +5,9 @@ var http = require('http'),
     HttpProxyRules = require('http-proxy-rules');
 
 module.exports = {
-    startProxy: function (proxyPort, uiServerPort, apiServerPort, authServerPort) {
+    startProxy: function (proxyPort, uiServerPort, authServerPort) {
         var proxyRules = new HttpProxyRules({
             rules: {
-                '.*/apix': 'http://127.0.0.1:' + apiServerPort + '/',
                 '.*/auth': 'http://127.0.0.1:' + authServerPort + '/auth/'
             },
             default: 'http://127.0.0.1:' + uiServerPort + '/'

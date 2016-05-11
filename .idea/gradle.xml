@@ -10,9 +10,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/server-api" />
             <option value="$PROJECT_DIR$/server-auth" />
-            <option value="$PROJECT_DIR$/server-ui" />
+            <option value="$PROJECT_DIR$/server-main" />
           </set>
         </option>
         <option name="useAutoImport" value="true" />

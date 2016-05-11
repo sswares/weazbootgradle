@@ -26,7 +26,7 @@ exports.config = {
         var jasmineReporters = require('jasmine-reporters');
         jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
             consolidateAll: true,
-            savePath: '../server-ui/build/test-results',
+            savePath: '../server-main/build/test-results',
             filePrefix: 'end2end-protractor'
         }));
     },

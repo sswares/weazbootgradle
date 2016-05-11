@@ -28,13 +28,13 @@ exports.config = {
         var ScreenShotReporter = require('protractor-screenshot-reporter');
         jasmine.getEnv().addReporter(
             new Jasmine2HtmlReporter({
-                savePath: './server-ui/build/test-results/end2end-html/',
+                savePath: './server-main/build/test-results/end2end-html/',
                 screenshotsFolder: 'images'
             })
         );
         jasmine.getEnv().addReporter(
             new ScreenShotReporter({
-                baseDirectory: './server-ui/build/test-results/end2end-html/screenshots'
+                baseDirectory: './server-main/build/test-results/end2end-html/screenshots'
             })
         );
     },

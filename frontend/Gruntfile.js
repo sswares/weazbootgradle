@@ -5,8 +5,8 @@ module.exports = function (grunt) {
     var testPath = './src/test/';
 
     var globalConfig = {
-        resourceDestination: '../server-ui/src/main/resources/static/',
-        buildDestination: '../server-ui/build/resources/main/static/',
+        resourceDestination: '../server-main/src/main/resources/static/',
+        buildDestination: '../server-main/build/resources/main/static/',
 
         mainPath: mainPath,
         jsPath: mainPath + 'js/',
@@ -161,28 +161,16 @@ module.exports = function (grunt) {
         },
 
         run: {
-            integration_ui_server: {
+            integration_main_server: {
                 cmd: 'java',
                 args: [
                     '-jar',
                     '-Dspring.profiles.active=test',
-                    grunt.file.expand('../server-ui/build/libs/*.jar')[0]
+                    grunt.file.expand('../server-main/build/libs/*.jar')[0]
                 ],
                 options: {
                     wait: false,
                     ready: /Tomcat started on port\(s\): 9001 \(http\)/
-                }
-            },
-            integration_api_server: {
-                cmd: 'java',
-                args: [
-                    '-jar',
-                    '-Dspring.profiles.active=test',
-                    grunt.file.expand('../server-api/build/libs/*.jar')[0]
-                ],
-                options: {
-                    wait: false,
-                    ready: /Tomcat started on port\(s\): 9002 \(http\)/
                 }
             },
             integration_auth_server: {
@@ -246,13 +234,11 @@ module.exports = function (grunt) {
     grunt.registerTask('karmaWatch', ['jshint', 'karma:watch']);
 
     grunt.registerTask('e2eBuild', [
-        'run:integration_ui_server',
-        'run:integration_api_server',
+        'run:integration_main_server',
         'run:integration_auth_server',
         'run:integration_proxy_server',
         'protractor:build',
-        'stop:integration_ui_server',
-        'stop:integration_api_server',
+        'stop:integration_main_server',
         'stop:integration_auth_server',
         'stop:integration_proxy_server'
     ]);

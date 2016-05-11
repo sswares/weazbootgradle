@@ -3,14 +3,10 @@
 module.exports = function ($window) {
     return {
         'request': function (config) {
-            // console.log("config", config);
-            // if(config.params !== undefined) {
-            //     var token = config.params.tokenZ;
-            //     console.log("TOKEN WAS:", token);
-            //     if (token !== undefined) {
-            //         $window.localStorage.setItem('tokenZ', token);
-            //     }
-            // }
+            var tokenX = $window.localStorage.getItem('tokenX');
+            if (tokenX !== undefined) {
+                config.headers.Authorization = 'Bearer ' + tokenX;
+            }
             return config;
         }
     };
