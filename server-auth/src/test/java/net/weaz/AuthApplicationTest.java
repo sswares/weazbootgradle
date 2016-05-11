@@ -62,7 +62,7 @@ public class AuthApplicationTest {
     }
 
     @Test
-    public void authorizationRedirects() {
+    public void authorize_redirectsToLogin() {
         ResponseEntity<String> response = template.getForEntity(basePath + "oauth/authorize", String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FOUND);
@@ -72,7 +72,7 @@ public class AuthApplicationTest {
     }
 
     @Test
-    public void loginSucceeds() {
+    public void login_whenGivenValidParameters_redirectsToRoot() {
         ResponseEntity<String> response = template.getForEntity(basePath + "login", String.class);
         String csrf = getCsrf(response.getBody());
 
