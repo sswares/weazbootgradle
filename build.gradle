@@ -32,7 +32,59 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.springframework.build.gradle:propdeps-plugin:${propdepsPluginVersion}")
         classpath("org.flywaydb:flyway-gradle-plugin:${flywayPluginVersion}")
+        classpath("com.moowork.gradle:gradle-node-plugin:${nodePluginVersion}")
+        classpath("com.moowork.gradle:gradle-grunt-plugin:${gruntPluginVersion}")
     }
+}
+
+apply plugin: 'com.moowork.node'
+apply plugin: 'com.moowork.grunt'
+
+node {
+    version = project.nodeVersion
+    npmVersion = project.npmVersion
+    distBaseUrl = 'https://nodejs.org/dist'
+    download = true
+    npmCommand = 'npm --no-color'
+
+    workDir = rootProject.file("./frontend/nodejs")
+    nodeModulesDir = rootProject.file("./frontend/")
+}
+
+task removeNodeModules(type: NpmTask, group: 'node') {
+    it.workingDir = rootProject.file("./frontend/")
+    args = ['run', 'removeNodeModules']
+}
+
+task superClean(group: 'build',
+        description: 'Performs build clean and also clears node_modules.',
+        dependsOn: ['clean', 'removeNodeModules'])
+
+grunt {
+    workDir = rootProject.file("./frontend/")
+    colors = false
+    bufferOutput = false
+}
+
+task gruntBuild(type: GruntTask,
+        group: 'grunt',
+        description: 'Runs the javascript build and generates resources.',
+        dependsOn: ['npmInstall']) {
+    args = ['build']
+}
+
+task gruntEnd2End(type: GruntTask,
+        group: 'grunt',
+        description: 'Runs end2end tests using Protractor and a headless browser.',
+        dependsOn: [':server-main:build', ':server-auth:build']) {
+    args = ['e2eBuild']
+}
+
+task javascriptUnitTest(type: GruntTask,
+        group: 'grunt',
+        description: 'Runs javascript unit tests using Karma and a headless browser.',
+        dependsOn: ['npmInstall']) {
+    args = ['unitTest']
 }
 
 subprojects {
@@ -116,6 +168,9 @@ subprojects {
     }
 
     compileJava.dependsOn processResources
+    check.finalizedBy javascriptUnitTest
+    check.finalizedBy gruntEnd2End
+    jar.dependsOn gruntBuild
 }
 
 allprojects {
@@ -123,7 +178,3 @@ allprojects {
         gradleVersion = '2.12'
     }
 }
-
-task superClean(group: 'build',
-        description: 'Performs build clean and also clears node_modules.',
-        dependsOn: ['clean', 'removeNodeModules'])

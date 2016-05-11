@@ -182,7 +182,7 @@ module.exports = function (grunt) {
                 ],
                 options: {
                     wait: false,
-                    ready: /Tomcat started on port\(s\): 9003 \(http\)/
+                    ready: /Tomcat started on port\(s\): 9002 \(http\)/
                 }
             },
             integration_proxy_server: {
