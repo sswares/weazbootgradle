@@ -69,7 +69,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: ['<%= globalConfig.mainPath %>**/*.js'],
-                tasks: ['browserify'],
+                tasks: ['browserify', 'copy'],
                 options: {
                     spawn: false,
                     debounceDelay: 100

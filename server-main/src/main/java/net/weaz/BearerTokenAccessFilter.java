@@ -50,24 +50,27 @@ public class BearerTokenAccessFilter extends GenericFilterBean {
                 && bearerTokenAuthentication.getPrincipal() != null) {
             bearerToken = String.valueOf(bearerTokenAuthentication.getPrincipal());
         }
+        OAuth2Authentication authentication = null;
 
         if (!isBlank(bearerToken)) {
             try {
                 OAuth2AccessToken accessToken = resourceServerTokenServices.readAccessToken(bearerToken);
 
                 clientContext.setAccessToken(resourceServerTokenServices.readAccessToken(bearerToken));
-                OAuth2Authentication authentication = resourceServerTokenServices.loadAuthentication(accessToken.getValue());
+                authentication = resourceServerTokenServices.loadAuthentication(accessToken.getValue());
 
                 if (authenticationDetailsSource != null) {
                     request.setAttribute(OAuth2AuthenticationDetails.ACCESS_TOKEN_VALUE, accessToken.getValue());
                     request.setAttribute(OAuth2AuthenticationDetails.ACCESS_TOKEN_TYPE, accessToken.getTokenType());
                     authentication.setDetails(authenticationDetailsSource.buildDetails(httpServletRequest));
                 }
-
-                SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (RuntimeException e) {
                 logger.warn("Exception thrown extracting access token from bearer token.  Continuing with chain.", e);
             }
+        }
+
+        if (authentication != null) {
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         chain.doFilter(request, response);

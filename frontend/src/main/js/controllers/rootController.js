@@ -14,7 +14,6 @@ module.exports = function ($scope, $rootScope, $http, $location) {
     });
 
     $scope.logout = function () {
-        console.log("gothere");
         $http.post('logout', {}).finally(function () {
             $rootScope.authenticated = false;
             $location.path("/");

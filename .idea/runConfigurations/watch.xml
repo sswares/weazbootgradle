@@ -8,7 +8,7 @@
     </tasks>
     <envs />
     <force value="false" />
-    <verbose value="false" />
+    <verbose value="true" />
     <method />
   </configuration>
 </component>
