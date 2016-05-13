@@ -1,5 +1,7 @@
 package net.weaz;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,12 +13,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.stereotype.Controller;
@@ -28,6 +34,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import java.security.KeyPair;
 import java.security.Principal;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @SpringBootApplication
 @Controller
@@ -35,13 +43,28 @@ import java.security.Principal;
 @EnableResourceServer
 public class AuthApplication extends WebMvcConfigurerAdapter {
 
+    private static Logger logger = LoggerFactory.getLogger(AuthApplication.class);
+
     public static void main(String[] args) {
         SpringApplication.run(AuthApplication.class, args);
     }
 
+    @Autowired
+    private AuthorizationServerTokenServices tokenServices;
+
     @RequestMapping("/user")
     @ResponseBody
-    public Principal user(Principal user) {
+    public Principal user(Principal user, OAuth2Authentication authentication) {
+        OAuth2AccessToken accessToken = tokenServices.getAccessToken(authentication);
+
+        if (accessToken != null && accessToken.getAdditionalInformation() != null) {
+            Map<String, Object> requestMap = accessToken.getAdditionalInformation();
+
+            for (Map.Entry<String, Object> mapEntry : requestMap.entrySet()) {
+                logger.warn("Map had this key: " + mapEntry.getKey() + " with this value: " + mapEntry.getValue());
+            }
+        }
+
         return user;
     }
 
@@ -63,7 +86,7 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
             http
                     .formLogin().loginPage("/login").permitAll()
                     .and()
-                    .requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
+                    .requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/beans")
                     .and()
                     .authorizeRequests().anyRequest().authenticated();
         }
@@ -84,7 +107,7 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
 
         @Bean
         public JwtAccessTokenConverter jwtAccessTokenConverter() {
-            JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+            JwtAccessTokenConverter converter = new EnhancedJwtAccessTokenConverter();
             KeyPair keyPair = new KeyStoreKeyFactory(
                     new ClassPathResource("keystore.jks"), "foobar".toCharArray())
                     .getKeyPair("test");
@@ -114,6 +137,21 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
                 throws Exception {
             oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess(
                     "isAuthenticated()");
+        }
+
+        private static class EnhancedJwtAccessTokenConverter extends JwtAccessTokenConverter {
+
+            @Override
+            public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+                DefaultOAuth2AccessToken customAccessToken = new DefaultOAuth2AccessToken(accessToken);
+
+                Map<String, Object> info = new LinkedHashMap<>(accessToken.getAdditionalInformation());
+
+                info.put("something", "something else!");
+
+                customAccessToken.setAdditionalInformation(info);
+                return super.enhance(customAccessToken, authentication);
+            }
         }
     }
 }
