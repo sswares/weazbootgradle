@@ -56,10 +56,6 @@ task removeNodeModules(type: NpmTask, group: 'node') {
     args = ['run', 'removeNodeModules']
 }
 
-task superClean(group: 'build',
-        description: 'Performs build clean and also clears node_modules.',
-        dependsOn: ['clean', 'removeNodeModules'])
-
 grunt {
     workDir = rootProject.file("./frontend/")
     colors = false
@@ -92,7 +88,7 @@ subprojects {
     apply plugin: 'propdeps'
     apply plugin: 'propdeps-maven'
     apply plugin: 'propdeps-idea'
-    apply plugin: "java"
+    apply plugin: 'java'
     apply plugin: 'checkstyle'
     apply plugin: 'org.flywaydb.flyway'
     apply plugin: 'maven-publish'
@@ -118,6 +114,10 @@ subprojects {
         maven { url "https://repo.spring.io/libs-release" }
         maven { url "https://repo.spring.io/libs-milestone" }
         maven { url "https://repo.spring.io/libs-snapshot" }
+    }
+
+    springBoot {
+        executable = true
     }
 
     test {

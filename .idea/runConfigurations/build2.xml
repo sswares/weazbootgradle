@@ -6,8 +6,6 @@
       <task value="build" />
     </tasks>
     <envs />
-    <force value="false" />
-    <verbose value="false" />
     <method />
   </configuration>
 </component>

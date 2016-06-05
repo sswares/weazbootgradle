@@ -6,8 +6,8 @@
       <task value="build" />
       <task value="watch" />
     </tasks>
+    <arguments value="--verbose" />
     <envs />
-    <force value="false" />
     <verbose value="true" />
     <method />
   </configuration>
