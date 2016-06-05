@@ -10,7 +10,7 @@ describe("RootController", function () {
     beforeEach(inject(function ($injector) {
         $http = $injector.get('$http');
         $httpBackend = $injector.get('$httpBackend');
-
+        
         subject($scope, $rootScope, $http);
     }));
 
