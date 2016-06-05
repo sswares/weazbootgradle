@@ -18,7 +18,7 @@
   },
   "scripts": {
     "removeNodeModules": "rimraf node_modules || true",
-    "postinstall": "webdriver-manager update"
+    "postinstall": "webdriver-manager update && typings install"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.5",
@@ -51,6 +51,7 @@
     "protractor-jasmine2-html-reporter": "0.0.6",
     "protractor-screenshot-reporter": "0.0.5",
     "rimraf": "^2.5.2",
+    "typings": "^1.0.4",
     "watchify": "^3.7.0"
   },
   "license": "MIT",
