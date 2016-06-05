@@ -10,8 +10,6 @@ node {
 
     stage 'Build'
 
-    env.NODE_ENV = "production"
-
     if(isUnix()) {
         sh './gradlew clean check --console=plain --no-daemon --info --stacktrace'
     } else{
