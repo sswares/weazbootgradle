@@ -1,0 +1,12 @@
+{
+  "name": "weazbootgradle",
+  "dependencies": {},
+  "globalDependencies": {
+    "angular": "registry:dt/angular#1.5.0+20160602160139",
+    "angular-protractor": "registry:dt/angular-protractor#1.5.0+20160425143459",
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "gruntjs": "registry:dt/gruntjs#0.4.0+20160602153508",
+    "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
+    "karma-jasmine": "registry:dt/karma-jasmine#0.0.0+20160316155526"
+  }
+}

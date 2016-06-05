@@ -1,5 +1,6 @@
 frontend/node_modules
 frontend/nodejs
+frontend/typings
 server-main/src/main/resources/static
 .gradle
 .idea/workspace.xml
