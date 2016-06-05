@@ -1,5 +1,6 @@
 #Weazboot Gradle Edition
 Travis: [![Build Status](https://travis-ci.org/themadweaz/weazbootgradle.svg?branch=master)](https://travis-ci.org/themadweaz/weazbootgradle)
+
 Jenkins: [![Build Status](http://jenkins.weaz.net/buildStatus/icon?job=weazboot)](http://jenkins.weaz.net/job/weazboot/)
 ###Introduction
 **Weazboot Gradle** is a starter **Intellij** project designed for easily bootstrapping
