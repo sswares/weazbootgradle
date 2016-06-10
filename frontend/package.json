@@ -7,7 +7,6 @@
   },
   "scripts": {
     "removeNodeModules": "rimraf node_modules || true",
-    "removeBowerComponents": "rimraf bower_components || true",
     "postinstall": "webdriver-manager update && typings install"
   },
   "dependencies": {
