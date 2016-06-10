@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "security.saml.protocol",
+      "type": "java.lang.String",
+      "description": "http or https"
+    },
+    {
+      "name": "security.saml.host-name",
+      "type": "java.lang.String",
+      "description": "Hostname for proxyed requests."
+    },
+    {
+      "name": "security.saml.base-path",
+      "type": "java.lang.String",
+      "description": "Description for security.saml.base-path."
+    }
+  ]
+}

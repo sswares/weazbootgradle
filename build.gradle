@@ -10,6 +10,7 @@ buildscript {
 
         nodeVersion = '4.4.2'
         npmVersion = '3.8.5'
+        springSamlVersion = '1.0.2.RELEASE'
         wro4jVersion = '1.7.4'
         assertjVersion = '3.4.1'
         logbackVersion = '1.1.7'
@@ -103,6 +104,7 @@ subprojects {
             dependency("ch.qos.logback:logback-core:${logbackVersion}")
             dependency("ch.qos.logback:logback-classic:${logbackVersion}")
             dependency("org.assertj:assertj-core:${assertjVersion}")
+            dependency("org.springframework.security.extensions:spring-security-saml2-core:${springSamlVersion}")
         }
     }
 

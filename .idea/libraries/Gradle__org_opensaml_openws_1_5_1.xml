@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.opensaml:openws:1.5.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.opensaml/openws/1.5.1/5e9b1075c477871f78983d1c24eb3dacf6b2aa65/openws-1.5.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.opensaml/openws/1.5.1/3dbe13d6ee66402176ba31fcdb72bedb4865d0eb/openws-1.5.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

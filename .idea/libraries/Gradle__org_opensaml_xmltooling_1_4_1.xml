@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.opensaml:xmltooling:1.4.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.opensaml/xmltooling/1.4.1/aa39174a71035bdd28b3a3c890cac86b705c4980/xmltooling-1.4.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.opensaml/xmltooling/1.4.1/bf38f18b329a5bf4e54a3bab3b625cd68d29a0ba/xmltooling-1.4.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
