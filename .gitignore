@@ -7,3 +7,4 @@ server-main/src/main/resources/static
 build
 phantomjsdriver.log
 npm-debug.log
+.DS_Store
