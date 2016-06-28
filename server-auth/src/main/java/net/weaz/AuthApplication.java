@@ -31,12 +31,17 @@ import org.springframework.security.saml.SAMLDiscovery;
 import org.springframework.security.saml.SAMLEntryPoint;
 import org.springframework.security.saml.SAMLProcessingFilter;
 import org.springframework.security.saml.context.SAMLContextProvider;
+import org.springframework.security.saml.key.KeyManager;
 import org.springframework.security.saml.metadata.CachingMetadataManager;
+import org.springframework.security.saml.metadata.ExtendedMetadata;
 import org.springframework.security.saml.metadata.MetadataDisplayFilter;
+import org.springframework.security.saml.metadata.MetadataGenerator;
+import org.springframework.security.saml.metadata.MetadataGeneratorFilter;
 import org.springframework.security.saml.processor.SAMLProcessor;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -116,6 +121,12 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
         @Autowired
         private CachingMetadataManager cachingMetadataManager;
 
+        @Autowired
+        private KeyManager keyManager;
+
+        @Autowired
+        private ExtendedMetadata extendedMetadata;
+
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
@@ -127,6 +138,7 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
                     .and()
                     .csrf().ignoringAntMatchers("/saml/sso")
                     .and()
+                    .addFilterBefore(metadataGeneratorFilter(samlEntryPoint, extendedMetadata), ChannelProcessingFilter.class)
                     .addFilterAfter(new SAMLBearerAssertionFilter(samlProcessingFilter), UsernamePasswordAuthenticationFilter.class)
                     .addFilterAfter(samlFilter(samlEntryPoint, contextProvider), BasicAuthenticationFilter.class)
                     .authenticationProvider(samlAuthenticationProvider)
@@ -136,6 +148,21 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth.parentAuthenticationManager(authenticationManager);
+        }
+
+        private MetadataGeneratorFilter metadataGeneratorFilter(SAMLEntryPoint samlEntryPoint, ExtendedMetadata extendedMetadata) {
+            MetadataGenerator metadataGenerator = new MetadataGenerator();
+
+            metadataGenerator.setSamlEntryPoint(samlEntryPoint);
+            metadataGenerator.setEntityBaseURL("figutethisout");
+            metadataGenerator.setKeyManager(keyManager);
+            metadataGenerator.setEntityId("12345");
+            metadataGenerator.setIncludeDiscoveryExtension(false);
+            metadataGenerator.setExtendedMetadata(extendedMetadata);
+
+            MetadataGeneratorFilter metadataGeneratorFilter = new MetadataGeneratorFilter(metadataGenerator);
+            metadataGeneratorFilter.setManager(cachingMetadataManager);
+            return metadataGeneratorFilter;
         }
 
         private FilterChainProxy samlFilter(SAMLEntryPoint samlEntryPoint, SAMLContextProvider contextProvider) {

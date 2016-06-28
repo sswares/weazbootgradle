@@ -1,6 +1,8 @@
 package net.weaz.security;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.opensaml.PaosBootstrap;
 import org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider;
 import org.opensaml.saml2.metadata.provider.HTTPMetadataProvider;
@@ -47,7 +49,9 @@ import org.springframework.security.saml.websso.WebSSOProfileConsumerHoKImpl;
 import org.springframework.security.saml.websso.WebSSOProfileConsumerImpl;
 import org.springframework.security.saml.websso.WebSSOProfileImpl;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -132,18 +136,14 @@ public class SAMLConfiguration {
         manager.registerFactory(SAMLConstants.SAML_METADATA_KEY_INFO_GENERATOR, generator);
 
         Map<String, String> passwords = new HashMap<>();
-        passwords.put("something", "test");
+        passwords.put("foobar", "test");
 
-        return new JKSKeyManager(new ClassPathResource("keystore.jks"), "foobar", passwords, "something");
+        return new JKSKeyManager(new ClassPathResource("keystore.jks"), "foobar", passwords, "foobar");
     }
 
     @Bean
     public ExtendedMetadataDelegate extendedMetadataDelegate(SAMLSecurityConfigurationProperties samlSecurityConfigurationProperties,
-                                                             StaticBasicParserPool parserPool) {
-        ExtendedMetadata extendedMetadata = new ExtendedMetadata();
-        extendedMetadata.setIdpDiscoveryEnabled(true);
-        extendedMetadata.setSignMetadata(true);
-
+                                                             StaticBasicParserPool parserPool, ExtendedMetadata extendedMetadata) {
         MetadataProvider result;
         Resource metadataResource = samlSecurityConfigurationProperties.getMetadataResource();
 
@@ -157,7 +157,16 @@ public class SAMLConfiguration {
             }
         } else {
             try {
-                FilesystemMetadataProvider filesystemMetadataProvider = new FilesystemMetadataProvider(metadataResource.getFile());
+                InputStream inputStream = metadataResource.getInputStream();
+                File metadataFile = File.createTempFile("metadata", ".xml");
+
+                try {
+                    FileUtils.copyInputStreamToFile(inputStream, metadataFile);
+                } finally {
+                    IOUtils.closeQuietly(inputStream);
+                }
+
+                FilesystemMetadataProvider filesystemMetadataProvider = new FilesystemMetadataProvider(metadataFile);
                 filesystemMetadataProvider.setParserPool(parserPool);
                 result = filesystemMetadataProvider;
             } catch (IOException | MetadataProviderException e) {
@@ -169,6 +178,14 @@ public class SAMLConfiguration {
         extendedMetadataDelegate.setMetadataTrustCheck(false);
         extendedMetadataDelegate.setMetadataRequireSignature(false);
         return extendedMetadataDelegate;
+    }
+
+    @Bean
+    public ExtendedMetadata extendedMetadata() {
+        ExtendedMetadata extendedMetadata = new ExtendedMetadata();
+        extendedMetadata.setIdpDiscoveryEnabled(true);
+        extendedMetadata.setSignMetadata(true);
+        return extendedMetadata;
     }
 
     @Bean
