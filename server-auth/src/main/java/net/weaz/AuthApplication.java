@@ -170,8 +170,7 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
         @Bean
         public JwtAccessTokenConverter jwtAccessTokenConverter() {
             JwtAccessTokenConverter converter = new EnhancedJwtAccessTokenConverter();
-            KeyPair keyPair = new KeyStoreKeyFactory(
-                    new ClassPathResource("keystore.jks"), "foobar".toCharArray())
+            KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("keystore.jks"), "foobar".toCharArray())
                     .getKeyPair("test");
             converter.setKeyPair(keyPair);
             return converter;
@@ -190,15 +189,13 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints)
                 throws Exception {
-            endpoints.authenticationManager(authenticationManager).accessTokenConverter(
-                    jwtAccessTokenConverter());
+            endpoints.authenticationManager(authenticationManager).accessTokenConverter(jwtAccessTokenConverter());
         }
 
         @Override
         public void configure(AuthorizationServerSecurityConfigurer oauthServer)
                 throws Exception {
-            oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess(
-                    "isAuthenticated()");
+            oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
         }
 
         private static class EnhancedJwtAccessTokenConverter extends JwtAccessTokenConverter {
