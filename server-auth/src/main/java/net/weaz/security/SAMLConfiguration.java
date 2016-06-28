@@ -1,14 +1,17 @@
 package net.weaz.security;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.opensaml.PaosBootstrap;
 import org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider;
 import org.opensaml.saml2.metadata.provider.HTTPMetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
-import org.opensaml.xml.parse.ParserPool;
+import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.parse.StaticBasicParserPool;
 import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.security.keyinfo.NamedKeyInfoGeneratorManager;
 import org.opensaml.xml.security.x509.PKIXTrustEvaluator;
+import org.opensaml.xml.security.x509.X509KeyInfoGeneratorFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -16,6 +19,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.saml.SAMLAuthenticationProvider;
+import org.springframework.security.saml.SAMLConstants;
 import org.springframework.security.saml.SAMLEntryPoint;
 import org.springframework.security.saml.SAMLProcessingFilter;
 import org.springframework.security.saml.context.SAMLContextProvider;
@@ -43,7 +47,6 @@ import org.springframework.security.saml.websso.WebSSOProfileConsumerHoKImpl;
 import org.springframework.security.saml.websso.WebSSOProfileConsumerImpl;
 import org.springframework.security.saml.websso.WebSSOProfileImpl;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,40 +61,6 @@ public class SAMLConfiguration {
     @Bean
     public SAMLLogger samlLogger() {
         return new SAMLDefaultLogger();
-    }
-
-    private MetadataProvider metadataProvider(SAMLSecurityConfigurationProperties samlSecurityConfigurationProperties,
-                                              StaticBasicParserPool parserPool) {
-        Resource metadataResource = samlSecurityConfigurationProperties.getMetadataResource();
-        if (metadataResource.toString().startsWith("http")) {
-            try {
-                HTTPMetadataProvider httpMetadataProvider = new HTTPMetadataProvider(new Timer(), new HttpClient(), metadataResource.toString());
-                httpMetadataProvider.setParserPool(parserPool);
-                return httpMetadataProvider;
-            } catch (MetadataProviderException e) {
-                e.printStackTrace();
-                return null;
-            }
-        } else {
-            File samlMetadata = null;
-            try {
-                samlMetadata = metadataResource.getFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            FilesystemMetadataProvider filesystemMetadataProvider = null;
-            try {
-                filesystemMetadataProvider = new FilesystemMetadataProvider(samlMetadata);
-            } catch (MetadataProviderException e) {
-                e.printStackTrace();
-            }
-            if (filesystemMetadataProvider != null) {
-                filesystemMetadataProvider.setParserPool(parserPool);
-            }
-
-            return filesystemMetadataProvider;
-        }
     }
 
     @Bean
@@ -121,17 +90,9 @@ public class SAMLConfiguration {
     @Bean
     public SAMLProcessor samlProcessor(StaticBasicParserPool parserPool) {
         Collection<SAMLBinding> bindings = new ArrayList<>();
-        bindings.add(httpRedirectDeflateBinding(parserPool));
-        bindings.add(httpPostBinding(parserPool));
+        bindings.add(new HTTPRedirectDeflateBinding(parserPool));
+        bindings.add(new HTTPPostBinding(parserPool, VelocityFactory.getEngine()));
         return new SAMLProcessorImpl(bindings);
-    }
-
-    private HTTPPostBinding httpPostBinding(ParserPool parserPool) {
-        return new HTTPPostBinding(parserPool, VelocityFactory.getEngine());
-    }
-
-    private HTTPRedirectDeflateBinding httpRedirectDeflateBinding(ParserPool parserPool) {
-        return new HTTPRedirectDeflateBinding(parserPool);
     }
 
     @Bean
@@ -158,42 +119,70 @@ public class SAMLConfiguration {
 
     @Bean
     public KeyManager keyManager() {
+        try {
+            PaosBootstrap.bootstrap();
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+        }
+
+        NamedKeyInfoGeneratorManager manager = org.opensaml.xml.Configuration.getGlobalSecurityConfiguration().getKeyInfoGeneratorManager();
+        X509KeyInfoGeneratorFactory generator = new X509KeyInfoGeneratorFactory();
+        generator.setEmitEntityCertificate(true);
+        generator.setEmitEntityCertificateChain(true);
+        manager.registerFactory(SAMLConstants.SAML_METADATA_KEY_INFO_GENERATOR, generator);
+
         Map<String, String> passwords = new HashMap<>();
         passwords.put("something", "test");
+
         return new JKSKeyManager(new ClassPathResource("keystore.jks"), "foobar", passwords, "something");
     }
 
     @Bean
     public ExtendedMetadataDelegate extendedMetadataDelegate(SAMLSecurityConfigurationProperties samlSecurityConfigurationProperties,
                                                              StaticBasicParserPool parserPool) {
-        ExtendedMetadataDelegate extendedMetadataDelegate = new ExtendedMetadataDelegate(metadataProvider(samlSecurityConfigurationProperties, parserPool), extendedMetadata());
+        ExtendedMetadata extendedMetadata = new ExtendedMetadata();
+        extendedMetadata.setIdpDiscoveryEnabled(true);
+        extendedMetadata.setSignMetadata(true);
+
+        MetadataProvider result;
+        Resource metadataResource = samlSecurityConfigurationProperties.getMetadataResource();
+
+        if (metadataResource.toString().startsWith("http")) {
+            try {
+                HTTPMetadataProvider httpMetadataProvider = new HTTPMetadataProvider(new Timer(), new HttpClient(), metadataResource.toString());
+                httpMetadataProvider.setParserPool(parserPool);
+                result = httpMetadataProvider;
+            } catch (MetadataProviderException e) {
+                throw new RuntimeException("Exception thrown creating httpMetadataProvider", e);
+            }
+        } else {
+            try {
+                FilesystemMetadataProvider filesystemMetadataProvider = new FilesystemMetadataProvider(metadataResource.getFile());
+                filesystemMetadataProvider.setParserPool(parserPool);
+                result = filesystemMetadataProvider;
+            } catch (IOException | MetadataProviderException e) {
+                throw new RuntimeException("Exception thrown creating filesystemMetadataProvider", e);
+            }
+        }
+
+        ExtendedMetadataDelegate extendedMetadataDelegate = new ExtendedMetadataDelegate(result, extendedMetadata);
         extendedMetadataDelegate.setMetadataTrustCheck(false);
         extendedMetadataDelegate.setMetadataRequireSignature(false);
         return extendedMetadataDelegate;
     }
 
-    private ExtendedMetadata extendedMetadata() {
-        ExtendedMetadata extendedMetadata = new ExtendedMetadata();
-        extendedMetadata.setIdpDiscoveryEnabled(true);
-        extendedMetadata.setSignMetadata(true);
-        return extendedMetadata;
-    }
-
     @Bean
     public CachingMetadataManager cachingMetadataManager(ExtendedMetadataDelegate extendedMetadataDelegate,
                                                          KeyManager keyManager) {
-        List<MetadataProvider> providers = new ArrayList<>();
-        providers.add(extendedMetadataDelegate);
-
-        CachingMetadataManager cachingMetadataManager = null;
         try {
-            cachingMetadataManager = new CachingMetadataManager(providers);
+            List<MetadataProvider> providers = new ArrayList<>();
+            providers.add(extendedMetadataDelegate);
+            CachingMetadataManager cachingMetadataManager = new CachingMetadataManager(providers);
+            cachingMetadataManager.setKeyManager(keyManager);
+            return cachingMetadataManager;
         } catch (MetadataProviderException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Exception thrown creating cachingMetadataManager", e);
         }
-
-        cachingMetadataManager.setKeyManager(keyManager);
-        return cachingMetadataManager;
     }
 
     @Bean
@@ -212,7 +201,8 @@ public class SAMLConfiguration {
     }
 
     @Bean
-    public SAMLAuthenticationProvider samlAuthenticationProvider(SAMLLogger samlLogger, WebSSOProfileConsumer webSSOprofileConsumer) {
+    public SAMLAuthenticationProvider samlAuthenticationProvider(SAMLLogger samlLogger,
+                                                                 WebSSOProfileConsumer webSSOprofileConsumer) {
         SAMLAuthenticationProvider samlAuthenticationProvider = new SAMLAuthenticationProvider();
         samlAuthenticationProvider.setForcePrincipalAsString(false);
         samlAuthenticationProvider.setSamlLogger(samlLogger);
@@ -222,12 +212,12 @@ public class SAMLConfiguration {
 
     @Bean
     public StaticBasicParserPool staticBasicParserPool() {
-        StaticBasicParserPool parserPool = new StaticBasicParserPool();
         try {
+            StaticBasicParserPool parserPool = new StaticBasicParserPool();
             parserPool.initialize();
+            return parserPool;
         } catch (XMLParserException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Exception thrown initializing staticBasicParserPool", e);
         }
-        return parserPool;
     }
 }

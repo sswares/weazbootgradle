@@ -2,6 +2,7 @@
   <dictionary name="Walker">
     <words>
       <w>browserify</w>
+      <w>saml</w>
     </words>
   </dictionary>
 </component>

@@ -1,5 +1,6 @@
 package net.weaz;
 
+import net.weaz.test.support.categories.IntegrationTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +26,9 @@ import java.util.regex.Pattern;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AuthApplication.class)
+@SpringApplicationConfiguration(AuthApplication.class)
 @WebIntegrationTest(randomPort = true)
-@Category(net.weaz.test.support.categories.IntegrationTest.class)
+@Category(IntegrationTest.class)
 public class AuthApplicationTest {
 
     @Value("${local.server.port}")

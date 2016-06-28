@@ -1,10 +1,6 @@
 package net.weaz;
 
 import net.weaz.security.SAMLBearerAssertionFilter;
-import org.opensaml.PaosBootstrap;
-import org.opensaml.xml.ConfigurationException;
-import org.opensaml.xml.security.keyinfo.NamedKeyInfoGeneratorManager;
-import org.opensaml.xml.security.x509.X509KeyInfoGeneratorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +27,6 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.saml.SAMLAuthenticationProvider;
-import org.springframework.security.saml.SAMLConstants;
 import org.springframework.security.saml.SAMLDiscovery;
 import org.springframework.security.saml.SAMLEntryPoint;
 import org.springframework.security.saml.SAMLProcessingFilter;
@@ -66,22 +61,11 @@ import java.util.Map;
 public class AuthApplication extends WebMvcConfigurerAdapter {
 
     private static Logger logger = LoggerFactory.getLogger(AuthApplication.class);
+
     @Autowired
     private AuthorizationServerTokenServices tokenServices;
 
     public static void main(String[] args) {
-        try {
-            PaosBootstrap.bootstrap();
-        } catch (ConfigurationException e) {
-            e.printStackTrace();
-        }
-
-        NamedKeyInfoGeneratorManager manager = org.opensaml.xml.Configuration.getGlobalSecurityConfiguration().getKeyInfoGeneratorManager();
-        X509KeyInfoGeneratorFactory generator = new X509KeyInfoGeneratorFactory();
-        generator.setEmitEntityCertificate(true);
-        generator.setEmitEntityCertificateChain(true);
-        manager.registerFactory(SAMLConstants.SAML_METADATA_KEY_INFO_GENERATOR, generator);
-
         SpringApplication.run(AuthApplication.class, args);
     }
 
@@ -149,36 +133,29 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
             ;
         }
 
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.parentAuthenticationManager(authenticationManager);
+        }
+
         private FilterChainProxy samlFilter(SAMLEntryPoint samlEntryPoint, SAMLContextProvider contextProvider) {
             List<SecurityFilterChain> chains = new ArrayList<>();
             chains.add(new DefaultSecurityFilterChain(new AntPathRequestMatcher("/saml/login/**"), samlEntryPoint));
             chains.add(new DefaultSecurityFilterChain(new AntPathRequestMatcher("/saml/metadata/**"), new MetadataDisplayFilter()));
-            try {
-                chains.add(new DefaultSecurityFilterChain(new AntPathRequestMatcher("/saml/SSO/**"),
-                        samlWebSSOProcessingFilter(contextProvider, samlProcessor)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+            SAMLProcessingFilter samlProcessingFilter = new SAMLProcessingFilter();
+            samlProcessingFilter.setAuthenticationManager(authenticationManager);
+            samlProcessingFilter.setContextProvider(contextProvider);
+            samlProcessingFilter.setSAMLProcessor(samlProcessor);
+
+            chains.add(new DefaultSecurityFilterChain(new AntPathRequestMatcher("/saml/SSO/**"), samlProcessingFilter));
+
             SAMLDiscovery samlDiscovery = new SAMLDiscovery();
             samlDiscovery.setMetadata(cachingMetadataManager);
             samlDiscovery.setContextProvider(contextProvider);
+
             chains.add(new DefaultSecurityFilterChain(new AntPathRequestMatcher("/saml/discovery/**"), samlDiscovery));
             return new FilterChainProxy(chains);
-        }
-
-        private SAMLProcessingFilter samlWebSSOProcessingFilter(SAMLContextProvider contextProvider,
-                                                                SAMLProcessor samlProcessor) throws Exception {
-
-            SAMLProcessingFilter samlWebSSOProcessingFilter = new SAMLProcessingFilter();
-            samlWebSSOProcessingFilter.setAuthenticationManager(authenticationManager);
-            samlWebSSOProcessingFilter.setContextProvider(contextProvider);
-            samlWebSSOProcessingFilter.setSAMLProcessor(samlProcessor);
-            return samlWebSSOProcessingFilter;
-        }
-
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.parentAuthenticationManager(authenticationManager);
         }
     }
 
