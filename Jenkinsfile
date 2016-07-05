@@ -13,6 +13,6 @@ node {
     if(isUnix()) {
         sh './gradlew clean check --console=plain --no-daemon --info --stacktrace'
     } else{
-        bat './gradle clean check --console=plain --no-daemon --info --stacktrace'
+        bat 'gradlew clean check --console=plain --no-daemon --info --stacktrace'
     }
 }
