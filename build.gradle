@@ -198,7 +198,7 @@ subprojects {
     compileJava.dependsOn processResources
     npmInstall.finalizedBy checkForNPMDependencyUpdates
     check.dependsOn dependencyUpdates
-    check.finalizedBy javascriptUnitTest
+    check.dependsOn javascriptUnitTest
     check.finalizedBy gruntEnd2End
     jar.dependsOn gruntBuild
 }
