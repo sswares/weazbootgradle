@@ -12,7 +12,8 @@ exports.config = {
     seleniumPort: 4444,
     seleniumArgs: ['-browserTimeout=60'],
 
-    troubleshoot: false,
+    troubleshoot: true,
+    directConnect: false,
 
     capabilities: {
         'browserName': 'phantomjs',

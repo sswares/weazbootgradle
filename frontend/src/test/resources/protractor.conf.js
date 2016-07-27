@@ -13,6 +13,7 @@ exports.config = {
     seleniumArgs: ['-browserTimeout=60'],
 
     troubleshoot: false,
+    directConnect: false,
 
     capabilities: {
         'browserName': 'chrome',
