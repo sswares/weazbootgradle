@@ -69,7 +69,9 @@ task removeNodeModules(
 
 task checkForNPMDependencyUpdates(
         type: NpmTask,
-        group: 'node') {
+        group: 'node',
+        description: 'Checks for new npm dependencies.',
+        dependsOn: ['npmInstall']) {
     it.workingDir = rootProject.file("./frontend/")
     args = ['run', 'checkForNPMDependencyUpdates']
 }
@@ -194,7 +196,7 @@ subprojects {
     }
 
     compileJava.dependsOn processResources
-    npmSetup.finalizedBy checkForNPMDependencyUpdates
+    npmInstall.finalizedBy checkForNPMDependencyUpdates
     check.dependsOn dependencyUpdates
     check.finalizedBy javascriptUnitTest
     check.finalizedBy gruntEnd2End
