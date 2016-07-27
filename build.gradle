@@ -11,8 +11,8 @@ buildscript {
         springSecurityJwtVersion = '1.0.5.RELEASE'
         springSecurityTestVersion = '4.1.1.RELEASE'
 
-        nodeVersion = '4.4.2'
-        npmVersion = '3.8.5'
+        nodeVersion = '6.3.1'
+        npmVersion = '3.10.6'
         wro4jVersion = '1.7.4'
         assertjVersion = '3.5.2'
         logbackVersion = '1.1.7'
@@ -196,7 +196,6 @@ subprojects {
     }
 
     compileJava.dependsOn processResources
-    npmInstall.finalizedBy checkForNPMDependencyUpdates
     check.dependsOn dependencyUpdates
     check.finalizedBy javascriptUnitTest
     check.finalizedBy gruntEnd2End
