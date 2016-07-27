@@ -19,7 +19,6 @@ module.exports = function (grunt) {
         testResourcePath: testPath + 'resources/'
     };
 
-
     var execSync = require('child_process').execSync;
     var stdout;
 
