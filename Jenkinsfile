@@ -2,8 +2,6 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 node {
-    blockOnDownstreamProjects()
-
     stage 'Clean Workspace'
     deleteDir()
 
