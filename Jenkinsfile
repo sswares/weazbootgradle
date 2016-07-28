@@ -1,21 +1,25 @@
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node {
-    stage 'Clean Workspace'
-    deleteDir()
+try {
+    node {
+        stage 'Clean Workspace'
+        deleteDir()
 
-    stage 'Checkout'
-    checkout scm
+        stage 'Checkout'
+        checkout scm
 
-    stage 'Build'
+        stage 'Build'
 
-    if (isUnix()) {
-        sh './gradlew clean check --console=plain --no-daemon --info --stacktrace'
-    } else {
-        bat 'gradlew clean check --console=plain --no-daemon --info --stacktrace'
+        if (isUnix()) {
+            sh './gradlew clean check --console=plain --no-daemon --info --stacktrace'
+        } else {
+            bat 'gradlew clean check --console=plain --no-daemon --info --stacktrace'
+        }
+
+        step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/**/*.xml', allowEmptyResults: true])
+        step([$class: 'ArtifactArchiver', artifacts: '**/build/lib/*.jar', fingerprint: true])
     }
-
-    step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/**/*.xml', allowEmptyResults: true])
-    step([$class: 'ArtifactArchiver', artifacts: '**/build/lib/*.jar', fingerprint: true])
+} catch (Exception e) {
+    throw e
 }
