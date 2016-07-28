@@ -22,11 +22,9 @@ on windows/mac/linux, change the project name to whatever it is you need to work
  be able to run on ci, dev, and prod without changing anything about the build.  That's the plan, at least.
  
 ####Why?
-Bootstrapping apps takes time, and you generally cut corners to get it working quickly.  Having done this **n+1**
-times already, it makes sense to try to abstract is.  Moreover, building good test suites is hard and integrating
-them into the build lifecycle is even more difficult.  I'm pretty good at it, so this is my shot at doing it on this stack
-for the last time.  I also want to be able to utilize the tools in my IDE, so all tools should be configured
-so that they can be run using standalone ide tools.  That is important.
+Bootstrapping apps takes time, and you generally cut corners to get it working quickly.  Having done this **n+1** times already, it makes sense to try to abstract is.  Moreover,
+ building good test suites is hard and integrating them into the build lifecycle is even more difficult.  I'm pretty good at it, so this is my shot at doing it on this stack for
+  the last time.  I also want to be able to utilize the tools in my IDE, so all tools should be configured so that they can be run using standalone ide tools.  That is important.
 
 --
 ###Setup
@@ -38,35 +36,42 @@ git clone https://github.com/themadweaz/weazbootgradle.git
 ###Tooling
 ####Java
 #####Spring Boot
-The project comes with a pretty sane **[Spring Boot](http://projects.spring.io/spring-boot/)** gradle setup.  It has a lot of _spring-boot-starters_ included
+The project comes with a pretty sane **[Spring Boot](http://projects.spring.io/spring-boot/)** gradle setup.  It has some default _spring-boot-starters_ included
 and already has an _index.html_ configured with _app.js_ built from the attached **[AngularJS](https://angularjs.org/)** sources.
 
-#####Spring Security (Oauth2)
-Instead of the default basic auth setup, this project comes with a pre-configured Oauth2 implementation.  
+#####Spring Security (OAuth2)
+Instead of the default basic auth setup, this project comes with a pre-configured **[OAuth2](http://oauth.net/2/)** implementation.  
 It follows the example by Dave Syer from [this github](https://github.com/spring-guides/tut-spring-boot-oauth2) with lots of modifications.
 The default username/password is: `user/password`
 
 #####Testing
-The build has some additional testing tasks for designed launching **[jUnit](http://junit.org)** category annotated test suites.  
+The build has some additional testing tasks for designed launching **[jUnit](http://junit.org)** category annotated test suites.
+
+#####Devtools
+Pre-configured with **[Spring Developer Tools](http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html)** for hot-swapping classes and resources.
 
 #####Checkstyle
 The build runs **[Checkstyle](http://checkstyle.sourceforge.net/)** on the code base as part of the build lifecycle.  It is pre-configured with a modified version
 of [Google's checkstyle configuration](https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml).  The **[Intellij IDE](https://www.jetbrains.com/idea/)** project is configured to be able to run this checkstyle variant
-from the Checkstyle **[Intellij IDE](https://www.jetbrains.com/idea/)** plugin.  The project contains a Code Style xml configuration that matches the style rules
-in the checkstyle configurations.  Can be easily modified as needed.
+from the Checkstyle **[Intellij IDE](https://www.jetbrains.com/idea/)** plugin.  The project contains a Code Style XML configuration that matches the style rules in the 
+checkstyle configurations.  Can be easily modified as needed.
 
 --
 ####Javascript
 #####Node / NPM Install
-Using a few **[Gradle](https://gradle.org/)** plugins, the first ```./gradlew build``` run will install **node.js** and pull down
-any **npm** dependencies defined in _Package.json_.  If you already have **node** installed, it will use that.
+Using a few **[Gradle](https://gradle.org/)** plugins, the first ```./gradlew build``` run will install **[Node.js](https://nodejs.org)** and pull down
+any **[npm](https://www.npmjs.com/)** dependencies defined in _Package.json_.  If you already have **[Node.js](https://nodejs.org)** installed, it will use your local version.
+
+#####Grunt
+Asset generation with **[Grunt](http://gruntjs.com/)**.  Very opinionated about how the project is setup, but should be easily reconfigured if you choose a different set of 
+frontend tools.
 
 #####Testing
 The sample project comes pre-configured with test suites for most types of angular testing:
-* Javascript unit test suite powered by **[Karma](https://karma-runner.github.io)** using **[PhantomJS](http://phantomjs.org/)**, which can be run through
- Intellij's Karma plugin as well.
+* Javascript unit test suite powered by **[Karma](https://karma-runner.github.io)** using **[PhantomJS](http://phantomjs.org/)**.  
 * **[Protractor.js](http://www.protractortest.org)** end-to-end test suite for running integration type tests.  When run through **[Grunt](http://gruntjs.com/)** 
-(or **[Gradle](https://gradle.org/)**),stands up the spring boot jars and runs tests against that app.  When run through an IDE, can run against an app you stand up via a pre-configured run configuration.
+(or **[Gradle](https://gradle.org/)**), it stands up the **[Spring Boot](http://projects.spring.io/spring-boot/)** jar files to run tests against.  When run via IDE run 
+configurations, can be run against applications currently running in regular or debug mode for extra flexability.
 
 
 --
