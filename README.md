@@ -6,7 +6,7 @@ CI | Status
 ###Introduction
 **Weazboot Gradle** is a starter **[Spring Boot](http://projects.spring.io/spring-boot/)** / **[AngularJS](https://angularjs.org/)** project with many features 
 designed to be used with **[Intellij IDE](https://www.jetbrains.com/idea/)**.  
-It uses **[Gradle](https://gradle.org/)** as the main build tool with **Grunt.js** building the javascript artifacts.  
+It uses **[Gradle](https://gradle.org/)** as the main build tool with **[Grunt](http://gruntjs.com/)** building the javascript artifacts.  
 It is cross platform, **[travis-ci](https://travis-ci.org/)** and **[jenkins](https://jenkins.io/)** friendly, and loaded with multiple testing frameworks.  
 It comes pre-configured with **[Intellij IDE](https://www.jetbrains.com/idea/)** configuration settings so that you can get started quickly.
 
