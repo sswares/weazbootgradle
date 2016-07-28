@@ -18,5 +18,5 @@ node {
 
     stage 'Archive'
     step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/**/*.xml', allowEmptyResults: true])
-    //step([$class: 'ArtifactArchiver', artifacts: '**/build/lib/*.jar', fingerprint: true])
+    step([$class: 'ArtifactArchiver', artifacts: '**/build/libs/*.jar', fingerprint: true])
 }
