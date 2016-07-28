@@ -39,7 +39,7 @@ git clone https://github.com/themadweaz/weazbootgradle.git
 ####Java
 #####Spring Boot
 The project comes with a pretty sane **[Spring Boot](http://projects.spring.io/spring-boot/)** gradle setup.  It has a lot of _spring-boot-starters_ included
-and already has an index.html configured with app.js built from the attached **[AngularJS](https://angularjs.org/)** sources.
+and already has an _index.html_ configured with _app.js_ built from the attached **[AngularJS](https://angularjs.org/)** sources.
 
 #####Spring Security (Oauth2)
 Instead of the default basic auth setup, this project comes with a pre-configured Oauth2 implementation.  
@@ -65,8 +65,8 @@ any **npm** dependencies defined in _Package.json_.  If you already have **node*
 The sample project comes pre-configured with test suites for most types of angular testing:
 * Javascript unit test suite powered by **[Karma](https://karma-runner.github.io)** using **[PhantomJS](http://phantomjs.org/)**, which can be run through
  Intellij's Karma plugin as well.
-* **[Protractor.js](http://www.protractortest.org)** end-to-end test suite for running integration type tests.  When run through **Grunt** (or **[Gradle](https://gradle.org/)**),
- stands up the spring boot jars and runs tests against that app.  When run through an IDE, can run against an app you stand up via a pre-configured run configuration.
+* **[Protractor.js](http://www.protractortest.org)** end-to-end test suite for running integration type tests.  When run through **[Grunt](http://gruntjs.com/)** 
+(or **[Gradle](https://gradle.org/)**),stands up the spring boot jars and runs tests against that app.  When run through an IDE, can run against an app you stand up via a pre-configured run configuration.
 
 
 --
