@@ -1,26 +1,24 @@
-###Introduction
-**Weazboot Gradle** is a starter **[Spring Boot](http://projects.spring.io/spring-boot/)** / **[AngularJS](https://angularjs.org/)** project with many features 
-designed to be used with **[Intellij IDE](https://www.jetbrains.com/idea/)**.  
-It uses **[Gradle](https://gradle.org/)** as the main build tool with **[Grunt](http://gruntjs.com/)** building the javascript artifacts.  
-It is cross platform, **[travis-ci](https://travis-ci.org/)** and **[jenkins](https://jenkins.io/)** friendly, and loaded with multiple testing frameworks.  
-It comes pre-configured with **[Intellij IDE](https://www.jetbrains.com/idea/)** configuration settings so that you can get started quickly.
-
-The entire build lifecycle for this project can be run in a single: ``./gradlew build`` command.
-
-
-###Build Status
 CI | Status
  --- | ---
 | Travis  |  [![Build Status](https://travis-ci.org/themadweaz/weazbootgradle.svg?branch=master)](https://travis-ci.org/themadweaz/weazbootgradle) |
 | Jenkins | [![Build Status](http://jenkins.weaz.net/buildStatus/icon?job=weazboot)](http://jenkins.weaz.net/job/weazboot/) |
 
+###Introduction
+**Weazboot Gradle** is a starter **[Spring Boot](http://projects.spring.io/spring-boot/)** / **[AngularJS](https://angularjs.org/)** project with many features 
+designed to be used with **[Intellij IDE](https://www.jetbrains.com/idea/)**.  
+It uses **[Gradle](https://gradle.org/)** as the main build tool with **[Grunt](http://gruntjs.com/)** building the javascript artifacts.  It is cross platform, 
+**[travis-ci](https://travis-ci.org/)** and **[jenkins](https://jenkins.io/)** friendly, and loaded with multiple testing frameworks.  It comes pre-configured with 
+**[Intellij IDE](https://www.jetbrains.com/idea/)** configuration settings so that you can get started quickly.
+
+The entire build lifecycle for this project can be run in a single: ``./gradlew build`` command.
+
 --
 ###Goals
 The goal is to be able to be able to pull the sample project from _Github_ into **[Intellij IDE](https://www.jetbrains.com/idea/)**
-on windows/mac/linux, change the project name to whatever it is you need to work on,
-and have a skeleton **[AngularJS](https://angularjs.org/)** / **[Spring Boot](http://projects.spring.io/spring-boot/)** app with sane defaults/test suites/run configurations/dependencies
-so you can get started driving out your web app quickly.  It should be able to run on ci, dev, and prod without changing
-anything about the build.  That's the plan, at least.
+on windows/mac/linux, change the project name to whatever it is you need to work on, and have a skeleton **[AngularJS](https://angularjs.org/)** / **[Spring Boot]
+(http://projects.spring.io/spring-boot/)** app with sane defaults/test suites/run configurations/dependencies so you can get started driving out your web app quickly.  It should
+ be able to run on ci, dev, and prod without changing anything about the build.  That's the plan, at least.
+ 
 ####Why?
 Bootstrapping apps takes time, and you generally cut corners to get it working quickly.  Having done this **n+1**
 times already, it makes sense to try to abstract is.  Moreover, building good test suites is hard and integrating
