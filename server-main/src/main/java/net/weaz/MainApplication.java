@@ -27,10 +27,12 @@ import java.io.IOException;
 @SpringBootApplication
 @EnableZuulProxy
 @EnableOAuth2Sso
+@SuppressWarnings("SpringJavaAutowiringInspection")
 public class MainApplication extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ResourceServerTokenServices tokenServices;
+
     @Autowired
     private OAuth2ClientContext clientContext;
 
@@ -40,7 +42,8 @@ public class MainApplication extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.logout().and().antMatcher("/**").authorizeRequests()
+        http.logout().addLogoutHandler(new Oauth2RevocationLogoutHandler(clientContext)).logoutSuccessUrl("/").permitAll()
+                .and().antMatcher("/**").authorizeRequests()
                 .antMatchers("/partials/**", "/", "/login").permitAll()
                 .anyRequest().authenticated().and().csrf()
                 .csrfTokenRepository(csrfTokenRepository())

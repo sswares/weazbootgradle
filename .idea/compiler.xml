@@ -6,6 +6,7 @@
       <entry name="!?*.java" />
       <entry name="!?*.form" />
       <entry name="!?*.class" />
+      <entry name="!?*.html" />
       <entry name="!?*.groovy" />
       <entry name="!?*.scala" />
       <entry name="!?*.flex" />
@@ -19,14 +20,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="server-api_main" target="1.8" />
-      <module name="server-api_test" target="1.8" />
       <module name="server-auth_main" target="1.8" />
       <module name="server-auth_test" target="1.8" />
       <module name="server-main_main" target="1.8" />
       <module name="server-main_test" target="1.8" />
-      <module name="server-ui_main" target="1.8" />
-      <module name="server-ui_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

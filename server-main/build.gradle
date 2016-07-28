@@ -17,3 +17,7 @@ dependencies {
     testCompile('org.springframework.security:spring-security-test')
     testCompile("org.assertj:assertj-core")
 }
+
+bootRun {
+    addResources = true
+}

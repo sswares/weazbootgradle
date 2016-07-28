@@ -6,9 +6,7 @@
       <task value="build" />
       <task value="watch" />
     </tasks>
-    <arguments value="--verbose" />
     <envs />
-    <verbose value="true" />
     <method />
   </configuration>
 </component>

@@ -1,7 +1,5 @@
 package net.weaz;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,12 +20,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -38,40 +35,24 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @SpringBootApplication
-@Controller
+@RestController
 @SessionAttributes("authorizationRequest")
 @EnableResourceServer
 public class AuthApplication extends WebMvcConfigurerAdapter {
-
-    private static Logger logger = LoggerFactory.getLogger(AuthApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(AuthApplication.class, args);
     }
 
-    @Autowired
-    private AuthorizationServerTokenServices tokenServices;
-
     @RequestMapping("/user")
     @ResponseBody
-    public Principal user(Principal user, OAuth2Authentication authentication) {
-        OAuth2AccessToken accessToken = tokenServices.getAccessToken(authentication);
-
-        if (accessToken != null && accessToken.getAdditionalInformation() != null) {
-            Map<String, Object> requestMap = accessToken.getAdditionalInformation();
-
-            for (Map.Entry<String, Object> mapEntry : requestMap.entrySet()) {
-                logger.warn("Map had this key: " + mapEntry.getKey() + " with this value: " + mapEntry.getValue());
-            }
-        }
-
+    public Principal user(Principal user) {
         return user;
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/oauth/confirm_access").setViewName("authorize");
     }
 
     @Configuration
@@ -86,7 +67,11 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
             http
                     .formLogin().loginPage("/login").permitAll()
                     .and()
-                    .requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/beans")
+                    .requestMatchers().antMatchers(
+                    "/login",
+                    "/oauth/authorize",
+                    "/health",
+                    "/beans")
                     .and()
                     .authorizeRequests().anyRequest().authenticated();
         }

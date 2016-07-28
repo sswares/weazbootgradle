@@ -12,7 +12,6 @@ var states = require('./states');
 
 app.config(states).run(function ($rootScope, $location, $window, $http) {
     $rootScope.$on('$stateChangeStart', function (event) {
-        console.log("got into the event");
         var tokenX = $location.search().tokenX;
 
         if (tokenX !== undefined) {

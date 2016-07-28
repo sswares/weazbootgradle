@@ -10,9 +10,9 @@ node {
 
     stage 'Build'
 
-    if(isUnix()) {
+    if (isUnix()) {
         sh './gradlew clean check --console=plain --no-daemon --info --stacktrace'
-    } else{
+    } else {
         bat 'gradlew clean check --console=plain --no-daemon --info --stacktrace'
     }
 }

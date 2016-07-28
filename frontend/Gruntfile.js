@@ -66,31 +66,25 @@ module.exports = function (grunt) {
         },
 
         watch: {
+            options: {
+                spawn: false,
+                livereload: true,
+                keepAlive: true,
+                debounceDelay: 100
+            },
             scripts: {
                 files: ['<%= globalConfig.mainPath %>**/*.js'],
-                tasks: ['browserify', 'copy'],
-                options: {
-                    spawn: false,
-                    debounceDelay: 100
-                }
+                tasks: ['browserify', 'copy']
             },
 
             html: {
                 files: ['<%= globalConfig.mainPath %>**/*.html'],
-                tasks: ['copy'],
-                options: {
-                    spawn: false,
-                    debounceDelay: 100
-                }
+                tasks: ['copy']
             },
 
             less: {
                 files: ['<%= globalConfig.lessPath %>**/*.less'],
-                tasks: ['less', 'copy'],
-                options: {
-                    spawn: false,
-                    debounceDelay: 100
-                }
+                tasks: ['less', 'copy']
             }
         },
 
