@@ -16,7 +16,7 @@ The entire build lifecycle for this project can be run in a single: ``./gradlew 
 
 --
 ###Goals
-The goal is to be able to be able to pull the sample project from _Github_ into **[Intellij IDE](https://www.jetbrains.com/idea/)**
+The goal is to be able to be able to pull the sample project from **[Github](https://github.com)** into **[Intellij IDE](https://www.jetbrains.com/idea/)**
 on windows/mac/linux, change the project name to whatever it is you need to work on, and have a skeleton **[AngularJS](https://angularjs.org/)** / **[Spring Boot]
 (http://projects.spring.io/spring-boot/)** app with sane defaults/test suites/run configurations/dependencies so you can get started driving out your web app quickly.  It should
  be able to run on ci, dev, and prod without changing anything about the build.  That's the plan, at least.
