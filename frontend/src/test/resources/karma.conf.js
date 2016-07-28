@@ -35,7 +35,7 @@ module.exports = function (config) {
 
         frameworks: ['browserify', 'jasmine'],
 
-        browsers: ['PhantomJS', 'Chrome', 'Firefox'],
+        browsers: ['PhantomJS'],
 
         browserNoActivityTimeout: 30000,
 
