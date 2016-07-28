@@ -73,6 +73,9 @@ The sample project comes pre-configured with test suites for most types of angul
 (or **[Gradle](https://gradle.org/)**), it stands up the **[Spring Boot](http://projects.spring.io/spring-boot/)** jar files to run tests against.  When run via IDE run 
 configurations, can be run against applications currently running in regular or debug mode for extra flexability.
 
+--
+##Contributing:
+I will happily take pull requests.  Please open an issue first!
 
 --
 ##TODO:
