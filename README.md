@@ -92,5 +92,5 @@ The Karma plugin in **[Intellij IDE](https://www.jetbrains.com/idea/)** is buggy
 It will fail to reload tests. There is a workaround on this [bug report](https://youtrack.jetbrains.com/issue/WEB-12496).
 
 ###Intellij / Devtools
-To get devtools working correctly on class changes, you will need to enable the `compiler.automake.allow.when.app.running` registry setting in **[Intellij IDE](https://www.jetbrains.com/idea/)**.  
+To get devtools working correctly on class changes, you need to do a few things.  First, you will need to go to `Settings -> Compiler` and enable the option `Make Project Automatically`.  Next, you will need to enable the `compiler.automake.allow.when.app.running` registry setting in **[Intellij IDE](https://www.jetbrains.com/idea/)**.  
 You can access the registry in by using the shortcut `Shift + Command + A`, then searching for `registry`.  Set this value to `true`.
