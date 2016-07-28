@@ -17,6 +17,6 @@ node {
     }
 
     stage 'Archive'
-    archive 'server-auth/build/lib/*.jar'
-    archive 'server-main/build/lib/*.jar'
+    step([$class: 'ArtifactArchiver', artifacts: 'server-auth/build/lib/*.jar', fingerprint: true])
+    step([$class: 'ArtifactArchiver', artifacts: 'server-main/build/lib/*.jar', fingerprint: true])
 }
