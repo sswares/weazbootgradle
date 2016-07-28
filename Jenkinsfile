@@ -16,6 +16,7 @@ node {
         bat 'gradlew build --console=plain --no-daemon --info --stacktrace'
     }
 
+    stage 'Archive'
     step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/**/*.xml', allowEmptyResults: true])
-    step([$class: 'ArtifactArchiver', artifacts: '**/build/lib/*.jar', fingerprint: true])
+    //step([$class: 'ArtifactArchiver', artifacts: '**/build/lib/*.jar', fingerprint: true])
 }
