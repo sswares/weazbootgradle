@@ -36,8 +36,9 @@ git clone https://github.com/themadweaz/weazbootgradle.git
 ##Tooling
 ###Java
 ####Spring Boot
-The project comes with a pretty sane **[Spring Boot](http://projects.spring.io/spring-boot/)** gradle setup.  It has some default _spring-boot-starters_ included
-and already has an _index.html_ configured with _app.js_ built from the attached **[AngularJS](https://angularjs.org/)** sources.
+The project comes with a pretty sane **[Spring Boot](http://projects.spring.io/spring-boot/)** multi-module setup.  It contains a main application that already has an _index.html_ 
+configured with _app.js_ built from the attached **[AngularJS](https://angularjs.org/)** sources, and an auth server which handles login.  Both are configured to use a proxy to 
+make the two apps work seamlessly together.
 
 ####Spring Security (OAuth2)
 Instead of the default basic auth setup, this project comes with a pre-configured **[OAuth2](http://oauth.net/2/)** implementation.  
