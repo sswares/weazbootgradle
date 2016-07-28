@@ -1,8 +1,3 @@
-CI | Status
- --- | ---
-| Travis  |  [![Build Status](https://travis-ci.org/themadweaz/weazbootgradle.svg?branch=master)](https://travis-ci.org/themadweaz/weazbootgradle) |
-| Jenkins | [![Build Status](http://jenkins.weaz.net/buildStatus/icon?job=weazboot)](http://jenkins.weaz.net/job/weazboot/) |
-
 ###Introduction
 **Weazboot Gradle** is a starter **[Spring Boot](http://projects.spring.io/spring-boot/)** / **[AngularJS](https://angularjs.org/)** project with many features 
 designed to be used with **[Intellij IDE](https://www.jetbrains.com/idea/)**.  
@@ -11,6 +6,13 @@ It is cross platform, **[travis-ci](https://travis-ci.org/)** and **[jenkins](ht
 It comes pre-configured with **[Intellij IDE](https://www.jetbrains.com/idea/)** configuration settings so that you can get started quickly.
 
 The entire build lifecycle for this project can be run in a single: ``./gradlew build`` command.
+
+
+###Build Status
+CI | Status
+ --- | ---
+| Travis  |  [![Build Status](https://travis-ci.org/themadweaz/weazbootgradle.svg?branch=master)](https://travis-ci.org/themadweaz/weazbootgradle) |
+| Jenkins | [![Build Status](http://jenkins.weaz.net/buildStatus/icon?job=weazboot)](http://jenkins.weaz.net/job/weazboot/) |
 
 --
 ###Goals
