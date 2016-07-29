@@ -2,65 +2,53 @@ package net.weaz;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.TestRestTemplate;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MainApplication.class)
-@WebAppConfiguration
-@IntegrationTest("server.port:0")
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 public class MainApplicationTests {
-
-    @Value("${local.server.port}")
-    private int port;
 
     @Value("${security.oauth2.client.userAuthorizationUri}")
     private String authorizeUri;
 
-    private RestTemplate template = new TestRestTemplate();
+    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
+    @Autowired
+    private TestRestTemplate template;
 
     @Test
     public void homePageLoads() {
-        ResponseEntity<String> response = template.getForEntity("http://localhost:"
-                + port + "/", String.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        ResponseEntity<String> response = template.getForEntity("/", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
     public void userEndpointProtected() {
-        ResponseEntity<String> response = template.getForEntity("http://localhost:"
-                + port + "/user", String.class);
-        assertEquals(HttpStatus.FOUND, response.getStatusCode());
-        assertEquals("http://localhost:" + port + "/login", response.getHeaders()
-                .getLocation().toString());
+        ResponseEntity<String> response = template.getForEntity("/user", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FOUND);
+        assertThat(response.getHeaders().getLocation().toString()).endsWith("/login");
     }
 
     @Test
     public void resourceEndpointProtected() {
-        ResponseEntity<String> response = template.getForEntity("http://localhost:"
-                + port + "/resource", String.class);
-        assertEquals(HttpStatus.FOUND, response.getStatusCode());
-        assertEquals("http://localhost:" + port + "/login", response.getHeaders()
-                .getLocation().toString());
+        ResponseEntity<String> response = template.getForEntity("/resource", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FOUND);
+        assertThat(response.getHeaders().getLocation().toString()).endsWith("/login");
     }
 
     @Test
     public void loginRedirects() {
-        ResponseEntity<String> response = template.getForEntity("http://localhost:"
-                + port + "/login", String.class);
-        assertEquals(HttpStatus.FOUND, response.getStatusCode());
-        String location = response.getHeaders().getFirst("Location");
-        System.out.println(authorizeUri);
-        assertTrue("Wrong location: " + location, location.startsWith(authorizeUri));
+        ResponseEntity<String> response = template.getForEntity("/login", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FOUND);
+
+        assertThat(response.getHeaders().getFirst("Location")).startsWith(authorizeUri);
     }
 }
