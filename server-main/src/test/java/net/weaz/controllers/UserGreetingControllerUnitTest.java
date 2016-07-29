@@ -22,7 +22,7 @@ public class UserGreetingControllerUnitTest {
     }
 
     @Test
-    public void rootController_returnsIndex() throws Exception {
+    public void userController_returnsCorrectName() throws Exception {
         Principal principal = mock(Principal.class);
 
         when(principal.getName()).thenReturn("Jonah");

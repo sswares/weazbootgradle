@@ -59,8 +59,12 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
     @Order(-20)
     protected static class LoginConfig extends WebSecurityConfigurerAdapter {
 
+        private final AuthenticationManager authenticationManager;
+
         @Autowired
-        private AuthenticationManager authenticationManager;
+        public LoginConfig(AuthenticationManager authenticationManager) {
+            this.authenticationManager = authenticationManager;
+        }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -86,8 +90,12 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
     @EnableAuthorizationServer
     protected static class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
+        private final AuthenticationManager authenticationManager;
+
         @Autowired
-        private AuthenticationManager authenticationManager;
+        public OAuth2AuthorizationConfig(AuthenticationManager authenticationManager) {
+            this.authenticationManager = authenticationManager;
+        }
 
         @Bean
         public JwtAccessTokenConverter jwtAccessTokenConverter() {
