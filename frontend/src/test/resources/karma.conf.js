@@ -16,10 +16,11 @@ module.exports = function (config) {
         },
 
         browserify: {
-            paths: ['src/main/js']
+            paths: ['src/main/js'],
+            debug: true
         },
 
-        logLevel: config.LOG_WARN,
+        logLevel: config.LOG_INFO,
 
         files: [
             {pattern: 'src/main/assets/**/*', watched: false, included: false, served: true},

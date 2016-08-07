@@ -1,17 +1,17 @@
 package net.weaz.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import net.weaz.annotations.CurrentUser;
+import net.weaz.models.CustomMainUser;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
 
 @RestController
 public class UserGreetingController {
 
-    @RequestMapping(value = "/api/greeting", method = RequestMethod.GET)
-    public GreetingPresenter hello(Principal principal) {
-        return new GreetingPresenter("Hello " + principal.getName() + "!");
+    @GetMapping("/api/greeting")
+    public GreetingPresenter greeting(@CurrentUser CustomMainUser currentUser) {
+        return new GreetingPresenter("Hello " + currentUser.getUsername() + "!"
+                                     + "  Your favorite cat was " + currentUser.getFavoriteCat() + ", right?");
     }
 
     class GreetingPresenter {

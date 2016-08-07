@@ -54,7 +54,7 @@ describe('JourneySpec', function () {
         });
 
         it('says you are logged in', function () {
-            expect(rootPage.getLoggedInText()).toContain('You are logged in, user!');
+            expect(rootPage.getLoggedInText()).toContain("Welcome, user!\n\nWe heard that your favorite cat was Tippy! That's fantastic!");
         });
 
         it('has a link to the resource page', function () {
@@ -75,7 +75,7 @@ describe('JourneySpec', function () {
             it('displays a message from the resource server', function () {
                 expect(resourcePage.getBackendResponse().getText()).toEqual(
                     'We should have made a request to the backend. ' +
-                    'Lets see if they wanted to tell us anything: Hello user!');
+                    'Lets see if they wanted to tell us anything: Hello user! Your favorite cat was Tippy, right?');
             });
 
             it('has a go back link', function () {
