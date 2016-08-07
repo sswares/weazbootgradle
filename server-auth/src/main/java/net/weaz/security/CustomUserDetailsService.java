@@ -1,6 +1,6 @@
 package net.weaz.security;
 
-import net.weaz.models.AuthCustomUser;
+import net.weaz.security.models.AuthCustomUser;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

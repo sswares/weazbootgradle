@@ -1,6 +1,6 @@
 package net.weaz.security.oauth2;
 
-import net.weaz.models.AuthCustomUser;
+import net.weaz.security.models.AuthCustomUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.userdetails.UserDetailsService;

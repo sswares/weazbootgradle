@@ -1,6 +1,6 @@
-package net.weaz.security.oauth;
+package net.weaz.security.oauth2;
 
-import net.weaz.models.CustomMainUser;
+import net.weaz.security.models.CustomMainUser;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.FixedAuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.security.core.GrantedAuthority;

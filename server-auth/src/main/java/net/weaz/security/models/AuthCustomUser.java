@@ -1,15 +1,15 @@
-package net.weaz.models;
+package net.weaz.security.models;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
-public class CustomMainUser extends User {
+public class AuthCustomUser extends User {
 
     private String favoriteCat;
 
-    public CustomMainUser(String username, String password, Collection<? extends GrantedAuthority> authorities, String favoriteCat) {
+    public AuthCustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities, String favoriteCat) {
         super(username, password, authorities);
         this.favoriteCat = favoriteCat;
     }

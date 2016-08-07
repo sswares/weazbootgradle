@@ -1,7 +1,7 @@
 package net.weaz.controllers;
 
 import net.weaz.annotations.CurrentUser;
-import net.weaz.models.CustomMainUser;
+import net.weaz.security.models.CustomMainUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

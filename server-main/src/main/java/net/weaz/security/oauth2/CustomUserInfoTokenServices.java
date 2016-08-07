@@ -1,4 +1,4 @@
-package net.weaz.security.oauth;
+package net.weaz.security.oauth2;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
