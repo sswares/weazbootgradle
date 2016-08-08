@@ -4,6 +4,7 @@ frontend/typings
 server-main/src/main/resources/static
 .gradle
 .idea/workspace.xml
+.idea/dataSources**/*
 build
 phantomjsdriver.log
 npm-debug.log

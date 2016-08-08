@@ -1,5 +1,7 @@
 package net.weaz.config;
 
+import net.weaz.security.oauth2.CustomClientDetailsService;
+import net.weaz.security.oauth2.CustomJwtAccessTokenConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,37 +10,34 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     private AuthenticationManager authenticationManager;
-    private AccessTokenConverter jwtAccessTokenConverter;
+    private CustomJwtAccessTokenConverter customJwtAccessTokenConverter;
+    private CustomClientDetailsService customClientDetailsService;
 
     @Autowired
     public AuthorizationServerConfiguration(AuthenticationManager authenticationManager,
-                                            AccessTokenConverter jwtAccessTokenConverter) {
+                                            CustomJwtAccessTokenConverter customJwtAccessTokenConverter,
+                                            CustomClientDetailsService customClientDetailsService) {
         this.authenticationManager = authenticationManager;
-        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
+        this.customJwtAccessTokenConverter = customJwtAccessTokenConverter;
+        this.customClientDetailsService = customClientDetailsService;
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("acme")
-                .secret("acmesecret")
-                .autoApprove(true)
-                .authorizedGrantTypes("authorization_code", "refresh_token", "password")
-                .scopes("somescope");
+        clients.withClientDetails(customClientDetailsService);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .authenticationManager(authenticationManager)
-                .accessTokenConverter(jwtAccessTokenConverter);
+                .accessTokenConverter(customJwtAccessTokenConverter);
     }
 
     @Override
