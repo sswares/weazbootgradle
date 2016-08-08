@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @GetMapping("/user")
+    //   TODO: make this less ambiguous.  it is actually returning the real type of the principal,
+    // which works for our use-case and shows off the current user annotation, but is wrong.  perhaps a spring bug
     public ResponseEntity<AuthCustomUser> user(@CurrentUser AuthCustomUser currentUser) {
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
