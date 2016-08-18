@@ -40,7 +40,7 @@ Import would work, but you would lose many of the **[Intellij IDE](https://www.j
 Once that is done, either run the `./gradlew build` from the command line or the `build` *Run Configuration* in  **[Intellij IDE](https://www.jetbrains.com/idea/)**.
 This will pull down all dependencies, install **[Node.js](https://nodejs.org)** and **[npm](https://www.npmjs.com/)**, and run the test suite.
 
-###Optional
+####Optional
 - Load pre-configured settings for **[Intellij IDE](https://www.jetbrains.com/idea/)** by importing the settings jar in `$PROJECT_ROOT/config/intellij/settings-*.jar`
 using `File->Import Settings...`.  Use at your own risk, as this will overwrite your own **[Intellij IDE](https://www.jetbrains.com/idea/)** settings.
 
