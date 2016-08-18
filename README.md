@@ -28,9 +28,21 @@ Bootstrapping apps takes time, and you generally cut corners to get it working q
 
 --
 ##Setup
+
+In your workspace directory:
 ```Shell
 git clone https://github.com/themadweaz/weazbootgradle.git
 ```
+
+Then open the project directly in **[Intellij IDE](https://www.jetbrains.com/idea/)**.  Do not Import, open.
+Import would work, but you would lose many of the **[Intellij IDE](https://www.jetbrains.com/idea/)** specific configuration features of this sample.
+ 
+Once that is done, either run the `./gradlew build` from the command line or the `build` *Run Configuration* in  **[Intellij IDE](https://www.jetbrains.com/idea/)**.
+This will pull down all dependencies, install **[Node.js](https://nodejs.org)** and **[npm](https://www.npmjs.com/)**, and run the test suite.
+
+##Optional
+- Load some pre-configured settings for **[Intellij IDE](https://www.jetbrains.com/idea/)** by importing the settings jar in `$PROJECT_ROOT/config/intellij/settings-*.jar`
+using `File->Import Settings...`.  Use at your own risk, as this will overwrite your own **[Intellij IDE](https://www.jetbrains.com/idea/)** settings.
 
 --
 ##Tooling
@@ -46,7 +58,8 @@ It follows the example by Dave Syer from [this github](https://github.com/spring
 The default username/password is: `user/password`
 
 ####Testing
-The build has some additional testing tasks for designed launching **[jUnit](http://junit.org)** category annotated test suites.
+The build has some additional testing tasks for designed launching **[jUnit](http://junit.org)** category annotated test suites, but generally just uses jUnit and the built in 
+test support from **[Spring Boot](http://projects.spring.io/spring-boot/)** on the backend.  
 
 ####Devtools
 Pre-configured with **[Spring Developer Tools](http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html)** for hot-swapping classes and resources.
@@ -72,7 +85,7 @@ The sample project comes pre-configured with test suites for most types of angul
 * Javascript unit test suite powered by **[Karma](https://karma-runner.github.io)** using **[PhantomJS](http://phantomjs.org/)**.  
 * **[Protractor.js](http://www.protractortest.org)** end-to-end test suite for running integration type tests.  When run through **[Grunt](http://gruntjs.com/)** 
 (or **[Gradle](https://gradle.org/)**), it stands up the **[Spring Boot](http://projects.spring.io/spring-boot/)** jar files to run tests against.  When run via IDE run 
-configurations, can be run against applications currently running in regular or debug mode for extra flexability.
+configurations, can be run against applications currently running in regular or debug mode for extra flexibility.
 
 --
 ##Contributing:
