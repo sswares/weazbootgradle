@@ -34,7 +34,7 @@ In your workspace directory:
 git clone https://github.com/themadweaz/weazbootgradle.git
 ```
 
-Then open the project directly in **[Intellij IDE](https://www.jetbrains.com/idea/)**.  Do not Import, open.
+Then open the project directly in **[Intellij IDE](https://www.jetbrains.com/idea/)**.  *Do not Import*, **Open**.
 Import would work, but you would lose many of the **[Intellij IDE](https://www.jetbrains.com/idea/)** specific configuration features of this sample.
  
 Once that is done, either run the `./gradlew build` from the command line or the `build` *Run Configuration* in  **[Intellij IDE](https://www.jetbrains.com/idea/)**.
