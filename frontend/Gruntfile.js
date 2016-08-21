@@ -175,9 +175,9 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('default', ['clean', 'browserify', 'less', 'copy']);
 
-	grunt.registerTask('unitTest', ['jshint', 'eslint', 'karma:unit']);
+	grunt.registerTask('unitTest', ['eslint', 'karma:unit']);
 
-	grunt.registerTask('karmaWatch', ['jshint', 'karma:watch']);
+	grunt.registerTask('karmaWatch', ['karma:watch']);
 
 	grunt.registerTask('e2eTest', ['run:e2e']);
 
