@@ -20,7 +20,6 @@ module.exports = function (grunt) {
 		e2ePath: testPath + 'e2e/'
 	};
 
-	//noinspection JSUnresolvedFunction
 	grunt.initConfig({
 		globalConfig: globalConfig,
 

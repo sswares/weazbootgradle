@@ -5,6 +5,7 @@
       <w>browserify</w>
       <w>debounce</w>
       <w>eslint</w>
+      <w>eslintrc</w>
       <w>gruntify</w>
       <w>jshintrc</w>
       <w>livereload</w>
