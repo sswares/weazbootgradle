@@ -1,5 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="devProxyStart" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="frontend/proxy/devProxyStart.js" working-dir="$PROJECT_DIR$">
+  <configuration default="false" name="devProxyStart" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="proxy/devProxyStart.js" working-dir="$PROJECT_DIR$/frontend">
+    <profiling v8-profiler-path="" />
+    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSProfilingRunConfigurationExtension">
+      <profiling v8-profiler-path="" />
+    </EXTENSION>
     <method />
   </configuration>
 </component>

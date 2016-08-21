@@ -20,6 +20,11 @@
           <option name="BINARY_OPERATION_WRAP" value="1" />
           <option name="BINARY_OPERATION_SIGN_ON_NEXT_LINE" value="true" />
         </codeStyleSettings>
+        <codeStyleSettings language="JavaScript">
+          <indentOptions>
+            <option name="USE_TAB_CHARACTER" value="true" />
+          </indentOptions>
+        </codeStyleSettings>
       </value>
     </option>
     <option name="USE_PER_PROJECT_SETTINGS" value="true" />

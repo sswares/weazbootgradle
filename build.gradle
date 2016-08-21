@@ -81,15 +81,15 @@ grunt {
     bufferOutput = false
 }
 
-task gruntBuild(
+task gruntDefault(
         type: GruntTask,
         group: 'grunt',
         description: 'Runs the javascript build and generates resources.',
         dependsOn: ['npmInstall']) {
-    args = ['build']
+    args = ['default']
 }
 
-task gruntEnd2End(
+task gruntE2E(
         type: GruntTask,
         group: 'grunt',
         description: 'Runs end2end tests using Protractor and a headless browser.',
@@ -147,7 +147,6 @@ subprojects {
         }
     }
 
-
     repositories {
         mavenCentral()
         maven { url "https://repo.spring.io/release" }
@@ -161,9 +160,10 @@ subprojects {
     test {
         testLogging {
             exceptionFormat = 'full'
+            showStandardStreams = false
         }
 
-        ignoreFailures true
+        ignoreFailures = true
 
         afterTest { desc, result ->
             println "- ${desc.name}: ${result.resultType}"
@@ -207,11 +207,10 @@ subprojects {
     }
 
     compileJava.dependsOn processResources
-    npmInstall.finalizedBy checkForNPMDependencyUpdates
     check.dependsOn dependencyUpdates
     check.dependsOn javascriptUnitTest
-    check.finalizedBy gruntEnd2End
-    jar.dependsOn gruntBuild
+    check.finalizedBy gruntE2E
+    jar.dependsOn gruntDefault
 }
 
 allprojects {

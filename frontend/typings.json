@@ -2,15 +2,15 @@
   "name": "weazbootgradle",
   "dependencies": {},
   "globalDependencies": {
-    "angular": "registry:dt/angular#1.5.0+20160802155123",
+    "angular": "registry:dt/angular#1.5.0+20160819155010",
     "angular-mocks": "registry:dt/angular-mocks#1.5.0+20160608104721",
     "angular-protractor": "registry:dt/angular-protractor#1.5.0+20160425143459",
-    "angular-ui-router": "registry:dt/angular-ui-router#1.1.5+20160707113237",
+    "angular-ui-router": "registry:dt/angular-ui-router#1.1.5+20160810191828",
     "browserify": "registry:dt/browserify#12.0.1+20160317120654",
     "gruntjs": "registry:dt/gruntjs#0.4.0+20160602153508",
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
-    "jasmine-node": "registry:dt/jasmine-node#1.14.5+20160316155526",
-    "karma": "registry:dt/karma#0.13.9+20160720063042",
+    "jasmine-node": "registry:dt/jasmine-node#1.14.5+20160818175431",
+    "karma": "registry:dt/karma#0.13.9+20160811111312",
     "karma-jasmine": "registry:dt/karma-jasmine#0.0.0+20160316155526",
     "selenium-webdriver": "registry:dt/selenium-webdriver#2.44.0+20160317120654"
   }

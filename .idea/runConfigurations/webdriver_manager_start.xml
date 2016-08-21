@@ -1,5 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="webdriver-manager start" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="frontend/node_modules/protractor/bin/webdriver-manager" application-parameters="start" working-dir="$PROJECT_DIR$">
+  <configuration default="false" name="webdriver-manager start" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="node_modules/protractor/bin/webdriver-manager" application-parameters="start" working-dir="$PROJECT_DIR$/frontend">
+    <profiling v8-profiler-path="" />
+    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSProfilingRunConfigurationExtension">
+      <profiling v8-profiler-path="" />
+    </EXTENSION>
     <method />
   </configuration>
 </component>

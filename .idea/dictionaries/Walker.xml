@@ -3,8 +3,15 @@
     <words>
       <w>Girlcat</w>
       <w>browserify</w>
+      <w>debounce</w>
+      <w>eslint</w>
+      <w>gruntify</w>
+      <w>jshintrc</w>
+      <w>livereload</w>
       <w>poogle</w>
       <w>tippy</w>
+      <w>weazboot</w>
+      <w>weazbootgradle</w>
     </words>
   </dictionary>
 </component>
