@@ -9,7 +9,8 @@ buildscript {
         springCloudVersion = 'Brixton.SR4'
 
         springSecurityJwtVersion = '1.0.5.RELEASE'
-        springSecurityTestVersion = '4.1.2.RELEASE'
+        springSecurityTestVersion = '4.1.3.RELEASE'
+        springSecurityOauth2Version = '2.0.11.RELEASE'
 
         nodeVersion = '6.3.1'
         npmVersion = '3.10.6'
@@ -24,6 +25,8 @@ buildscript {
         nodePluginVersion = '0.13'
         gruntPluginVersion = '0.13'
         gradleVersionsPluginVersion = '0.13.0'
+        coberturaPluginVersion = '2.3.2'
+        coverallsPluginVersion = '2.6.3'
     }
 
     repositories {
@@ -38,7 +41,9 @@ buildscript {
         classpath("org.springframework.build.gradle:propdeps-plugin:${propdepsPluginVersion}")
         classpath("com.moowork.gradle:gradle-node-plugin:${nodePluginVersion}")
         classpath("com.moowork.gradle:gradle-grunt-plugin:${gruntPluginVersion}")
+        classpath("net.saliman:gradle-cobertura-plugin:${coberturaPluginVersion}")
         classpath("com.github.ben-manes:gradle-versions-plugin:${gradleVersionsPluginVersion}")
+        classpath("org.kt3k.gradle.plugin:coveralls-gradle-plugin:${coverallsPluginVersion}")
     }
 }
 
@@ -46,6 +51,7 @@ apply plugin: 'com.moowork.node'
 apply plugin: 'com.moowork.grunt'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.github.kt3k.coveralls'
 
 node {
     version = project.nodeVersion
@@ -129,6 +135,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'checkstyle'
     apply plugin: 'maven-publish'
+    apply plugin: 'net.saliman.cobertura'
 
     dependencyManagement {
         imports {
@@ -144,6 +151,7 @@ subprojects {
             dependency("org.apache.httpcomponents:httpclient:${httpclientVersion}")
             dependency("org.springframework.security:spring-security-jwt:${springSecurityJwtVersion}")
             dependency("org.springframework.security:spring-security-test:${springSecurityTestVersion}")
+            dependency("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}")
         }
     }
 
@@ -173,6 +181,10 @@ subprojects {
     checkstyle {
         configFile = rootProject.file('config/checkstyle/checkstyle-gradle.xml')
         configProperties = ["suppressionFile": project(':').file('config/checkstyle/suppressions.xml')]
+    }
+
+    cobertura {
+        coverageFormats = ['html', 'xml']
     }
 
     task sourceJar(
@@ -213,8 +225,6 @@ subprojects {
     jar.dependsOn gruntDefault
 }
 
-allprojects {
-    task wrapper(type: Wrapper) {
-        gradleVersion = project.gradleVersion
-    }
+task wrapper(type: Wrapper) {
+    gradleVersion = project.gradleVersion
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
       <entry name="!?*.form" />
@@ -14,16 +13,13 @@
       <entry name="!?*.clj" />
       <entry name="!?*.aj" />
     </wildcardResourcePatterns>
-    <annotationProcessing>
-      <profile default="true" name="Default" enabled="false">
-        <processorPath useClasspath="true" />
-      </profile>
-    </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="server-auth_main" target="1.8" />
       <module name="server-auth_test" target="1.8" />
       <module name="server-main_main" target="1.8" />
       <module name="server-main_test" target="1.8" />
+      <module name="weazbootgradle_main" target="1.8" />
+      <module name="weazbootgradle_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
