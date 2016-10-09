@@ -151,10 +151,9 @@ cobertura {
     coverageMergeDatafiles = subprojects.collect { new File(it.projectDir, '/build/cobertura/cobertura.ser') }
 }
 
-
 assemble.dependsOn(project.tasks.dependencyUpdates)
 test.dependsOn(project.tasks.javascriptUnitTest)
-check.finalizedBy(project.tasks.gruntE2E, project.tasks.cobertura)
+check.finalizedBy(project.tasks.gruntE2E)
 clean.dependsOn(project.tasks.gruntClean)
 
 subprojects {
