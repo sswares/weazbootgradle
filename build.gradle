@@ -5,8 +5,8 @@ buildscript {
     ext {
         gradleVersion = '3.0'
 
-        springBootVersion = '1.4.0.RELEASE'
-        springCloudVersion = 'Brixton.SR4'
+        springBootVersion = '1.4.1.RELEASE'
+        springCloudVersion = 'Camden.RELEASE'
 
         springSecurityJwtVersion = '1.0.5.RELEASE'
         springSecurityTestVersion = '4.1.3.RELEASE'
@@ -20,7 +20,7 @@ buildscript {
         commonsLangVersion = '3.4'
         httpclientVersion = '4.5.2'
 
-        springBootDependencyManagementPluginVersion = '0.6.0.RELEASE'
+        springBootDependencyManagementPluginVersion = '0.6.1.RELEASE'
         propdepsPluginVersion = '0.0.7'
         nodePluginVersion = '0.13'
         gruntPluginVersion = '0.13'
@@ -53,6 +53,17 @@ apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.github.kt3k.coveralls'
 
+allprojects {
+    apply plugin: 'net.saliman.cobertura'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "https://repo.spring.io/release" }
+        maven { url "https://repo.spring.io/libs-release" }
+    }
+}
+
 node {
     version = project.nodeVersion
     npmVersion = project.npmVersion
@@ -60,8 +71,8 @@ node {
     download = true
     npmCommand = 'npm --no-color'
 
-    workDir = rootProject.file("./frontend/nodejs")
-    nodeModulesDir = rootProject.file("./frontend/")
+    workDir = rootProject.file("${project.buildDir}/nodejs/")
+    nodeModulesDir = rootProject.file("${project.projectDir}/frontend/")
 }
 
 task removeNodeModules(
@@ -99,8 +110,16 @@ task gruntE2E(
         type: GruntTask,
         group: 'grunt',
         description: 'Runs end2end tests using Protractor and a headless browser.',
-        dependsOn: [':server-main:build', ':server-auth:build']) {
+        dependsOn: ['npmInstall', ':server-main:build', ':server-auth:build']) {
     args = ['e2eBuild']
+}
+
+task gruntClean(
+        type: GruntTask,
+        group: 'grunt',
+        description: 'Cleans out the grunt tem',
+        dependsOn: ['npmInstall']) {
+    args = ['clean']
 }
 
 task javascriptUnitTest(
@@ -127,6 +146,17 @@ dependencyUpdates {
     }
 }
 
+cobertura {
+    coverageSourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
+    coverageMergeDatafiles = subprojects.collect { new File(it.projectDir, '/build/cobertura/cobertura.ser') }
+}
+
+
+assemble.dependsOn(project.tasks.dependencyUpdates)
+test.dependsOn(project.tasks.javascriptUnitTest)
+check.finalizedBy(project.tasks.gruntE2E, project.tasks.cobertura)
+clean.dependsOn(project.tasks.gruntClean)
+
 subprojects {
     apply plugin: 'spring-boot'
     apply plugin: 'propdeps'
@@ -135,7 +165,6 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'checkstyle'
     apply plugin: 'maven-publish'
-    apply plugin: 'net.saliman.cobertura'
 
     dependencyManagement {
         imports {
@@ -153,12 +182,6 @@ subprojects {
             dependency("org.springframework.security:spring-security-test:${springSecurityTestVersion}")
             dependency("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}")
         }
-    }
-
-    repositories {
-        mavenCentral()
-        maven { url "https://repo.spring.io/release" }
-        maven { url "https://repo.spring.io/libs-release" }
     }
 
     springBoot {
@@ -219,10 +242,7 @@ subprojects {
     }
 
     compileJava.dependsOn processResources
-    check.dependsOn dependencyUpdates
-    check.dependsOn javascriptUnitTest
-    check.finalizedBy gruntE2E
-    jar.dependsOn gruntDefault
+    jar.dependsOn(rootProject.tasks.gruntDefault)
 }
 
 task wrapper(type: Wrapper) {

@@ -5,10 +5,17 @@ module.exports = function (grunt) {
 
 	var appPath = 'app/';
 	var testPath = 'test/';
+	var mainJavaAppArtifactLocation = '../server-main/build/libs/';
+	var authJavaAppArtifactLocation = '../server-auth/build/libs/';
+	var proxyPort = 9000;
+	var mainJavaAppPort = 9001;
+	var authJavaAppPort = 9002;
 
 	var globalConfig = {
+		appBuildPath: 'build/',
+
 		resourceDestination: '../server-main/src/main/resources/static/',
-		buildDestination: '../server-main/build/resources/main/static/',
+		javaMainAppBuildDestination: '../server-main/build/resources/main/static/',
 
 		appPath: appPath,
 		jsPath: appPath + 'js/',
@@ -23,10 +30,20 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		globalConfig: globalConfig,
 
+		availabletasks: {
+			tasks: {}
+		},
+
 		browserify: {
 			js: {
 				src: ['<%= globalConfig.jsPath %>**/*.js'],
-				dest: '<%= globalConfig.resourceDestination %>js/app.js'
+				dest: '<%= globalConfig.resourceDestination %>js/app.js',
+				options: {
+					browserifyOptions: {
+						transform: [require('browserify-istanbul')],
+						debug: true
+					}
+				}
 			}
 		},
 
@@ -73,7 +90,7 @@ module.exports = function (grunt) {
 				expand: true,
 				src: ['**/*'],
 				cwd: '<%= globalConfig.resourceDestination %>',
-				dest: '<%= globalConfig.buildDestination %>'
+				dest: '<%= globalConfig.javaMainAppBuildDestination %>'
 			}
 		},
 
@@ -102,17 +119,48 @@ module.exports = function (grunt) {
 			}
 		},
 
+		protractor_coverage: {
+			options: {
+				keepAlive: true,
+				noColor: false,
+				collectorPort: 3001,
+				coverageDir: '<%= globalConfig.appBuildPath %>test-results/protractor/coverage',
+				args: {
+					baseUrl: 'http://localhost:' + proxyPort
+				}
+			},
+			local: {
+				options: {
+					configFile: 'protractor.conf.js'
+				}
+			},
+			ci: {
+				options: {
+					configFile: 'protractor.ci.conf'
+				}
+			}
+		},
+
+		makeReport: {
+			src: '<%= globalConfig.appBuildPath %>test-results/protractor/coverage/*.json',
+			options: {
+				type: 'lcov',
+				dir: '<%= globalConfig.appBuildPath %>test-results/protractor/coverage/',
+				print: 'detail'
+			}
+		},
+
 		run: {
 			integration_main_server: {
 				cmd: 'java',
 				args: [
 					'-jar',
 					'-Dspring.profiles.active=test',
-					grunt.file.expand('../server-main/build/libs/*.jar')[0]
+					grunt.file.expand(mainJavaAppArtifactLocation + '*.jar')[0]
 				],
 				options: {
 					wait: false,
-					ready: /Tomcat started on port\(s\): 9001 \(http\)/
+					ready: new RegExp('Tomcat started on port\\(s\\): ' + mainJavaAppPort + ' \\(http\\)')
 				}
 			},
 			integration_auth_server: {
@@ -120,30 +168,18 @@ module.exports = function (grunt) {
 				args: [
 					'-jar',
 					'-Dspring.profiles.active=test',
-					grunt.file.expand('../server-auth/build/libs/*.jar')[0]
+					grunt.file.expand(authJavaAppArtifactLocation + '*.jar')[0]
 				],
 				options: {
 					wait: false,
-					ready: /Tomcat started on port\(s\): 9002 \(http\)/
+					ready: new RegExp('Tomcat started on port\\(s\\): ' + authJavaAppPort + ' \\(http\\)')
 				}
 			},
 			integration_proxy_server: {
 				args: ['./proxy/integrationProxyStart.js'],
 				options: {
 					wait: false,
-					ready: /Reverse proxy listening on port: 9000/
-				}
-			},
-			e2e: {
-				args: ['node_modules/protractor/bin/protractor'],
-				options: {
-					wait: true
-				}
-			},
-			e2e_ci: {
-				args: ['node_modules/protractor/bin/protractor', 'protractor.ci.conf'],
-				options: {
-					wait: true
+					ready: new RegExp('Reverse proxy listening on port: ' + proxyPort)
 				}
 			},
 			dev_proxy_server: {
@@ -166,10 +202,15 @@ module.exports = function (grunt) {
 		}
 	});
 	grunt.loadNpmTasks('gruntify-eslint');
+	grunt.loadNpmTasks('grunt-protractor-coverage');
+	grunt.loadNpmTasks('grunt-available-tasks');
+	grunt.loadNpmTasks('grunt-istanbul');
 
 	grunt.registerTask('clean', function () {
 		//noinspection JSUnresolvedFunction
-		grunt.file.delete(globalConfig.buildDestination, {force: true});
+		grunt.file.delete(globalConfig.javaMainAppBuildDestination, {force: true});
+		grunt.file.delete(globalConfig.appBuildPath, {force: true});
+
 	});
 
 	grunt.registerTask('default', ['clean', 'browserify', 'less', 'copy']);
@@ -178,17 +219,19 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('karmaWatch', ['karma:watch']);
 
-	grunt.registerTask('e2eTest', ['run:e2e']);
-
-	grunt.registerTask('e2eTestCi', ['run:e2e_ci']);
+	grunt.registerTask('e2eTest', ['protractor_coverage:local']);
 
 	grunt.registerTask('e2eBuild', [
 		'run:integration_main_server',
 		'run:integration_auth_server',
 		'run:integration_proxy_server',
-		'run:e2e_ci',
+		'protractor_coverage:ci',
 		'stop:integration_main_server',
 		'stop:integration_auth_server',
-		'stop:integration_proxy_server'
+		'stop:integration_proxy_server',
+		'makeReport'
 	]);
+
+	grunt.registerTask('task', ['availabletasks']);
+	grunt.registerTask('tasks', ['availabletasks']);
 };

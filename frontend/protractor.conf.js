@@ -35,7 +35,7 @@ exports.config = {
 		);
 		jasmine.getEnv().addReporter(
 			new ScreenShotReporter({
-				baseDirectory: './server-main/build/test-results/e2e-html/screenshots'
+				baseDirectory: 'build/test-results/e2e-html/screenshots'
 			})
 		);
 	},

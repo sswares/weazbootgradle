@@ -2,6 +2,7 @@
   <dictionary name="Walker">
     <words>
       <w>Girlcat</w>
+      <w>availabletasks</w>
       <w>browserify</w>
       <w>debounce</w>
       <w>eslint</w>
