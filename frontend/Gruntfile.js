@@ -27,6 +27,7 @@ module.exports = function (grunt) {
 		e2ePath: testPath + 'e2e/'
 	};
 
+	//noinspection JSUnresolvedFunction
 	grunt.initConfig({
 		globalConfig: globalConfig,
 
@@ -209,6 +210,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('clean', function () {
 		//noinspection JSUnresolvedFunction
 		grunt.file.delete(globalConfig.javaMainAppBuildDestination, {force: true});
+		//noinspection JSUnresolvedFunction
 		grunt.file.delete(globalConfig.appBuildPath, {force: true});
 
 	});
