@@ -4,6 +4,7 @@
       <w>Girlcat</w>
       <w>availabletasks</w>
       <w>browserify</w>
+      <w>cobertura</w>
       <w>debounce</w>
       <w>eslint</w>
       <w>eslintrc</w>
@@ -11,6 +12,7 @@
       <w>jshintrc</w>
       <w>livereload</w>
       <w>poogle</w>
+      <w>subproject</w>
       <w>tippy</w>
       <w>weazboot</w>
       <w>weazbootgradle</w>

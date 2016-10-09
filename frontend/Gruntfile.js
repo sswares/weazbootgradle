@@ -145,7 +145,7 @@ module.exports = function (grunt) {
 		makeReport: {
 			src: '<%= globalConfig.appBuildPath %>test-results/protractor/coverage/*.json',
 			options: {
-				type: 'lcov',
+				type: ['cobertura', 'lcov'],
 				dir: '<%= globalConfig.appBuildPath %>test-results/protractor/coverage/',
 				print: 'detail'
 			}
