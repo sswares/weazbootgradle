@@ -147,8 +147,13 @@ dependencyUpdates {
 }
 
 cobertura {
+    coverageFormats = ['html', 'xml']
     coverageSourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
     coverageMergeDatafiles = subprojects.collect { new File(it.projectDir, '/build/cobertura/cobertura.ser') }
+}
+
+coveralls {
+    sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
 }
 
 subprojects.tasks.test[0].dependsOn(project.tasks.javascriptUnitTest)
@@ -206,10 +211,6 @@ subprojects {
     checkstyle {
         configFile = rootProject.file('config/checkstyle/checkstyle-gradle.xml')
         configProperties = ["suppressionFile": project(':').file('config/checkstyle/suppressions.xml')]
-    }
-
-    cobertura {
-        coverageFormats = ['html', 'xml']
     }
 
     task sourceJar(
