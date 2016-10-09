@@ -23,6 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public SecurityConfiguration(CustomRemoteAuthenticationProvider customRemoteAuthenticationProvider,
                                  CustomUserDetailsService customUserDetailsService) {
+        super();
         this.customRemoteAuthenticationProvider = customRemoteAuthenticationProvider;
         this.customUserDetailsService = customUserDetailsService;
     }

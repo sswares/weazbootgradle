@@ -36,7 +36,7 @@ public class CustomClientDetailsService implements ClientDetailsService {
         return new CustomClientDetailsService.CustomClientDetails(customClient);
     }
 
-    private class CustomClientDetails extends CustomClient implements ClientDetails {
+    private static class CustomClientDetails extends CustomClient implements ClientDetails {
 
         public CustomClientDetails(CustomClient customClient) {
             super(customClient);
@@ -55,11 +55,6 @@ public class CustomClientDetailsService implements ClientDetailsService {
         @Override
         public boolean isSecretRequired() {
             return true;
-        }
-
-        @Override
-        public String getClientSecret() {
-            return super.getClientSecret();
         }
 
         @Override

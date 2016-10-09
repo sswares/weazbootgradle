@@ -43,11 +43,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         @Override
-        public String getUsername() {
-            return super.getUsername();
-        }
-
-        @Override
         public boolean isAccountNonExpired() {
             return true;
         }

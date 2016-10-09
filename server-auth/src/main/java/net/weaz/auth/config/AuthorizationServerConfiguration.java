@@ -23,6 +23,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public AuthorizationServerConfiguration(AuthenticationManager authenticationManager,
                                             CustomJwtAccessTokenConverter customJwtAccessTokenConverter,
                                             CustomClientDetailsService customClientDetailsService) {
+        super();
         this.authenticationManager = authenticationManager;
         this.customJwtAccessTokenConverter = customJwtAccessTokenConverter;
         this.customClientDetailsService = customClientDetailsService;

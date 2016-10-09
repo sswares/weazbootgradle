@@ -81,9 +81,11 @@ public class AuthApplicationTest {
     private String getCsrf(String soup) {
         Matcher matcher = Pattern.compile("(?s).*name=\"_csrf\".*?value=\"([^\"]+).*")
                 .matcher(soup);
+        String response = null;
+
         if (matcher.matches()) {
-            return matcher.group(1);
+            response = matcher.group(1);
         }
-        return null;
+        return response;
     }
 }

@@ -14,7 +14,7 @@ public class UserGreetingController {
                                      + "  Your favorite cat was " + currentUser.getFavoriteCat() + ", right?");
     }
 
-    class GreetingPresenter {
+    private static class GreetingPresenter {
 
         private String message;
 

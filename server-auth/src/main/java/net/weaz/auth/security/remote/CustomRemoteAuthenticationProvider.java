@@ -10,6 +10,7 @@ public class CustomRemoteAuthenticationProvider extends RemoteAuthenticationProv
 
     @Autowired
     public CustomRemoteAuthenticationProvider(RemoteAuthenticationManager customRemoteAuthenticationManager) {
+        super();
         setRemoteAuthenticationManager(customRemoteAuthenticationManager);
     }
 }

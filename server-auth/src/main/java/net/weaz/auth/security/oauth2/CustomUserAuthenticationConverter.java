@@ -10,6 +10,7 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
 
     @Autowired
     public CustomUserAuthenticationConverter(UserDetailsService userDetailsService) {
+        super();
         this.setUserDetailsService(userDetailsService);
     }
 }

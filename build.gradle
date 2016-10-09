@@ -169,6 +169,8 @@ subprojects {
     apply plugin: 'propdeps-idea'
     apply plugin: 'java'
     apply plugin: 'checkstyle'
+    apply plugin: 'pmd'
+    apply plugin: 'findbugs'
     apply plugin: 'maven-publish'
 
     dependencyManagement {
@@ -207,6 +209,23 @@ subprojects {
     checkstyle {
         configFile = rootProject.file('config/checkstyle/checkstyle-gradle.xml')
         configProperties = ["suppressionFile": project(':').file('config/checkstyle/suppressions.xml')]
+    }
+
+    findbugs {
+        ignoreFailures = true
+        effort = 'max'
+    }
+
+    tasks.withType(FindBugs) {
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
+    }
+
+    pmd {
+        ignoreFailures = true
+        ruleSets = ['java-basic', 'java-braces', 'java-unnecessary']
     }
 
     task sourceJar(

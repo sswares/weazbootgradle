@@ -25,6 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public SecurityConfiguration(ResourceServerProperties sso, CustomPrincipalExtractor customPrincipalExtractor) {
+        super();
         this.sso = sso;
         this.customPrincipalExtractor = customPrincipalExtractor;
     }

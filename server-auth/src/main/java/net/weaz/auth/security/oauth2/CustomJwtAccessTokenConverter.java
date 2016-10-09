@@ -17,6 +17,7 @@ public class CustomJwtAccessTokenConverter extends JwtAccessTokenConverter {
 
     @Autowired
     public CustomJwtAccessTokenConverter(CustomUserAuthenticationConverter userAuthenticationConverter) {
+        super();
         this.setKeyPair(
                 new KeyStoreKeyFactory(new ClassPathResource("keystore.jks"), "foobar".toCharArray())
                         .getKeyPair("test")
