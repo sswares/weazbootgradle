@@ -152,10 +152,6 @@ cobertura {
     coverageMergeDatafiles = subprojects.collect { new File(it.projectDir, '/build/cobertura/cobertura.ser') }
 }
 
-coveralls {
-    sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
-}
-
 subprojects.tasks.test[0].dependsOn(project.tasks.javascriptUnitTest)
 
 test.dependsOn(
