@@ -52,7 +52,7 @@ public class AuthApplicationTest {
 
     @Test
     public void authorize_redirectsToLogin() {
-        ResponseEntity<String> response = template.getForEntity("/auth/oauth/authorize", String.class);
+        ResponseEntity<String> response = template.getForEntity("/oauth/authorize", String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FOUND);
 
@@ -62,7 +62,7 @@ public class AuthApplicationTest {
 
     @Test
     public void login_whenGivenValidParameters_redirectsToRoot() {
-        ResponseEntity<String> response = template.getForEntity("/auth/login", String.class);
+        ResponseEntity<String> response = template.getForEntity("/login", String.class);
         String csrf = getCsrf(response.getBody());
 
         MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
@@ -73,7 +73,7 @@ public class AuthApplicationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.put("COOKIE", response.getHeaders().get("Set-Cookie"));
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(form, headers);
-        ResponseEntity<Void> location = template.postForEntity("/auth/login", request, Void.class);
+        ResponseEntity<Void> location = template.postForEntity("/login", request, Void.class);
 
         assertThat(location.getHeaders().getFirst("Location")).endsWith("/auth/");
     }

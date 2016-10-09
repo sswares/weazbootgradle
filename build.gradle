@@ -194,10 +194,8 @@ subprojects {
             showStandardStreams = false
         }
 
-        ignoreFailures = true
-
         afterTest { desc, result ->
-            println "- ${desc.name}: ${result.resultType}"
+            println "Executed test ${desc.name} [${desc.className}] with result: ${result.resultType} in ${0.001 * (result.getEndTime() - result.getStartTime())} seconds"
         }
     }
 
