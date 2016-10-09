@@ -1,9 +1,10 @@
 # Weazbootgradle
 
-CI | Status
+Tool | Status
  --- | ---
 | Travis  |  [![Build Status](https://travis-ci.org/themadweaz/weazbootgradle.svg?branch=master)](https://travis-ci.org/themadweaz/weazbootgradle) |
 | Jenkins | [![Build Status](http://jenkins.weaz.net/buildStatus/icon?job=weazboot)](http://jenkins.weaz.net/job/weazboot/) |
+| Java | [![Coverage Status](https://coveralls.io/repos/github/themadweaz/weazbootgradle/badge.svg)](https://coveralls.io/github/themadweaz/weazbootgradle) |
 
 ##Introduction
 **Weazboot Gradle** is a starter **[Spring Boot](http://projects.spring.io/spring-boot/)** / **[AngularJS](https://angularjs.org/)** project with many features 
