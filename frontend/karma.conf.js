@@ -17,6 +17,7 @@ module.exports = function (config) {
 
 		browserify: {
 			paths: ['app/js'],
+			transform: [require('browserify-istanbul')],
 			debug: true
 		},
 
@@ -42,16 +43,33 @@ module.exports = function (config) {
 
 		plugins: [
 			'karma-junit-reporter',
+			'karma-coverage',
 			'karma-phantomjs-launcher',
 			'karma-jasmine',
 			'karma-ng-html2js-preprocessor',
 			'karma-browserify'
 		],
 
-		reporters: ['junit', 'dots'],
+		reporters: ['junit', 'dots', 'coverage'],
+
+		coverageReporter: {
+			dir: 'build/test-results/karma-coverage',
+			check: {
+				global: {
+					statements: 100,
+					branches: 100,
+					functions: 100,
+					lines: 100
+				}
+			},
+			reporters: [
+				{type: 'lcov'},
+				{type: 'cobertura', subdir: '.', file: 'cobertura-coverage.xml'}
+			]
+		},
 
 		junitReporter: {
-			outputDir: 'build/test-results/',
+			outputDir: 'build/test-results/karma-junit/',
 			outputFile: 'karma-unit.xml',
 			suite: 'unit'
 		}

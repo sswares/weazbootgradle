@@ -8,6 +8,9 @@ module.exports = function ($scope, $rootScope, $http, $location) {
 			$rootScope.authenticated = true;
 			$rootScope.username = response.data.username;
 			$rootScope.favoriteCat = response.data.favoriteCat;
+		} else {
+			$rootScope.authenticated = false;
+			$location.path('/');
 		}
 	}, function () {
 		$rootScope.authenticated = false;
