@@ -186,6 +186,10 @@ subprojects {
         afterTest { desc, result ->
             println "Executed test ${desc.name} [${desc.className}] with result: ${result.resultType} in ${0.001 * (result.getEndTime() - result.getStartTime())} seconds"
         }
+
+        outputs.upToDateWhen {
+            false
+        }
     }
 
     checkstyle {
@@ -247,10 +251,8 @@ subprojects {
 
 def publishedProjects = subprojects.findAll()
 
-task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
+task jacocoRootReport(type: JacocoReport, group: 'Coverage reports', dependsOn: subprojects.tasks.test) {
     description = 'Generates an aggregate report from all subprojects'
-
-    dependsOn(publishedProjects.test)
 
     additionalSourceDirs = files(publishedProjects.sourceSets.main.allSource.srcDirs)
     sourceDirectories = files(publishedProjects.sourceSets.main.allSource.srcDirs)
@@ -262,8 +264,8 @@ task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
     }
 
     reports {
-        html.enabled = true // human readable
-        xml.enabled = true // required by coveralls
+        html.enabled = true
+        xml.enabled = true
     }
 }
 
@@ -272,14 +274,15 @@ coveralls {
     jacocoReportPath = "${rootProject.buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
 }
 
-subprojects.tasks.test[0].dependsOn(project.tasks.javascriptUnitTest)
 
-project.tasks.test.dependsOn(project.tasks.dependencyUpdates, subprojects.tasks.test)
+project.tasks.test.dependsOn(project.tasks.javascriptUnitTest, project.tasks.dependencyUpdates, subprojects.tasks.test)
 project.tasks.test.finalizedBy(project.tasks.gruntE2E, project.tasks.jacocoRootReport)
 
 project.tasks.clean.dependsOn(project.tasks.gruntClean)
 
 project.tasks.coveralls.dependsOn(project.tasks.jacocoRootReport)
+
+task unitTests(dependsOn: subprojects.tasks.test)
 
 task wrapper(type: Wrapper) {
     gradleVersion = project.gradleVersion
