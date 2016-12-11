@@ -4,7 +4,7 @@ import net.weaz.auth.data.models.CustomClient;
 import net.weaz.auth.data.repositories.CustomClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -31,9 +30,9 @@ public class CustomClientDetailsService implements ClientDetailsService {
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
         CustomClient customClient = customClientRepository.findByClientName(clientId);
         if (customClient == null) {
-            throw new ClientRegistrationException("Could not find client with clientId " + clientId);
+            throw new ClientRegistrationException("Could not find client with clientId: " + clientId);
         }
-        return new CustomClientDetailsService.CustomClientDetails(customClient);
+        return new CustomClientDetails(customClient);
     }
 
     private static class CustomClientDetails extends CustomClient implements ClientDetails {
@@ -64,7 +63,7 @@ public class CustomClientDetailsService implements ClientDetailsService {
 
         @Override
         public Set<String> getScope() {
-            return new HashSet<>(Arrays.asList(super.getScopes().split(",")));
+            return new HashSet<>(Arrays.asList(super.getScopes().replace(" ", "").split(",")));
         }
 
         @Override
@@ -79,7 +78,7 @@ public class CustomClientDetailsService implements ClientDetailsService {
 
         @Override
         public Collection<GrantedAuthority> getAuthorities() {
-            return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+            return AuthorityUtils.createAuthorityList("ROLE_USER");
         }
 
         @Override

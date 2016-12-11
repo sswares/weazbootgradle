@@ -20,13 +20,13 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final ResourceServerProperties sso;
+    private ResourceServerProperties resourceServerProperties;
     private CustomPrincipalExtractor customPrincipalExtractor;
 
     @Autowired
-    public SecurityConfiguration(ResourceServerProperties sso, CustomPrincipalExtractor customPrincipalExtractor) {
+    public SecurityConfiguration(ResourceServerProperties resourceServerProperties, CustomPrincipalExtractor customPrincipalExtractor) {
         super();
-        this.sso = sso;
+        this.resourceServerProperties = resourceServerProperties;
         this.customPrincipalExtractor = customPrincipalExtractor;
     }
 
@@ -41,8 +41,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public ResourceServerTokenServices userInfoTokenServices() {
         CustomUserInfoTokenServices userInfoTokenServices = new CustomUserInfoTokenServices(
-                sso.getUserInfoUri(), sso.getClientId(), customPrincipalExtractor);
-        userInfoTokenServices.setTokenType(sso.getTokenType());
+                resourceServerProperties.getUserInfoUri(), resourceServerProperties.getClientId(), customPrincipalExtractor);
+        userInfoTokenServices.setTokenType(resourceServerProperties.getTokenType());
         return userInfoTokenServices;
     }
 }

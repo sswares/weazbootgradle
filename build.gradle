@@ -8,13 +8,13 @@ buildscript {
         springBootVersion = '1.4.2.RELEASE'
         springCloudVersion = 'Camden.SR2'
 
-        springSecurityJwtVersion = '1.0.6.RELEASE'
+        springSecurityJwtVersion = '1.0.7.RELEASE'
         springSecurityTestVersion = '4.2.0.RELEASE'
         springSecurityOauth2Version = '2.0.12.RELEASE'
 
-        nodeVersion = '6.3.1'
+        nodeVersion = '7.2.1'
         npmVersion = '3.10.6'
-        assertjVersion = '3.5.2'
+        assertjVersion = '3.6.1'
         logbackVersion = '1.1.7'
         commonsIoVersion = '2.5'
         commonsLangVersion = '3.5'
@@ -22,8 +22,8 @@ buildscript {
 
         springBootDependencyManagementPluginVersion = '0.6.1.RELEASE'
         propdepsPluginVersion = '0.0.7'
-        nodePluginVersion = '0.13'
-        gruntPluginVersion = '0.13'
+        nodePluginVersion = '1.0.1'
+        gruntPluginVersion = '1.0.1'
         gradleVersionsPluginVersion = '0.13.0'
         coverallsPluginVersion = '2.7.1'
     }
@@ -31,6 +31,7 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
         maven { url 'https://repo.spring.io/plugins-release' }
     }
 
@@ -39,7 +40,6 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.springframework.build.gradle:propdeps-plugin:${propdepsPluginVersion}")
         classpath("com.moowork.gradle:gradle-node-plugin:${nodePluginVersion}")
-        classpath("com.moowork.gradle:gradle-grunt-plugin:${gruntPluginVersion}")
         classpath("com.github.ben-manes:gradle-versions-plugin:${gradleVersionsPluginVersion}")
         classpath("org.kt3k.gradle.plugin:coveralls-gradle-plugin:${coverallsPluginVersion}")
     }
@@ -186,10 +186,6 @@ subprojects {
         afterTest { desc, result ->
             println "Executed test ${desc.name} [${desc.className}] with result: ${result.resultType} in ${0.001 * (result.getEndTime() - result.getStartTime())} seconds"
         }
-
-        outputs.upToDateWhen {
-            false
-        }
     }
 
     checkstyle {
@@ -251,8 +247,10 @@ subprojects {
 
 def publishedProjects = subprojects.findAll()
 
-task jacocoRootReport(type: JacocoReport, group: 'Coverage reports', dependsOn: subprojects.tasks.test) {
+task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
     description = 'Generates an aggregate report from all subprojects'
+
+    dependsOn(publishedProjects.test)
 
     additionalSourceDirs = files(publishedProjects.sourceSets.main.allSource.srcDirs)
     sourceDirectories = files(publishedProjects.sourceSets.main.allSource.srcDirs)
@@ -274,15 +272,10 @@ coveralls {
     jacocoReportPath = "${rootProject.buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
 }
 
-
-project.tasks.test.dependsOn(project.tasks.javascriptUnitTest, project.tasks.dependencyUpdates, subprojects.tasks.test)
+project.tasks.test.dependsOn(project.tasks.javascriptUnitTest, project.tasks.dependencyUpdates)
 project.tasks.test.finalizedBy(project.tasks.gruntE2E, project.tasks.jacocoRootReport)
 
-project.tasks.clean.dependsOn(project.tasks.gruntClean)
-
 project.tasks.coveralls.dependsOn(project.tasks.jacocoRootReport)
-
-task unitTests(dependsOn: subprojects.tasks.test)
 
 task wrapper(type: Wrapper) {
     gradleVersion = project.gradleVersion

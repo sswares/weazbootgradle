@@ -21,10 +21,9 @@ public class CustomPrincipalExtractor implements PrincipalExtractor {
     @Override
     public Object extractPrincipal(Map<String, Object> map) {
         String username = (String) map.get("username");
-        String password = (String) map.get("password");
         List<GrantedAuthority> authoritiesList = authoritiesExtractor.extractAuthorities(map);
         String favoriteCat = (String) map.get("favoriteCat");
 
-        return new CustomMainUser(username, password, authoritiesList, favoriteCat);
+        return new CustomMainUser(username, authoritiesList, favoriteCat);
     }
 }

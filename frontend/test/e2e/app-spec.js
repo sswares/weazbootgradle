@@ -88,7 +88,7 @@ describe('JourneySpec', function () {
 
 				it('takes you back to the root page', function () {
 					browser.getCurrentUrl().then(function (newUrl) {
-						expect(newUrl.substr(-3)).toEqual('/#/');
+						expect(newUrl.substr(-3)).toEqual('#!/');
 					});
 				});
 			});

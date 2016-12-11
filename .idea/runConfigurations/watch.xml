@@ -3,7 +3,6 @@
     <node-interpreter value="project" />
     <gruntfile value="$PROJECT_DIR$/frontend/Gruntfile.js" />
     <tasks>
-      <task value="build" />
       <task value="watch" />
     </tasks>
     <envs />

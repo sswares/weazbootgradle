@@ -32,12 +32,11 @@ describe('RootController', function () {
 		});
 
 		describe('when it responds successfully with a user name and enabled', function () {
-			describe('when the data says enabled true', function () {
+			describe('when the data contains a username', function () {
 				it('sets authenticated to true on the rootScope', function () {
 					$httpBackend.expectGET('/user').respond(200,
 						{
 							username: 'user',
-							enabled: true,
 							favoriteCat: 'Girlcat'
 						}
 					);
@@ -48,9 +47,9 @@ describe('RootController', function () {
 				});
 			});
 
-			describe('when the data says enabled false', function () {
+			describe('when the data does not contain a username', function () {
 				it('sets authenticated to true on the rootScope', function () {
-					$httpBackend.expectGET('/user').respond(200, {enabled: false});
+					$httpBackend.expectGET('/user').respond(200, {});
 					$httpBackend.flush();
 					expect($rootScope.authenticated).toEqual(false);
 					expect($location.path).toHaveBeenCalledWith('/');

@@ -53,6 +53,7 @@ module.exports = function (grunt) {
 				spawn: false,
 				livereload: true,
 				keepAlive: true,
+				atBegin: true,
 				debounceDelay: 100
 			},
 			scripts: {
@@ -122,7 +123,7 @@ module.exports = function (grunt) {
 
 		protractor_coverage: {
 			options: {
-				keepAlive: true,
+				keepAlive: false,
 				noColor: false,
 				collectorPort: 3001,
 				coverageDir: '<%= globalConfig.appBuildPath %>test-results/protractor/coverage',

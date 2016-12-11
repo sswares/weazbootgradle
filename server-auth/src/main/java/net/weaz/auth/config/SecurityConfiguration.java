@@ -1,7 +1,7 @@
 package net.weaz.auth.config;
 
-import net.weaz.auth.security.CustomUserDetailsService;
 import net.weaz.auth.security.remote.CustomRemoteAuthenticationProvider;
+import net.weaz.auth.security.userdetails.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;

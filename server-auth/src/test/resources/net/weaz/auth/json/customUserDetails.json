@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "username": "username",
+  "firstName": "something",
+  "lastName": "else",
+  "favoriteCat": "poogle",
+  "authorities": [
+    {
+      "authority": "ROLE_USER"
+    }
+  ]
+}

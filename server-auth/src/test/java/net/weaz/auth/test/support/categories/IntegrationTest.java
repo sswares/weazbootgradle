@@ -1,5 +1,5 @@
 package net.weaz.auth.test.support.categories;
 
-public interface IntegrationTest {
+public @interface IntegrationTest {
 
 }
