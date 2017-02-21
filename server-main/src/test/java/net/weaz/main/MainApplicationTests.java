@@ -20,32 +20,31 @@ public class MainApplicationTests {
     @Value("${security.oauth2.client.userAuthorizationUri}")
     private String authorizeUri;
 
-    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     private TestRestTemplate template;
 
     @Test
-    public void homePageLoads() {
+    public void root_isUnprotected() {
         ResponseEntity<String> response = template.getForEntity("/", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    public void userEndpointProtected() {
+    public void user_isProtected() {
         ResponseEntity<String> response = template.getForEntity("/user", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FOUND);
         assertThat(response.getHeaders().getLocation().toString()).endsWith("/login");
     }
 
     @Test
-    public void resourceEndpointProtected() {
+    public void resource_isProtected() {
         ResponseEntity<String> response = template.getForEntity("/resource", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FOUND);
         assertThat(response.getHeaders().getLocation().toString()).endsWith("/login");
     }
 
     @Test
-    public void loginRedirects() {
+    public void login_redirectsToAuthorizationUrl() {
         ResponseEntity<String> response = template.getForEntity("/login", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FOUND);
 

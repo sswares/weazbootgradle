@@ -1,7 +1,7 @@
 package net.weaz.auth.controllers;
 
 import net.weaz.auth.annotations.CurrentUser;
-import net.weaz.auth.data.models.AuthCustomUser;
+import net.weaz.auth.security.userdetails.CustomUserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @GetMapping("/user")
-    public AuthCustomUser user(@CurrentUser AuthCustomUser currentUser) {
+    public CustomUserDetails user(@CurrentUser CustomUserDetails currentUser) {
         return currentUser;
     }
 }

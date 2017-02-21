@@ -1,17 +1,11 @@
 package net.weaz.main.config;
 
-import net.weaz.main.security.oauth2.CustomPrincipalExtractor;
-import net.weaz.main.security.oauth2.CustomUserInfoTokenServices;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
@@ -20,29 +14,11 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private ResourceServerProperties resourceServerProperties;
-    private CustomPrincipalExtractor customPrincipalExtractor;
-
-    @Autowired
-    public SecurityConfiguration(ResourceServerProperties resourceServerProperties, CustomPrincipalExtractor customPrincipalExtractor) {
-        super();
-        this.resourceServerProperties = resourceServerProperties;
-        this.customPrincipalExtractor = customPrincipalExtractor;
-    }
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**").authorizeRequests()
-                .antMatchers("/partials/**", "/", "/login").permitAll()
+                .antMatchers("/", "/login").permitAll()
                 .anyRequest().authenticated().and().csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-    }
-
-    @Bean
-    public ResourceServerTokenServices userInfoTokenServices() {
-        CustomUserInfoTokenServices userInfoTokenServices = new CustomUserInfoTokenServices(
-                resourceServerProperties.getUserInfoUri(), resourceServerProperties.getClientId(), customPrincipalExtractor);
-        userInfoTokenServices.setTokenType(resourceServerProperties.getTokenType());
-        return userInfoTokenServices;
     }
 }

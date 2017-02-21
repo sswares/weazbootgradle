@@ -3,29 +3,28 @@ group = 'net.weaz'
 
 buildscript {
     ext {
-        gradleVersion = '3.0'
+        gradleVersion = '3.3'
 
-        springBootVersion = '1.4.2.RELEASE'
-        springCloudVersion = 'Camden.SR2'
+        springBootVersion = '1.4.3.RELEASE'
+        springCloudVersion = 'Camden.SR5'
 
         springSecurityJwtVersion = '1.0.7.RELEASE'
         springSecurityTestVersion = '4.2.0.RELEASE'
         springSecurityOauth2Version = '2.0.12.RELEASE'
 
-        nodeVersion = '7.2.1'
-        npmVersion = '3.10.6'
-        assertjVersion = '3.6.1'
+        nodeVersion = '7.5.0'
+        npmVersion = '4.2.0'
+        assertjVersion = '3.6.2'
         logbackVersion = '1.1.7'
         commonsIoVersion = '2.5'
         commonsLangVersion = '3.5'
-        httpclientVersion = '4.5.2'
+        httpclientVersion = '4.5.3'
 
         springBootDependencyManagementPluginVersion = '0.6.1.RELEASE'
         propdepsPluginVersion = '0.0.7'
-        nodePluginVersion = '1.0.1'
-        gruntPluginVersion = '1.0.1'
-        gradleVersionsPluginVersion = '0.13.0'
-        coverallsPluginVersion = '2.7.1'
+        nodePluginVersion = '1.1.0'
+        gradleVersionsPluginVersion = '0.14.0'
+        coverallsPluginVersion = '2.8.1'
     }
 
     repositories {
@@ -52,7 +51,6 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.github.kt3k.coveralls'
 
 allprojects {
-    apply plugin: 'java'
     apply plugin: 'jacoco'
 
     repositories {
@@ -68,27 +66,9 @@ node {
     npmVersion = project.npmVersion
     distBaseUrl = 'https://nodejs.org/dist'
     download = true
-    npmCommand = 'npm --no-color'
 
     workDir = rootProject.file("${project.buildDir}/nodejs/")
     nodeModulesDir = rootProject.file("${project.projectDir}/frontend/")
-}
-
-task removeNodeModules(
-        type: NpmTask,
-        group: 'node',
-        description: 'Removes node_modules directory.  Useful on Windows, where path can be quite long.') {
-    it.workingDir = rootProject.file("./frontend/")
-    args = ['run', 'removeNodeModules']
-}
-
-task checkForNPMDependencyUpdates(
-        type: NpmTask,
-        group: 'node',
-        description: 'Checks for new npm dependencies.',
-        dependsOn: ['npmInstall']) {
-    it.workingDir = rootProject.file("./frontend/")
-    args = ['run', 'checkForNPMDependencyUpdates']
 }
 
 grunt {
@@ -97,36 +77,33 @@ grunt {
     bufferOutput = false
 }
 
-task gruntDefault(
-        type: GruntTask,
-        group: 'grunt',
-        description: 'Runs the javascript build and generates resources.',
+task npmBuild(type: NpmTask,
+        group: 'frontend',
+        description: 'Builds the frontend assets and puts them in the main application resource directory',
+        dependsOn: ['npmInstall', 'npmLint']) {
+    args = ['run', 'build', '--silent']
+}
+
+task npmLint(type: NpmTask,
+        group: 'frontend',
+        description: 'Runs linter on the frontend sources.',
         dependsOn: ['npmInstall']) {
-    args = ['default']
+    args = ['run', 'lint', '--silent']
+}
+
+task npmTest(type: NpmTask,
+        group: 'frontend',
+        description: 'Runs frontend unit tests.',
+        dependsOn: ['npmInstall', 'npmLint']) {
+    args = ['run', 'test', '--silent']
 }
 
 task gruntE2E(
         type: GruntTask,
-        group: 'grunt',
-        description: 'Runs end2end tests using Protractor and a headless browser.',
-        dependsOn: ['npmInstall', ':server-main:build', ':server-auth:build']) {
+        group: 'build',
+        description: 'Runs end2end tests while standing up the application.',
+        dependsOn: ['npmInstall', ':server-main:assemble', ':server-auth:assemble']) {
     args = ['e2eBuild']
-}
-
-task gruntClean(
-        type: GruntTask,
-        group: 'grunt',
-        description: 'Cleans out the grunt tem',
-        dependsOn: ['npmInstall']) {
-    args = ['clean']
-}
-
-task javascriptUnitTest(
-        type: GruntTask,
-        group: 'grunt',
-        description: 'Runs javascript unit tests using Karma and a headless browser.',
-        dependsOn: ['npmInstall']) {
-    args = ['unitTest']
 }
 
 dependencyUpdates {
@@ -146,10 +123,9 @@ dependencyUpdates {
 }
 
 subprojects {
+    apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'propdeps'
-    apply plugin: 'propdeps-maven'
-    apply plugin: 'propdeps-idea'
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
@@ -241,14 +217,15 @@ subprojects {
         version = rootProject.version
     }
 
-    compileJava.dependsOn processResources
-    jar.dependsOn(rootProject.tasks.gruntDefault)
+    compileJava.dependsOn(processResources)
+    test.dependsOn(['checkstyleMain', 'checkstyleTest', 'pmdMain', 'pmdTest', 'findbugsMain', 'findbugsTest'])
 }
 
 def publishedProjects = subprojects.findAll()
 
-task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
-    description = 'Generates an aggregate report from all subprojects'
+task jacocoRootReport(type: JacocoReport,
+        group: 'coverage',
+        description: 'Combines subproject jacoco coverage reports into just one.') {
 
     dependsOn(publishedProjects.test)
 
@@ -272,10 +249,22 @@ coveralls {
     jacocoReportPath = "${rootProject.buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
 }
 
-project.tasks.test.dependsOn(project.tasks.javascriptUnitTest, project.tasks.dependencyUpdates)
-project.tasks.test.finalizedBy(project.tasks.gruntE2E, project.tasks.jacocoRootReport)
+task test(group: 'build',
+        description: 'Root project test.',
+        dependsOn: [tasks.dependencyUpdates, tasks.npmTest])
+tasks.test.finalizedBy(tasks.jacocoRootReport)
 
-project.tasks.coveralls.dependsOn(project.tasks.jacocoRootReport)
+task check(group: 'build',
+        description: 'Root project check.',
+        dependsOn: tasks.npmTest)
+tasks.check.finalizedBy(tasks.gruntE2E)
+
+task build(group: 'build',
+        description: 'Root project build.',
+        dependsOn: tasks.test)
+build.finalizedBy(tasks.check)
+
+tasks.coveralls.dependsOn(tasks.jacocoRootReport)
 
 task wrapper(type: Wrapper) {
     gradleVersion = project.gradleVersion

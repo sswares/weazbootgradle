@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="end2end [needs server]" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+    <config-file value="$PROJECT_DIR$/frontend/protractor.conf.js" />
+    <node-interpreter value="project" />
+    <envs />
+    <method />
+  </configuration>
+</component>

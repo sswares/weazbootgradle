@@ -1,0 +1,10 @@
+{
+  "/auth/": {
+    "target": "http://localhost:9002",
+    "secure": false
+  },
+  "/": {
+    "target": "http://localhost:9001",
+    "secure": false
+  }
+}

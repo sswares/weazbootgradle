@@ -1,0 +1,36 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+  <button class="navbar-toggler navbar-toggler-right" type="button"
+          data-toggle="collapse" data-target="#collapsibleNavbar"
+          aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <span class="navbar-brand">wbg</span>
+
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" *ngIf="user" [routerLink]="['/']">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="!user" href="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="user" [routerLink]="['/resources']">Resources</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <header>
+    <h1>{{title}}</h1>
+  </header>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="container">© 2017 <a href="mailto:walker@weaz.net">Walker Berry</a></div>
+</footer>

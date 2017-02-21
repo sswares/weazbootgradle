@@ -10,8 +10,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-main/server-main_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-main/server-main_main.iml" group="server-main" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-main/server-main_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server-main/server-main_test.iml" group="server-main" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/weazbootgradle.iml" filepath="$PROJECT_DIR$/.idea/modules/weazbootgradle.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/weazbootgradle_main.iml" filepath="$PROJECT_DIR$/.idea/modules/weazbootgradle_main.iml" group="weazbootgradle" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/weazbootgradle_test.iml" filepath="$PROJECT_DIR$/.idea/modules/weazbootgradle_test.iml" group="weazbootgradle" />
     </modules>
   </component>
 </project>

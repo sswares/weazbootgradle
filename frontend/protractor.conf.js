@@ -1,47 +1,32 @@
-'use strict';
+// Protractor configuration file, see link for more information
+// https://github.com/angular/protractor/blob/master/lib/config.ts
+
+/*global jasmine */
+const {SpecReporter} = require('jasmine-spec-reporter');
 
 exports.config = {
-	allScriptsTimeout: 21000,
-
-	specs: [
-		'test/e2e/**/*-spec.js'
-	],
-
-	baseUrl: 'http://localhost:9000/',
-
-	seleniumPort: 4444,
-	seleniumArgs: ['-browserTimeout=60'],
-
-	troubleshoot: false,
-	directConnect: false,
-
-	capabilities: {
-		'browserName': 'chrome',
-		'chromeOptions': {
-			'args': ['show-fps-counter=true']
-		}
-	},
-
-	framework: 'jasmine2',
-
-	onPrepare: function () {
-		var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
-		var ScreenShotReporter = require('protractor-screenshot-reporter');
-		jasmine.getEnv().addReporter(
-			new Jasmine2HtmlReporter({
-				savePath: './server-main/build/test-results/e2e-html/',
-				screenshotsFolder: 'images'
-			})
-		);
-		jasmine.getEnv().addReporter(
-			new ScreenShotReporter({
-				baseDirectory: 'build/test-results/e2e-html/screenshots'
-			})
-		);
-	},
-
-	jasmineNodeOpts: {
-		showColors: true,
-		defaultTimeoutInterval: 30000
-	}
+  allScriptsTimeout: 11000,
+  specs: [
+    './e2e/**/*.e2e-spec.ts'
+  ],
+  capabilities: {
+    'browserName': 'chrome'
+  },
+  directConnect: true,
+  baseUrl: 'http://localhost:9000/',
+  framework: 'jasmine',
+  jasmineNodeOpts: {
+    showColors: true,
+    defaultTimeoutInterval: 30000,
+    print: function () {
+    }
+  },
+  beforeLaunch: function () {
+    require('ts-node').register({
+      project: 'e2e'
+    });
+  },
+  onPrepare() {
+    jasmine.getEnv().addReporter(new SpecReporter({spec: {displayStacktrace: true}}));
+  }
 };

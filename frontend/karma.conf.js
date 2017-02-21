@@ -1,77 +1,46 @@
-'use strict';
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/0.13/config/configuration-file.html
 
 module.exports = function (config) {
-	config.set({
-		basePath: './',
-
-		preprocessors: {
-			'app/js/**/*.js': ['browserify'],
-			'test/unit/**/*.js': ['browserify'],
-			'app/partials/**/*.html': ['ng-html2js']
-		},
-
-		ngHtml2JsPreprocessor: {
-			stripPrefix: 'src/main/frontend/',
-			moduleName: 'partials'
-		},
-
-		browserify: {
-			paths: ['app/js'],
-			transform: [require('browserify-istanbul')],
-			debug: true
-		},
-
-		logLevel: config.LOG_INFO,
-
-		files: [
-			{pattern: 'app/assets/**/*', watched: false, included: false, served: true},
-			'app/js/**/*.js',
-			'test/unit/**/*.js',
-			'app/partials/**/*.html'
-		],
-
-		autoWatch: true,
-		singleRun: false,
-
-		autoWatchBatchDelay: 100,
-
-		frameworks: ['browserify', 'jasmine'],
-
-		browsers: ['PhantomJS'],
-
-		browserNoActivityTimeout: 30000,
-
-		plugins: [
-			'karma-junit-reporter',
-			'karma-coverage',
-			'karma-phantomjs-launcher',
-			'karma-jasmine',
-			'karma-ng-html2js-preprocessor',
-			'karma-browserify'
-		],
-
-		reporters: ['junit', 'dots', 'coverage'],
-
-		coverageReporter: {
-			dir: 'build/test-results/karma-coverage',
-			check: {
-				global: {
-					statements: 100,
-					branches: 100,
-					functions: 100,
-					lines: 100
-				}
-			},
-			reporters: [
-				{type: 'lcov'},
-				{type: 'cobertura', subdir: '.', file: 'cobertura-coverage.xml'}
-			]
-		},
-
-		junitReporter: {
-			outputDir: 'build/test-results/karma-junit/',
-			outputFile: 'karma-unit.xml',
-			suite: 'unit'
-		}
-	});
+  config.set({
+    basePath: '',
+    frameworks: ['jasmine', '@angular/cli'],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-phantomjs-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('@angular/cli/plugins/karma')
+    ],
+    client: {
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
+    },
+    files: [
+      {pattern: './src/test.ts', watched: false}
+    ],
+    preprocessors: {
+      './src/test.ts': ['@angular/cli']
+    },
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
+    },
+    coverageIstanbulReporter: {
+      reports: ['html', 'lcovonly'],
+      fixWebpackSourcePaths: true
+    },
+    angularCli: {
+      config: './.angular-cli.json',
+      environment: 'dev'
+    },
+    reporters: config.angularCli && config.angularCli.codeCoverage
+      ? ['progress', 'coverage-istanbul']
+      : ['progress', 'kjhtml'],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: ['PhantomJS'],
+    singleRun: false
+  });
 };

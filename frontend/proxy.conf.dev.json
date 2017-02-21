@@ -1,0 +1,10 @@
+{
+  "/auth/": {
+    "target": "http://localhost:8002",
+    "secure": false
+  },
+  "/": {
+    "target": "http://localhost:8001",
+    "secure": false
+  }
+}

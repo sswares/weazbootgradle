@@ -1,5 +1,4 @@
-properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 node {
     stage 'Clean Workspace'
@@ -11,12 +10,15 @@ node {
     stage 'Build'
 
     if (isUnix()) {
-        sh './gradlew build --console=plain --no-daemon --info --stacktrace'
+        wrap([$class: 'Xvfb']) {
+            sh './gradlew build --console=plain --no-daemon --info --stacktrace'
+        }
     } else {
         bat 'gradlew build --console=plain --no-daemon --info --stacktrace'
     }
 
     stage 'Archive'
     step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/**/*.xml', allowEmptyResults: true])
-    step([$class: 'ArtifactArchiver', artifacts: '**/build/libs/*.jar', fingerprint: true])
+    step([$class: 'JacocoPublisher'])
+    step([$class: 'ArtifactArchiver', artifacts: '**/build/libs/*.jar*', fingerprint: true])
 }

@@ -1,8 +1,6 @@
 package net.weaz.auth;
 
-import net.weaz.auth.test.support.categories.IntegrationTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +21,6 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@Category(IntegrationTest.class)
 public class AuthApplicationTest {
 
     @Autowired
@@ -66,7 +63,7 @@ public class AuthApplicationTest {
         String csrf = getCsrf(response.getBody());
 
         MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
-        form.set("username", "user");
+        form.set("username", "username");
         form.set("password", "password");
         form.set("_csrf", csrf);
 
@@ -74,7 +71,6 @@ public class AuthApplicationTest {
         headers.put("COOKIE", response.getHeaders().get("Set-Cookie"));
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(form, headers);
         ResponseEntity<Void> location = template.postForEntity("/login", request, Void.class);
-
         assertThat(location.getHeaders().getFirst("Location")).endsWith("/auth/");
     }
 

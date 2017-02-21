@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleExtensions">
+    <project path="$PROJECT_DIR$">
+      <sub-project>
+        <project path="$PROJECT_DIR$">
+          <extensions>
+            <ext name="ext" type="org.gradle.api.internal.plugins.DefaultExtraPropertiesExtension" />
+            <ext name="node" type="com.moowork.gradle.node.NodeExtension" />
+            <ext name="grunt" type="com.moowork.gradle.grunt.GruntExtension" />
+            <ext name="dependencyManagement" type="io.spring.gradle.dependencymanagement.DependencyManagementExtension" />
+            <ext name="coveralls" type="org.kt3k.gradle.plugin.CoverallsPluginExtension" />
+            <ext name="reporting" type="org.gradle.api.reporting.ReportingExtension" />
+            <ext name="jacoco" type="org.gradle.testing.jacoco.plugins.JacocoPluginExtension" />
+            <prop name="commonsLangVersion" />
+            <prop name="YarnTask" type="java.lang.Class" />
+            <prop name="GruntTask" type="java.lang.Class" />
+            <prop name="NodeTask" type="java.lang.Class" />
+            <prop name="springSecurityOauth2Version" />
+            <prop name="logbackVersion" />
+            <prop name="springBootDependencyManagementPluginVersion" />
+            <prop name="propdepsPluginVersion" />
+            <prop name="httpclientVersion" />
+            <prop name="assertjVersion" />
+            <prop name="NpmTask" type="java.lang.Class" />
+            <prop name="springCloudVersion" />
+            <prop name="coverallsPluginVersion" />
+            <prop name="gradleVersion" />
+            <prop name="npmVersion" />
+            <prop name="nodeVersion" />
+            <prop name="nodePluginVersion" />
+            <prop name="commonsIoVersion" />
+            <prop name="gradleVersionsPluginVersion" />
+            <prop name="springSecurityTestVersion" />
+            <prop name="springBootVersion" />
+            <prop name="springSecurityJwtVersion" />
+            <task name="projects" type="org.gradle.api.tasks.diagnostics.ProjectReportTask">Displays the sub-projects of root project 'weazbootgradle'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="checkstyleTest" type="org.gradle.api.plugins.quality.Checkstyle">Run Checkstyle analysis for test classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="wrapper" type="org.gradle.api.tasks.wrapper.Wrapper">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="nodeSetup" type="com.moowork.gradle.node.task.SetupTask">Download and install a local node/npm version.&lt;p&gt;&lt;i&gt;Task group: Node&lt;i&gt;</task>
+            <task name="findbugsMain" type="org.gradle.api.plugins.quality.FindBugs">Run FindBugs analysis for main classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="npmBuild" type="com.moowork.gradle.node.npm.NpmTask">Builds the frontend assets and puts them in the main application resource directory&lt;p&gt;&lt;i&gt;Task group: frontend&lt;i&gt;</task>
+            <task name="model" type="org.gradle.api.reporting.model.ModelReport">Displays the configuration model of root project 'weazbootgradle'. [incubating]&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="jar" type="org.gradle.api.tasks.bundling.Jar">Assembles a jar archive containing the main classes.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="processResources" type="org.gradle.language.jvm.tasks.ProcessResources">Processes main resources.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="tasks" type="org.gradle.api.tasks.diagnostics.TaskReportTask">Displays the tasks runnable from root project 'weazbootgradle' (some of the displayed tasks may belong to subprojects).&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="init" type="org.gradle.buildinit.tasks.InitBuild">Initializes a new Gradle build. [incubating]&lt;p&gt;&lt;i&gt;Task group: Build Setup&lt;i&gt;</task>
+            <task name="gruntE2E" type="com.moowork.gradle.grunt.GruntTask">Runs end2end tests while standing up the application.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="test">Root project test.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="dependencyManagement" type="io.spring.gradle.dependencymanagement.report.DependencyManagementReportTask">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="bootRepackage" type="org.springframework.boot.gradle.repackage.RepackageTask">Repackage existing JAR and WAR archives so that they can be executed from the command line using 'java -jar'&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="compileJava" type="org.gradle.api.tasks.compile.JavaCompile">Compiles main Java source.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="check">Root project check.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="installGrunt" type="com.moowork.gradle.grunt.GruntInstallTask">Runs 'npm install grunt-cli grunt' to install grunt-cli&lt;p&gt;&lt;i&gt;Task group: Grunt&lt;i&gt;</task>
+            <task name="npmTest" type="com.moowork.gradle.node.npm.NpmTask">Runs frontend unit tests.&lt;p&gt;&lt;i&gt;Task group: frontend&lt;i&gt;</task>
+            <task name="coveralls" type="org.kt3k.gradle.plugin.coveralls.CoverallsTask">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="dependencies" type="org.gradle.api.tasks.diagnostics.DependencyReportTask">Displays all dependencies declared in root project 'weazbootgradle'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="processTestResources" type="org.gradle.language.jvm.tasks.ProcessResources">Processes test resources.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="buildNeeded">Assembles and tests this project and all projects it depends on.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="ideaProject" type="org.gradle.plugins.ide.idea.GenerateIdeaProject">Generates IDEA project file (IPR)&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="npmLint" type="com.moowork.gradle.node.npm.NpmTask">Runs linter on the frontend sources.&lt;p&gt;&lt;i&gt;Task group: frontend&lt;i&gt;</task>
+            <task name="yarnSetup" type="com.moowork.gradle.node.yarn.YarnSetupTask">Setup a specific version of Yarn to be used by the build.&lt;p&gt;&lt;i&gt;Task group: Node&lt;i&gt;</task>
+            <task name="pmdMain" type="org.gradle.api.plugins.quality.Pmd">Run PMD analysis for main classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="components" type="org.gradle.api.reporting.components.ComponentReport">Displays the components produced by root project 'weazbootgradle'. [incubating]&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="buildDependents">Assembles and tests this project and all projects that depend on it.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="sourceJar" type="org.gradle.api.tasks.bundling.Jar">Generates a source jar for publishing artifacts.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="idea">Generates IDEA project files (IML, IPR, IWS)&lt;p&gt;&lt;i&gt;Task group: IDE&lt;i&gt;</task>
+            <task name="dependentComponents" type="org.gradle.api.reporting.dependents.DependentComponentsReport">Displays the dependent components of components in root project 'weazbootgradle'. [incubating]&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="classes">Assembles main classes.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="buildEnvironment" type="org.gradle.api.tasks.diagnostics.BuildEnvironmentReportTask">Displays all buildscript dependencies declared in root project 'weazbootgradle'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="cleanIdeaModule" type="org.gradle.api.tasks.Delete">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="testClasses">Assembles test classes.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="javadoc" type="org.gradle.api.tasks.javadoc.Javadoc">Generates Javadoc API documentation for the main source code.&lt;p&gt;&lt;i&gt;Task group: documentation&lt;i&gt;</task>
+            <task name="checkstyleMain" type="org.gradle.api.plugins.quality.Checkstyle">Run Checkstyle analysis for main classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="generatePomFileForMavenJavaPublication" type="org.gradle.api.publish.maven.tasks.GenerateMavenPom">Generates the Maven POM file for publication 'mavenJava'.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="pmdTest" type="org.gradle.api.plugins.quality.Pmd">Run PMD analysis for test classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="ideaModule" type="org.gradle.plugins.ide.idea.GenerateIdeaModule">Generates IDEA module files (IML)&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="findbugsTest" type="org.gradle.api.plugins.quality.FindBugs">Run FindBugs analysis for test classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="cleanIdea">Cleans IDEA project files (IML, IPR)&lt;p&gt;&lt;i&gt;Task group: IDE&lt;i&gt;</task>
+            <task name="publishMavenJavaPublicationToMavenLocal" type="org.gradle.api.publish.maven.tasks.PublishToMavenLocal">Publishes Maven publication 'mavenJava' to the local Maven repository.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="ideaWorkspace" type="org.gradle.plugins.ide.idea.GenerateIdeaWorkspace">Generates an IDEA workspace file (IWS)&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="bootRun" type="org.springframework.boot.gradle.run.BootRunTask">Run the project with support for auto-detecting main class and reloading static resources&lt;p&gt;&lt;i&gt;Task group: application&lt;i&gt;</task>
+            <task name="dependencyInsight" type="org.gradle.api.tasks.diagnostics.DependencyInsightReportTask">Displays the insight into a specific dependency in root project 'weazbootgradle'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="jacocoTestReport" type="org.gradle.testing.jacoco.tasks.JacocoReport">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="assemble">Assembles the outputs of this project.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="clean" type="org.gradle.api.tasks.Delete">Deletes the build directory.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="compileTestJava" type="org.gradle.api.tasks.compile.JavaCompile">Compiles test Java source.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="npmSetup" type="com.moowork.gradle.node.npm.NpmSetupTask">Setup a specific version of npm to be used by the build.&lt;p&gt;&lt;i&gt;Task group: Node&lt;i&gt;</task>
+            <task name="cleanIdeaProject" type="org.gradle.api.tasks.Delete">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="help" type="org.gradle.configuration.Help">Displays a help message.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="build">Root project build.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="findMainClass" type="org.springframework.boot.gradle.run.FindMainClassTask">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="jacocoRootReport" type="org.gradle.testing.jacoco.tasks.JacocoReport">Combines subproject jacoco coverage reports into just one.&lt;p&gt;&lt;i&gt;Task group: coverage&lt;i&gt;</task>
+            <task name="npmInstall" type="com.moowork.gradle.node.npm.NpmInstallTask">Install node packages from package.json.&lt;p&gt;&lt;i&gt;Task group: Node&lt;i&gt;</task>
+            <task name="publish">Publishes all publications produced by this project.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="publishToMavenLocal">Publishes all Maven publications produced by this project to the local Maven cache.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="dependencyUpdates" type="com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask">Displays the dependency updates for the project.&lt;p&gt;&lt;i&gt;Task group: Help&lt;i&gt;</task>
+            <task name="yarn" type="com.moowork.gradle.node.yarn.YarnInstallTask">Install node packages using Yarn.&lt;p&gt;&lt;i&gt;Task group: Node&lt;i&gt;</task>
+            <task name="properties" type="org.gradle.api.tasks.diagnostics.PropertyReportTask">Displays the properties of root project 'weazbootgradle'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="cleanIdeaWorkspace" type="org.gradle.api.tasks.Delete">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <conf name="jacocoAgent" visible="false">The Jacoco agent to use to get coverage data.</conf>
+            <conf name="jacocoAnt" visible="false">The Jacoco ant tasks to use to get execute Gradle tasks.</conf>
+            <conf name="classpath" scriptClasspath="true" />
+          </extensions>
+        </project>
+        <project path="$PROJECT_DIR$/server-auth">
+          <extensions parent="$PROJECT_DIR$">
+            <ext name="ext" type="org.gradle.api.internal.plugins.DefaultExtraPropertiesExtension" />
+            <ext name="reporting" type="org.gradle.api.reporting.ReportingExtension" />
+            <ext name="jacoco" type="org.gradle.testing.jacoco.plugins.JacocoPluginExtension" />
+            <ext name="defaultArtifacts" type="org.gradle.api.internal.plugins.DefaultArtifactPublicationSet" />
+            <ext name="springBoot" type="org.springframework.boot.gradle.SpringBootPluginExtension" />
+            <ext name="dependencyManagement" type="io.spring.gradle.dependencymanagement.DependencyManagementExtension" />
+            <ext name="checkstyle" type="org.gradle.api.plugins.quality.CheckstyleExtension" />
+            <ext name="pmd" type="org.gradle.api.plugins.quality.PmdExtension" />
+            <ext name="findbugs" type="org.gradle.api.plugins.quality.FindBugsExtension" />
+            <ext name="publishing" type="org.gradle.api.publish.internal.DefaultPublishingExtension" />
+            <prop name="BootRepackage" type="java.lang.Class" />
+            <task name="components" type="org.gradle.api.reporting.components.ComponentReport">Displays the components produced by project ':server-auth'. [incubating]&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="buildDependents">Assembles and tests this project and all projects that depend on it.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="projects" type="org.gradle.api.tasks.diagnostics.ProjectReportTask">Displays the sub-projects of project ':server-auth'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="sourceJar" type="org.gradle.api.tasks.bundling.Jar">Generates a source jar for publishing artifacts.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="idea">Generates IDEA project files (IML, IPR, IWS)&lt;p&gt;&lt;i&gt;Task group: IDE&lt;i&gt;</task>
+            <task name="classes">Assembles main classes.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="dependentComponents" type="org.gradle.api.reporting.dependents.DependentComponentsReport">Displays the dependent components of components in project ':server-auth'. [incubating]&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="checkstyleTest" type="org.gradle.api.plugins.quality.Checkstyle">Run Checkstyle analysis for test classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="buildEnvironment" type="org.gradle.api.tasks.diagnostics.BuildEnvironmentReportTask">Displays all buildscript dependencies declared in project ':server-auth'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="cleanIdeaModule" type="org.gradle.api.tasks.Delete">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="testClasses">Assembles test classes.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="javadoc" type="org.gradle.api.tasks.javadoc.Javadoc">Generates Javadoc API documentation for the main source code.&lt;p&gt;&lt;i&gt;Task group: documentation&lt;i&gt;</task>
+            <task name="checkstyleMain" type="org.gradle.api.plugins.quality.Checkstyle">Run Checkstyle analysis for main classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="findbugsMain" type="org.gradle.api.plugins.quality.FindBugs">Run FindBugs analysis for main classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="generatePomFileForMavenJavaPublication" type="org.gradle.api.publish.maven.tasks.GenerateMavenPom">Generates the Maven POM file for publication 'mavenJava'.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="jar" type="org.gradle.api.tasks.bundling.Jar">Assembles a jar archive containing the main classes.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="model" type="org.gradle.api.reporting.model.ModelReport">Displays the configuration model of project ':server-auth'. [incubating]&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="pmdTest" type="org.gradle.api.plugins.quality.Pmd">Run PMD analysis for test classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="ideaModule" type="org.gradle.plugins.ide.idea.GenerateIdeaModule">Generates IDEA module files (IML)&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="processResources" type="org.gradle.language.jvm.tasks.ProcessResources">Processes main resources.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="tasks" type="org.gradle.api.tasks.diagnostics.TaskReportTask">Displays the tasks runnable from project ':server-auth'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="findbugsTest" type="org.gradle.api.plugins.quality.FindBugs">Run FindBugs analysis for test classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="cleanIdea">Cleans IDEA project files (IML, IPR)&lt;p&gt;&lt;i&gt;Task group: IDE&lt;i&gt;</task>
+            <task name="publishMavenJavaPublicationToMavenLocal" type="org.gradle.api.publish.maven.tasks.PublishToMavenLocal">Publishes Maven publication 'mavenJava' to the local Maven repository.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="test" type="org.gradle.api.tasks.testing.Test">Runs the unit tests.&lt;p&gt;&lt;i&gt;Task group: verification&lt;i&gt;</task>
+            <task name="dependencyManagement" type="io.spring.gradle.dependencymanagement.report.DependencyManagementReportTask">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="bootRepackage" type="org.springframework.boot.gradle.repackage.RepackageTask">Repackage existing JAR and WAR archives so that they can be executed from the command line using 'java -jar'&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="bootRun" type="org.springframework.boot.gradle.run.BootRunTask">Run the project with support for auto-detecting main class and reloading static resources&lt;p&gt;&lt;i&gt;Task group: application&lt;i&gt;</task>
+            <task name="compileJava" type="org.gradle.api.tasks.compile.JavaCompile">Compiles main Java source.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="dependencyInsight" type="org.gradle.api.tasks.diagnostics.DependencyInsightReportTask">Displays the insight into a specific dependency in project ':server-auth'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="check">Runs all checks.&lt;p&gt;&lt;i&gt;Task group: verification&lt;i&gt;</task>
+            <task name="jacocoTestReport" type="org.gradle.testing.jacoco.tasks.JacocoReport">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="assemble">Assembles the outputs of this project.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="clean" type="org.gradle.api.tasks.Delete">Deletes the build directory.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="compileTestJava" type="org.gradle.api.tasks.compile.JavaCompile">Compiles test Java source.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="dependencies" type="org.gradle.api.tasks.diagnostics.DependencyReportTask">Displays all dependencies declared in project ':server-auth'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="processTestResources" type="org.gradle.language.jvm.tasks.ProcessResources">Processes test resources.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="help" type="org.gradle.configuration.Help">Displays a help message.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="build">Assembles and tests this project.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="findMainClass" type="org.springframework.boot.gradle.run.FindMainClassTask">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="buildNeeded">Assembles and tests this project and all projects it depends on.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="publish">Publishes all publications produced by this project.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="publishToMavenLocal">Publishes all Maven publications produced by this project to the local Maven cache.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="properties" type="org.gradle.api.tasks.diagnostics.PropertyReportTask">Displays the properties of project ':server-auth'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="pmdMain" type="org.gradle.api.plugins.quality.Pmd">Run PMD analysis for main classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <conf name="archives">Configuration for archive artifacts.</conf>
+            <conf name="checkstyle" visible="false">The Checkstyle libraries to be used for this project.</conf>
+            <conf name="compile" visible="false">Dependencies for source set 'main'.</conf>
+            <conf name="compileClasspath" visible="false">Compile classpath for source set 'main'.</conf>
+            <conf name="compileOnly" visible="false">Compile dependencies for source set 'main'.</conf>
+            <conf name="default">Configuration for default artifacts.</conf>
+            <conf name="findbugs" visible="false">The FindBugs libraries to be used for this project.</conf>
+            <conf name="findbugsPlugins" visible="false">The FindBugs plugins to be used for this project.</conf>
+            <conf name="jacocoAgent" visible="false">The Jacoco agent to use to get coverage data.</conf>
+            <conf name="jacocoAnt" visible="false">The Jacoco ant tasks to use to get execute Gradle tasks.</conf>
+            <conf name="optional" visible="false" />
+            <conf name="pmd" visible="false">The PMD libraries to be used for this project.</conf>
+            <conf name="provided" visible="false" />
+            <conf name="runtime" visible="false">Runtime dependencies for source set 'main'.</conf>
+            <conf name="testCompile" visible="false">Dependencies for source set 'test'.</conf>
+            <conf name="testCompileClasspath" visible="false">Compile classpath for source set 'test'.</conf>
+            <conf name="testCompileOnly" visible="false">Compile dependencies for source set 'test'.</conf>
+            <conf name="testRuntime" visible="false">Runtime dependencies for source set 'test'.</conf>
+            <conf name="classpath" scriptClasspath="true" />
+          </extensions>
+        </project>
+        <project path="$PROJECT_DIR$/server-main">
+          <extensions parent="$PROJECT_DIR$">
+            <ext name="ext" type="org.gradle.api.internal.plugins.DefaultExtraPropertiesExtension" />
+            <ext name="reporting" type="org.gradle.api.reporting.ReportingExtension" />
+            <ext name="jacoco" type="org.gradle.testing.jacoco.plugins.JacocoPluginExtension" />
+            <ext name="defaultArtifacts" type="org.gradle.api.internal.plugins.DefaultArtifactPublicationSet" />
+            <ext name="springBoot" type="org.springframework.boot.gradle.SpringBootPluginExtension" />
+            <ext name="dependencyManagement" type="io.spring.gradle.dependencymanagement.DependencyManagementExtension" />
+            <ext name="checkstyle" type="org.gradle.api.plugins.quality.CheckstyleExtension" />
+            <ext name="pmd" type="org.gradle.api.plugins.quality.PmdExtension" />
+            <ext name="findbugs" type="org.gradle.api.plugins.quality.FindBugsExtension" />
+            <ext name="publishing" type="org.gradle.api.publish.internal.DefaultPublishingExtension" />
+            <prop name="BootRepackage" type="java.lang.Class" />
+            <task name="components" type="org.gradle.api.reporting.components.ComponentReport">Displays the components produced by project ':server-main'. [incubating]&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="buildDependents">Assembles and tests this project and all projects that depend on it.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="projects" type="org.gradle.api.tasks.diagnostics.ProjectReportTask">Displays the sub-projects of project ':server-main'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="sourceJar" type="org.gradle.api.tasks.bundling.Jar">Generates a source jar for publishing artifacts.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="idea">Generates IDEA project files (IML, IPR, IWS)&lt;p&gt;&lt;i&gt;Task group: IDE&lt;i&gt;</task>
+            <task name="classes">Assembles main classes.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="dependentComponents" type="org.gradle.api.reporting.dependents.DependentComponentsReport">Displays the dependent components of components in project ':server-main'. [incubating]&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="checkstyleTest" type="org.gradle.api.plugins.quality.Checkstyle">Run Checkstyle analysis for test classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="buildEnvironment" type="org.gradle.api.tasks.diagnostics.BuildEnvironmentReportTask">Displays all buildscript dependencies declared in project ':server-main'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="cleanIdeaModule" type="org.gradle.api.tasks.Delete">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="testClasses">Assembles test classes.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="javadoc" type="org.gradle.api.tasks.javadoc.Javadoc">Generates Javadoc API documentation for the main source code.&lt;p&gt;&lt;i&gt;Task group: documentation&lt;i&gt;</task>
+            <task name="checkstyleMain" type="org.gradle.api.plugins.quality.Checkstyle">Run Checkstyle analysis for main classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="findbugsMain" type="org.gradle.api.plugins.quality.FindBugs">Run FindBugs analysis for main classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="generatePomFileForMavenJavaPublication" type="org.gradle.api.publish.maven.tasks.GenerateMavenPom">Generates the Maven POM file for publication 'mavenJava'.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="jar" type="org.gradle.api.tasks.bundling.Jar">Assembles a jar archive containing the main classes.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="model" type="org.gradle.api.reporting.model.ModelReport">Displays the configuration model of project ':server-main'. [incubating]&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="pmdTest" type="org.gradle.api.plugins.quality.Pmd">Run PMD analysis for test classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="ideaModule" type="org.gradle.plugins.ide.idea.GenerateIdeaModule">Generates IDEA module files (IML)&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="processResources" type="org.gradle.language.jvm.tasks.ProcessResources">Processes main resources.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="tasks" type="org.gradle.api.tasks.diagnostics.TaskReportTask">Displays the tasks runnable from project ':server-main'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="findbugsTest" type="org.gradle.api.plugins.quality.FindBugs">Run FindBugs analysis for test classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="cleanIdea">Cleans IDEA project files (IML, IPR)&lt;p&gt;&lt;i&gt;Task group: IDE&lt;i&gt;</task>
+            <task name="publishMavenJavaPublicationToMavenLocal" type="org.gradle.api.publish.maven.tasks.PublishToMavenLocal">Publishes Maven publication 'mavenJava' to the local Maven repository.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="test" type="org.gradle.api.tasks.testing.Test">Runs the unit tests.&lt;p&gt;&lt;i&gt;Task group: verification&lt;i&gt;</task>
+            <task name="dependencyManagement" type="io.spring.gradle.dependencymanagement.report.DependencyManagementReportTask">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="bootRepackage" type="org.springframework.boot.gradle.repackage.RepackageTask">Repackage existing JAR and WAR archives so that they can be executed from the command line using 'java -jar'&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="bootRun" type="org.springframework.boot.gradle.run.BootRunTask">Run the project with support for auto-detecting main class and reloading static resources&lt;p&gt;&lt;i&gt;Task group: application&lt;i&gt;</task>
+            <task name="compileJava" type="org.gradle.api.tasks.compile.JavaCompile">Compiles main Java source.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="dependencyInsight" type="org.gradle.api.tasks.diagnostics.DependencyInsightReportTask">Displays the insight into a specific dependency in project ':server-main'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="check">Runs all checks.&lt;p&gt;&lt;i&gt;Task group: verification&lt;i&gt;</task>
+            <task name="jacocoTestReport" type="org.gradle.testing.jacoco.tasks.JacocoReport">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="assemble">Assembles the outputs of this project.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="clean" type="org.gradle.api.tasks.Delete">Deletes the build directory.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="compileTestJava" type="org.gradle.api.tasks.compile.JavaCompile">Compiles test Java source.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="dependencies" type="org.gradle.api.tasks.diagnostics.DependencyReportTask">Displays all dependencies declared in project ':server-main'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="processTestResources" type="org.gradle.language.jvm.tasks.ProcessResources">Processes test resources.&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="help" type="org.gradle.configuration.Help">Displays a help message.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="build">Assembles and tests this project.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="findMainClass" type="org.springframework.boot.gradle.run.FindMainClassTask">&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <task name="buildNeeded">Assembles and tests this project and all projects it depends on.&lt;p&gt;&lt;i&gt;Task group: build&lt;i&gt;</task>
+            <task name="publish">Publishes all publications produced by this project.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="publishToMavenLocal">Publishes all Maven publications produced by this project to the local Maven cache.&lt;p&gt;&lt;i&gt;Task group: publishing&lt;i&gt;</task>
+            <task name="properties" type="org.gradle.api.tasks.diagnostics.PropertyReportTask">Displays the properties of project ':server-main'.&lt;p&gt;&lt;i&gt;Task group: help&lt;i&gt;</task>
+            <task name="pmdMain" type="org.gradle.api.plugins.quality.Pmd">Run PMD analysis for main classes&lt;p&gt;&lt;i&gt;Task group: other&lt;i&gt;</task>
+            <conf name="archives">Configuration for archive artifacts.</conf>
+            <conf name="checkstyle" visible="false">The Checkstyle libraries to be used for this project.</conf>
+            <conf name="compile" visible="false">Dependencies for source set 'main'.</conf>
+            <conf name="compileClasspath" visible="false">Compile classpath for source set 'main'.</conf>
+            <conf name="compileOnly" visible="false">Compile dependencies for source set 'main'.</conf>
+            <conf name="default">Configuration for default artifacts.</conf>
+            <conf name="findbugs" visible="false">The FindBugs libraries to be used for this project.</conf>
+            <conf name="findbugsPlugins" visible="false">The FindBugs plugins to be used for this project.</conf>
+            <conf name="jacocoAgent" visible="false">The Jacoco agent to use to get coverage data.</conf>
+            <conf name="jacocoAnt" visible="false">The Jacoco ant tasks to use to get execute Gradle tasks.</conf>
+            <conf name="optional" visible="false" />
+            <conf name="pmd" visible="false">The PMD libraries to be used for this project.</conf>
+            <conf name="provided" visible="false" />
+            <conf name="runtime" visible="false">Runtime dependencies for source set 'main'.</conf>
+            <conf name="testCompile" visible="false">Dependencies for source set 'test'.</conf>
+            <conf name="testCompileClasspath" visible="false">Compile classpath for source set 'test'.</conf>
+            <conf name="testCompileOnly" visible="false">Compile dependencies for source set 'test'.</conf>
+            <conf name="testRuntime" visible="false">Runtime dependencies for source set 'test'.</conf>
+            <conf name="classpath" scriptClasspath="true" />
+          </extensions>
+        </project>
+      </sub-project>
+    </project>
+  </component>
+</project>

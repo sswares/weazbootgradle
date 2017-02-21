@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="default" type="js.build_tools.grunt" factoryName="Grunt.js">
-    <node-interpreter value="project" />
-    <gruntfile value="$PROJECT_DIR$/frontend/Gruntfile.js" />
-    <envs />
-    <method />
-  </configuration>
-</component>

@@ -8,9 +8,17 @@
         <option name="RIGHT_MARGIN" value="180" />
         <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true" />
         <option name="FORMATTER_TAGS_ENABLED" value="true" />
+        <JSCodeStyleSettings>
+          <option name="USE_DOUBLE_QUOTES" value="false" />
+          <option name="FORCE_QUOTE_STYlE" value="true" />
+        </JSCodeStyleSettings>
         <MarkdownNavigatorCodeStyleSettings>
           <option name="RIGHT_MARGIN" value="72" />
         </MarkdownNavigatorCodeStyleSettings>
+        <TypeScriptCodeStyleSettings>
+          <option name="USE_DOUBLE_QUOTES" value="false" />
+          <option name="FORCE_QUOTE_STYlE" value="true" />
+        </TypeScriptCodeStyleSettings>
         <XML>
           <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
         </XML>
@@ -24,9 +32,13 @@
           <option name="BINARY_OPERATION_SIGN_ON_NEXT_LINE" value="true" />
         </codeStyleSettings>
         <codeStyleSettings language="JavaScript">
+          <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
           <indentOptions>
             <option name="USE_TAB_CHARACTER" value="true" />
           </indentOptions>
+        </codeStyleSettings>
+        <codeStyleSettings language="TypeScript">
+          <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
         </codeStyleSettings>
       </value>
     </option>
