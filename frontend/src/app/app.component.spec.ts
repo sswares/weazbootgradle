@@ -46,7 +46,6 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     const app = fixture.debugElement.componentInstance;
-    console.log(app);
     expect(app.title).toEqual('Weazbootgradle');
     expect(compiled.querySelector('h1').textContent).toContain('Weazbootgradle');
   }));
