@@ -1,4 +1,5 @@
-![Angular](./docs/images/angular-logo.png) ![Spring Boot](./docs/images/spring-logo.png) ![OAuth2](./docs/images/oauth2-logo.png)
+[![Gradle](./docs/images/gradle-logo.png)](https://gradle.org/) [![Angular](./docs/images/angular-logo.png)](https://angular.io/)
+[![OAuth2](./docs/images/oauth2-logo.png)](https://tools.ietf.org/html/rfc6749) [![Spring Boot](./docs/images/spring-logo.png)](http://projects.spring.io/spring-boot/)
 # Weazbootgradle
 Tool | Status
  --- | ---
