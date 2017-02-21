@@ -7,7 +7,7 @@ Tool | Status
 | Java | [![Coverage Status](https://coveralls.io/repos/github/themadweaz/weazbootgradle/badge.svg)](https://coveralls.io/github/themadweaz/weazbootgradle) |
 
 ## Introduction
-**Weazboot Gradle** is a starter **[Spring Boot](http://projects.spring.io/spring-boot/)** / **[Angular](https://angular.io/)** project with many features 
+**Weazbootgradle** is a starter **[Spring Boot](http://projects.spring.io/spring-boot/)** / **[Angular](https://angular.io/)** project with many features 
 designed to be used with **[Intellij IDE](https://www.jetbrains.com/idea/)**.  
 It uses **[Gradle](https://gradle.org/)** as the main build tool with **[Angular CLI](https://cli.angular.io/)** for the frontend.  It is cross platform, 
 **[travis-ci](https://travis-ci.org/)** and **[Jenkins](https://jenkins.io/)** friendly, and loaded with multiple testing frameworks.  It comes pre-configured with 
