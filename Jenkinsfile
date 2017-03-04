@@ -12,6 +12,7 @@ node {
 
         if (isUnix()) {
             wrap([$class: 'Xvfb']) {
+                env
                 sh './gradlew build --console=plain --no-daemon --info --stacktrace'
             }
         } else {
