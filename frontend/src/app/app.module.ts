@@ -4,6 +4,8 @@ import {RouterModule} from '@angular/router';
 import {HttpModule} from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/do';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';

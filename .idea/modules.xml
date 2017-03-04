@@ -3,12 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/frontend/frontend.iml" filepath="$PROJECT_DIR$/frontend/frontend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-auth/server-auth.iml" filepath="$PROJECT_DIR$/.idea/modules/server-auth/server-auth.iml" group="server-auth" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-auth/server-auth_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-auth/server-auth_main.iml" group="server-auth" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-auth/server-auth_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server-auth/server-auth_test.iml" group="server-auth" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-main/server-main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-main/server-main.iml" group="server-main" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-main/server-main_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-main/server-main_main.iml" group="server-main" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-main/server-main_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server-main/server-main_test.iml" group="server-main" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-auth/server-auth.iml" filepath="$PROJECT_DIR$/.idea/modules/server-auth/server-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-main/server-main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-main/server-main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/weazbootgradle.iml" filepath="$PROJECT_DIR$/.idea/modules/weazbootgradle.iml" />
     </modules>
   </component>

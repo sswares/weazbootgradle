@@ -3,24 +3,24 @@ group = 'net.weaz'
 
 buildscript {
     ext {
-        gradleVersion = '3.3'
+        gradleVersion = '3.4'
 
-        springBootVersion = '1.4.3.RELEASE'
+        springBootVersion = '1.5.2.RELEASE'
         springCloudVersion = 'Camden.SR5'
 
         springSecurityJwtVersion = '1.0.7.RELEASE'
-        springSecurityTestVersion = '4.2.0.RELEASE'
-        springSecurityOauth2Version = '2.0.12.RELEASE'
+        springSecurityTestVersion = '4.2.2.RELEASE'
+        springSecurityOauth2Version = '2.1.0.RELEASE'
 
-        nodeVersion = '7.5.0'
-        npmVersion = '4.2.0'
+        nodeVersion = '7.7.1'
+        npmVersion = '4.3.0'
         assertjVersion = '3.6.2'
         logbackVersion = '1.1.7'
         commonsIoVersion = '2.5'
         commonsLangVersion = '3.5'
         httpclientVersion = '4.5.3'
 
-        springBootDependencyManagementPluginVersion = '0.6.1.RELEASE'
+        springBootDependencyManagementPluginVersion = '1.0.0.RELEASE'
         propdepsPluginVersion = '0.0.7'
         nodePluginVersion = '1.1.0'
         gradleVersionsPluginVersion = '0.14.0'
@@ -123,7 +123,7 @@ dependencyUpdates {
 }
 
 subprojects {
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'propdeps'
     apply plugin: 'checkstyle'
@@ -215,6 +215,10 @@ subprojects {
     jar {
         baseName = project.name
         version = rootProject.version
+    }
+
+    tasks.withType(JavaCompile) {
+        options.incremental = true
     }
 
     compileJava.dependsOn(processResources)

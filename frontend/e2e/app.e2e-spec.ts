@@ -8,7 +8,7 @@ describe('weazbootgradle App', () => {
   });
 
   it('should display message saying app works', () => {
-    WeazbootgradlePage.navigateTo();
-    expect(WeazbootgradlePage.getParagraphText()).toEqual('Weazbootgradle');
+    page.navigateTo();
+    expect(page.getParagraphText()).toEqual('Weazbootgradle');
   });
 });
