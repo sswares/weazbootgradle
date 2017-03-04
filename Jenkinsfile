@@ -1,7 +1,7 @@
 properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 node {
-    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
+    ansiColor('xterm') {
         stage 'Clean Workspace'
         deleteDir()
 
