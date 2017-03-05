@@ -36,11 +36,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
             .requestMatchers().antMatchers(
                 "/login",
+                "/logout",
                 "/oauth/authorize",
                 "/h2-console/**",
                 "/health",
                 "/beans"
             )
+        .and().logout()
+                .logoutUrl("/logout").and().requestMatchers().antMatchers("/logout")
         .and().authorizeRequests().anyRequest().authenticated()
         .and().csrf().ignoringAntMatchers("/h2-console/**");
         //@formatter:on
